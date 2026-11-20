@@ -309,6 +309,7 @@ nav.tabs button.on{background:rgba(255,255,255,.14);color:#fff;font-weight:700}
 .qq2{color:var(--brand2)}
 .bm .qq2{color:inherit}
 .book sup{font-size:.6em;color:var(--mute)}
+.bimg{display:block;max-width:100%;margin:.6em auto;border:1px solid var(--line);border-radius:8px;background:#fff}
 .bfn{border-top:1px solid var(--line);margin:.4em 0 1em;padding-top:.3em;font-size:.72em;line-height:1.9;color:var(--mute)}
 .bfn p{margin:0}
 .pm{display:flex;align-items:center;gap:6px;margin:1.2em 0 .6em;color:var(--mute);font:13px "IBM Plex Sans Arabic",sans-serif}
@@ -561,7 +562,8 @@ const pageHTML=(p,t)=>{const L=t.split('\n');let h='',fn='',first=true;
   else if(l.startsWith('ش:'))h+=`<p class="bp"><span class="bs">الشرح</span> ${inl(l.slice(2).trim())}</p>`;
   else if(l.startsWith('س:'))h+=`<div class="bq"><p class="q1">${inl(l.slice(2).trim())}</p>`;
   else if(l.startsWith('ج:'))h+=`<p class="a1">${inl(l.slice(2).trim())}</p></div>`;
-  else if(l.startsWith('> '))h+=`<p class="bv">${l.slice(2).split('…').map(x=>`<span>${inl(x.trim())}</span>`).join('')}</p>`;
+  else if(l.startsWith('> '))h+=`<p class="bv">${l.slice(2).split(/\s…(?=\s|$)/).map(x=>`<span>${inl(x.trim())}</span>`).join('')}</p>`;
+  else if(l==='!img')h+=`<img class="bimg" data-pimg="${p}" alt="صورة المخطوط: صفحة ${AR(p)}" loading="lazy">`;
   else if(l.startsWith('^'))fn+=`<p>${inl(l.slice(1).trim())}</p>`;
   else h+=`<p class="bp${cont?' cont':''}">${inl(l)}</p>`}
  h=h.replace(/<div class="bq">(<p class="q1">[\s\S]*?<\/p>)(?!<p class="a1">)/g,'<div class="bq">$1</div>');
@@ -573,7 +575,7 @@ const render=()=>{const p=st.page,k=chOf(p);loadBK().then(B=>{
    body+=`<div class="pm" id="pm-${q}"><span>ص ${AR(q)}</span><button class="lnk sm3" data-orig="${q}">الأصل</button><button class="lnk sm3 ${st.bm[q]?'on':''}" data-bmk="${q}" aria-label="علامة على الصفحة">${st.bm[q]?'★':'☆'}</button></div>`;
    if(t!=null)body+=pageHTML(q,t);else{miss++;body+=`<p class="pend">هذه الصفحة قيد التحويل إلى نص.</p>`}}
   $('#rdh').innerHTML=`<p class="small" style="margin:0">الفصل ${AR(k+1)} من ${AR(CH.length)} · الصفحات ${AR(a)}–${AR(b)}</p><h2>${CH[k][0]}</h2>${subs.length?`<div class="chips">${subs.map(t=>`<button class="chip2" data-jp="${t[1]}">${t[0]}</button>`).join('')}</div>`:''}`;
-  $('#rdb').innerHTML=body;
+  $('#rdb').innerHTML=body;document.querySelectorAll('#rdb [data-pimg]').forEach(e=>img(+e.dataset.pimg).then(u=>e.src=u));
   $('#rdn').innerHTML=`${k>0?`<button class="btn ghost" data-ch="${k-1}">→ ${CH[k-1][0]}</button>`:'<span></span>'}${k<CH.length-1?`<button class="btn" data-ch="${k+1}">${CH[k+1][0]} ←</button>`:''}`;
   for(let q=a;q<=b;q++)st.seen.add(q);save();}
  const el=$('#pm-'+p);if(el&&p!==CH[k][1])setTimeout(()=>el.scrollIntoView({block:'start'}),30);else window.scrollTo({top:0});
