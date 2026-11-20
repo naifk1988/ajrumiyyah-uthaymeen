@@ -553,7 +553,7 @@ let BK=null;const loadBK=()=>BK?Promise.resolve(BK):fetch('book.json').then(r=>r
 const CH=main.filter(t=>t[1]<570);
 const chOf=p=>{let k=0;CH.forEach((t,i)=>{if(t[1]<=p)k=i});return k};
 const chRange=k=>[CH[k][1],(CH[k+1]?CH[k+1][1]:570)-1];
-const inl=t=>esc(t).replace(/﴿([^﴾]*)﴾/g,'<span class="ayah">﴿$1﴾</span>').replace(/«([^»]*)»/g,'<span class="qq2">«$1»</span>').replace(/\((\d+|[٠-٩]+)\)/g,'<sup>($1)</sup>');
+const inl=t=>esc(t).replace(/﴿([^﴾]*)﴾/g,'<span class="ayah">﴿$1﴾</span>').replace(/«([^»]*)»/g,'<span class="qq2">«$1»</span>').replace(/\((\d+|[٠-٩]+)\)/g,'<sup>($1)</sup>').replace(/\*\*([^*]+)\*\*/g,'<b>$1</b>');
 const pageHTML=(p,t)=>{const L=t.split('\n');let h='',fn='',first=true;
  for(let l of L){l=l.trim();if(!l)continue;let cont=false;if(first&&l.startsWith('+')){cont=true;l=l.slice(1).trim()}first=false;
   if(l.startsWith('# '))h+=`<h3 class="bh">${inl(l.slice(2))}</h3>`;
