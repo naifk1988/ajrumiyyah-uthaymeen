@@ -6,7 +6,7 @@
 <title>شرح الآجرومية التفاعلي</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=IBM+Plex+Sans+Arabic:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
 /* VOICE  everyday study, calm and scholarly, warm but exact
    IDEA   a lesson board (لوح) of a halaqa: one ink, four coloured inks for رفع/نصب/خفض/جزم
@@ -14,6 +14,9 @@
    COLOUR white or deep night, manuscript teal band, gold accent, four case inks
    TYPE   Amiri for matn and titles, IBM Plex Sans Arabic for interface
    LAYOUT band with title and progress, tree under it; reader full width; stack on phones */
+@font-face{font-family:"AmiriL";src:url(fonts/Amiri-Regular.ttf) format("truetype");font-weight:400;font-display:swap}
+@font-face{font-family:"AmiriL";src:url(fonts/Amiri-Bold.ttf) format("truetype");font-weight:700;font-display:swap}
+@font-face{font-family:"AmiriQ";src:url(fonts/AmiriQuran-Regular.ttf) format("truetype");font-weight:400 700;font-display:swap}
 :root{color-scheme:light dark;
 --bg:light-dark(#ffffff,#0d1416);--ink:light-dark(#152120,#e6eeec);--mute:light-dark(#5d6b69,#9aaba8);
 --soft:light-dark(#f2f6f5,#152124);--line:light-dark(#dfe6e4,#25332f);
@@ -29,7 +32,7 @@ button{cursor:pointer}
 a{color:inherit}
 .bar{position:sticky;top:0;z-index:20;background:var(--brand);color:#fff;box-shadow:0 1px 0 rgba(0,0,0,.15)}
 .bar .in{display:flex;align-items:center;gap:12px;padding:8px max(16px,3vw);max-width:1240px;margin:auto}
-.logo{font:700 22px/1 Amiri,serif;white-space:nowrap;background:none;border:0;color:#fff;padding:6px 0}
+.logo{font:700 22px/1 AmiriL,serif;white-space:nowrap;background:none;border:0;color:#fff;padding:6px 0}
 .logo b{color:var(--gold)}
 nav{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;flex:1}
 nav::-webkit-scrollbar{display:none}
@@ -39,9 +42,9 @@ nav button.on{background:rgba(255,255,255,.14);color:#fff;font-weight:700}
 .wrap{max-width:1240px;margin:auto;padding:0 max(16px,3vw)}
 .hero{background:var(--brand);color:#fff;padding:28px 0 34px}
 .hero .wrap{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:28px;align-items:center}
-h1{font:700 clamp(36px,6vw,58px)/1.1 Amiri,serif;margin:0 0 6px;text-wrap:balance}
-h2{font:700 30px/1.2 Amiri,serif;margin:0 0 8px}
-h3{font:700 21px/1.3 Amiri,serif;margin:0}
+h1{font:700 clamp(36px,6vw,58px)/1.1 AmiriL,serif;margin:0 0 6px;text-wrap:balance}
+h2{font:700 30px/1.2 AmiriL,serif;margin:0 0 8px}
+h3{font:700 21px/1.3 AmiriL,serif;margin:0}
 .sub{color:#cfe3e1;margin:0 0 18px;font-size:17px}
 .cases{display:flex;flex-wrap:wrap;gap:8px}
 .case{display:inline-flex;align-items:center;gap:8px;padding:6px 12px;border-radius:999px;background:rgba(255,255,255,.1);font-size:14px}
@@ -49,7 +52,7 @@ h3{font:700 21px/1.3 Amiri,serif;margin:0}
 .go{display:flex;gap:16px;align-items:center;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);border-radius:18px;padding:16px}
 .ring{flex:none;width:96px;height:96px}
 .go p{margin:0;color:#d5e7e5;font-size:15px}
-.go strong{display:block;font:700 22px/1.3 Amiri,serif;color:#fff}
+.go strong{display:block;font:700 22px/1.3 AmiriL,serif;color:#fff}
 .btn{display:inline-flex;align-items:center;gap:6px;border:0;border-radius:12px;padding:10px 16px;min-height:44px;font-weight:700;background:var(--gold);color:#1c1300}
 .btn.ghost{background:var(--soft);color:var(--ink);border:1px solid var(--line)}
 .btn.sm{min-height:36px;padding:6px 12px;font-size:14px}
@@ -62,7 +65,7 @@ h3{font:700 21px/1.3 Amiri,serif;margin:0}
 #shajara .g:hover rect{stroke-width:3}
 .tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr));gap:12px;margin-top:22px}
 .tile{text-align:start;border:1px solid var(--line);background:var(--bg);border-radius:16px;padding:16px;display:grid;gap:4px}
-.tile b{font:700 20px Amiri,serif}
+.tile b{font:700 20px AmiriL,serif}
 .tile span{color:var(--mute);font-size:14px}
 .tile:hover{border-color:var(--gold)}
 /* tree */
@@ -73,7 +76,7 @@ h3{font:700 21px/1.3 Amiri,serif;margin:0}
 .tree ul>li::before{content:"";position:absolute;inset-inline-start:-16px;top:22px;width:14px;border-top:2px solid color-mix(in srgb,var(--c) 45%,transparent)}
 .nd{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 .tg{border:0;min-height:44px;padding:8px 14px;border-radius:12px;text-align:start;background:color-mix(in srgb,var(--c) 12%,var(--bg));border:1.5px solid color-mix(in srgb,var(--c) 55%,transparent);color:var(--ink);font-weight:500}
-.tg.top{font:700 20px Amiri,serif;background:var(--c);color:#fff;border:0}
+.tg.top{font:700 20px AmiriL,serif;background:var(--c);color:#fff;border:0}
 :root[data-theme=dark] .tg.top{color:#0d1416}
 @media(prefers-color-scheme:dark){:root:not([data-theme=light]) .tg.top{color:#0d1416}}
 .tg .ar{display:inline-block;width:1em;transition:transform .2s;color:var(--c)}
@@ -98,7 +101,7 @@ li:not(.cl)>.nd .ar{transform:rotate(-90deg)}
 .sw{width:22px;height:14px;border-radius:4px;border:2px solid var(--r);background:var(--r)}
 .sw.f{background:transparent;border-style:dashed}
 .det{border:1px solid var(--line);border-radius:16px;padding:16px;margin-top:14px;background:var(--soft)}
-.ex{font:700 26px/1.6 Amiri,serif}
+.ex{font:700 26px/1.6 AmiriL,serif}
 .ex em{font-style:normal;color:var(--cc);border-bottom:3px solid var(--cc)}
 /* matn */
 .mbox{border:1px solid var(--line);border-radius:18px;margin:0 0 16px;overflow:hidden}
@@ -108,7 +111,7 @@ li:not(.cl)>.nd .ar{transform:rotate(-90deg)}
 .mh input{width:20px;height:20px;accent-color:var(--gold)}
 .mp{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 12px;padding:12px 16px;border-bottom:1px dashed var(--line);align-items:start}
 .mp:last-child{border-bottom:0}
-.mt{font:400 22px/2 Amiri,serif;margin:0}
+.mt{font:400 22px/2 AmiriL,serif;margin:0}
 .hide .mt{filter:blur(7px);cursor:pointer;user-select:none}
 .hide .mt.show{filter:none}
 .prog{height:8px;background:var(--soft);border-radius:9px;overflow:hidden;border:1px solid var(--line)}
@@ -127,7 +130,7 @@ li:not(.cl)>.nd .ar{transform:rotate(-90deg)}
 #prev,#next{font-size:20px;min-width:46px;font-weight:700}
 .rbar .ib{font-size:14px;padding:0 8px}
 .ib.on{background:var(--gold);color:#1c1300;border-color:var(--gold)}
-.ocr{max-width:720px;margin:12px auto;padding:14px;border:1px solid var(--line);border-radius:14px;background:var(--soft);white-space:pre-wrap;font:19px/1.9 Amiri,serif}
+.ocr{max-width:720px;margin:12px auto;padding:14px;border:1px solid var(--line);border-radius:14px;background:var(--soft);white-space:pre-wrap;font:19px/1.9 AmiriL,serif}
 .warn{font:13px/1.5 "IBM Plex Sans Arabic",sans-serif;color:var(--x);margin:0 0 8px;white-space:normal}
 .note{max-width:720px;margin:12px auto}
 .note textarea{width:100%;min-height:80px;border:1px solid var(--line);border-radius:12px;padding:10px;background:var(--bg);font-size:16px}
@@ -135,7 +138,7 @@ li:not(.cl)>.nd .ar{transform:rotate(-90deg)}
 .tl{list-style:none;margin:0;padding:0;columns:2 340px;column-gap:28px}
 .tl li{break-inside:avoid}
 .tl button{width:100%;display:flex;justify-content:space-between;gap:10px;border:0;background:none;text-align:start;padding:9px 6px;border-bottom:1px solid var(--line);min-height:44px;align-items:center}
-.tl .l1{font:700 19px Amiri,serif}
+.tl .l1{font:700 19px AmiriL,serif}
 .tl .l2{padding-inline-start:22px;color:var(--mute);font-size:15px}
 .tl .l2::before{content:"◆";color:var(--gold);font-size:9px;margin-inline-end:6px}
 .tl .n{color:var(--mute);font-size:14px;white-space:nowrap}
@@ -146,15 +149,15 @@ li:not(.cl)>.nd .ar{transform:rotate(-90deg)}
 .les{border:1px solid var(--line);border-radius:16px;padding:14px;display:grid;gap:8px;background:var(--bg)}
 .les.done{border-color:var(--n);background:color-mix(in srgb,var(--n) 7%,var(--bg))}
 .les.cur{outline:3px solid var(--gold);outline-offset:1px}
-.les b{font:700 20px Amiri,serif}
+.les b{font:700 20px AmiriL,serif}
 .les .row{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
 .les a{text-decoration:none}
 /* lesson */
 .tile.hot{background:color-mix(in srgb,var(--gold) 14%,var(--bg));border-color:var(--gold)}
 .ls{max-width:760px}
-.bigq{font:700 clamp(24px,5vw,32px)/1.6 Amiri,serif;margin:6px 0 18px;text-wrap:balance}
+.bigq{font:700 clamp(24px,5vw,32px)/1.6 AmiriL,serif;margin:6px 0 18px;text-wrap:balance}
 .stage{height:190px;border-radius:22px;background:var(--soft);border:1px solid var(--line);display:grid;place-items:center;align-content:center;gap:6px;padding:12px;overflow:hidden}
-.sent{font:700 clamp(38px,10vw,58px)/1.9 Amiri,serif;text-align:center;transition:opacity .22s,transform .22s}
+.sent{font:700 clamp(38px,10vw,58px)/1.9 AmiriL,serif;text-align:center;transition:opacity .22s,transform .22s}
 .sent.out{opacity:0;transform:translateY(8px)}
 .sent .w{color:var(--cc)}
 .sent .k{border-bottom:5px solid var(--cc);padding-bottom:2px}
@@ -172,12 +175,12 @@ li:not(.cl)>.nd .ar{transform:rotate(-90deg)}
 .aha{background:color-mix(in srgb,var(--gold) 18%,var(--bg));border-radius:12px;padding:10px 12px;font-weight:500;animation:pop .3s}
 @keyframes pop{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
 .prac{margin:22px 0;border:1px solid var(--line);border-radius:20px;padding:18px}
-.prac .q{font:700 22px/1.7 Amiri,serif;margin:6px 0 10px}
+.prac .q{font:700 22px/1.7 AmiriL,serif;margin:6px 0 10px}
 .src{margin-top:10px;border-top:1px solid var(--line);padding-top:16px}
-.mt2{font:20px/2 Amiri,serif;margin:8px 0}
+.mt2{font:20px/2 AmiriL,serif;margin:8px 0}
 /* answer cards */
 .ans{border:2px solid var(--cc);border-radius:18px;padding:14px 16px;margin:0 0 12px;background:color-mix(in srgb,var(--cc) 7%,var(--bg))}
-.ans .a{font:700 22px/1.6 Amiri,serif;margin:0 0 4px}
+.ans .a{font:700 22px/1.6 AmiriL,serif;margin:0 0 4px}
 .ans .ex{font-size:24px}
 .ans .row{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
 @media(prefers-reduced-motion:reduce){.sent,.sign{transition:none}.aha{animation:none}}
@@ -186,7 +189,7 @@ li:not(.cl)>.nd .ar{transform:rotate(-90deg)}
 .tq{margin:0 0 8px;font-weight:700}
 .tf{margin:8px 0 0;color:#e2efed;min-height:52px}
 .pick{display:flex;flex-wrap:wrap;gap:10px;justify-content:flex-start}
-.pw{font:700 clamp(26px,7vw,36px)/1.9 Amiri,serif;border:2px solid var(--line);background:var(--bg);color:var(--ink);border-radius:16px;padding:2px 18px;min-height:56px;transition:background .2s,border-color .2s}
+.pw{font:700 clamp(26px,7vw,36px)/1.9 AmiriL,serif;border:2px solid var(--line);background:var(--bg);color:var(--ink);border-radius:16px;padding:2px 18px;min-height:56px;transition:background .2s,border-color .2s}
 .pick.light .pw{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.3);color:#fff}
 .pw.ok{border-color:var(--n);background:color-mix(in srgb,var(--n) 18%,var(--bg));color:var(--ink)}
 .pw.bad{border-color:var(--x);background:color-mix(in srgb,var(--x) 12%,var(--bg));color:var(--ink)}
@@ -196,7 +199,7 @@ li:not(.cl)>.nd .ar{transform:rotate(-90deg)}
 .lnk.light{color:#ffe08a}
 .entries{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:-22px;position:relative}
 .ent{text-align:start;border:1px solid var(--line);border-radius:18px;padding:16px;background:var(--bg);box-shadow:0 6px 20px rgba(0,0,0,.08);display:grid;gap:2px;min-height:84px}
-.ent b{font:700 22px Amiri,serif;color:var(--brand2)}
+.ent b{font:700 22px AmiriL,serif;color:var(--brand2)}
 .ent span{color:var(--mute);font-size:14px}
 @media(max-width:600px){.entries{grid-template-columns:minmax(0,1fr);margin-top:14px}}
 .dots{display:flex;gap:6px;margin:0 0 14px;flex-wrap:wrap}
@@ -205,31 +208,31 @@ li:not(.cl)>.nd .ar{transform:rotate(-90deg)}
 .dot.on{background:var(--brand2);border-color:var(--brand2)}
 .lbody{border:1px solid var(--line);border-radius:22px;padding:18px;background:var(--soft);min-height:340px}
 .lbody.in{animation:pop .25s}
-.lq{font:700 22px/1.7 Amiri,serif;margin:0 0 12px}
-.exs{font:700 clamp(30px,8vw,44px)/2 Amiri,serif;text-align:center;background:var(--bg);border-radius:16px;margin:0 0 14px;padding:6px}
+.lq{font:700 22px/1.7 AmiriL,serif;margin:0 0 12px}
+.exs{font:700 clamp(30px,8vw,44px)/2 AmiriL,serif;text-align:center;background:var(--bg);border-radius:16px;margin:0 0 14px;padding:6px}
 .fb{min-height:10px}.ex2.g{border-inline-start-color:var(--n)}.ex2.r{border-inline-start-color:var(--x)}
 .xtr{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
 .isteps{margin:10px 0;padding-inline-start:22px}.isteps li{opacity:0;animation:pop .3s forwards;font-size:17px;margin:4px 0}
 .lnav{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:14px}
-.qt{margin:14px 0 0;padding:12px 14px;border-radius:14px;background:var(--bg);border-inline-start:4px solid var(--gold);font:19px/1.9 Amiri,serif}
+.qt{margin:14px 0 0;padding:12px 14px;border-radius:14px;background:var(--bg);border-inline-start:4px solid var(--gold);font:19px/1.9 AmiriL,serif}
 .qt .pg{display:block;font-family:"IBM Plex Sans Arabic",sans-serif}
 .stage.sm2{height:150px}
 .lt2{font-size:17px}
-.rl{font:22px/1.8 Amiri,serif;margin:10px 0}
+.rl{font:22px/1.8 AmiriL,serif;margin:10px 0}
 .mini{list-style:none;padding:0;margin:10px 0;display:grid;gap:8px}
 .mini li{border-inline-start:4px solid var(--c,var(--brand2));background:var(--bg);border-radius:10px;padding:10px 12px;display:grid;gap:2px}
-.mini li span{color:var(--mute);font:19px Amiri,serif}
+.mini li span{color:var(--mute);font:19px AmiriL,serif}
 .sumL{font-size:17px;line-height:1.9;padding-inline-start:20px}
 .row2{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
 .path{list-style:none;padding:0;margin:0;display:grid;gap:10px;counter-reset:p}
 .path li{counter-increment:p;display:flex;justify-content:space-between;align-items:center;gap:12px;border:1px solid var(--line);border-radius:16px;padding:12px 14px;flex-wrap:wrap}
 .path li>div{display:grid;gap:2px;flex:1;min-width:200px}
-.path li b{font:700 20px Amiri,serif}.path li b::before{content:counter(p,arabic-indic) ". ";color:var(--gold)}
+.path li b{font:700 20px AmiriL,serif}.path li b::before{content:counter(p,arabic-indic) ". ";color:var(--gold)}
 .path li.av{border-color:var(--brand2)}.path li.soon{opacity:.85}
 .path .st{font-size:13px;font-weight:700;color:var(--brand2)}.path li.sk .st,.path li.dn .st{color:var(--n)}
 .crumb{display:flex;flex-wrap:wrap;gap:4px;align-items:center;margin:0 0 12px;color:var(--mute)}
 .map.wide{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1fr) minmax(0,1.5fr);gap:16px;align-items:start}
-.mn{display:block;width:100%;text-align:start;border:1.5px solid color-mix(in srgb,var(--c) 40%,transparent);background:color-mix(in srgb,var(--c) 7%,var(--bg));border-radius:12px;padding:10px 14px;margin:0 0 8px;min-height:46px;font:700 18px Amiri,serif;position:relative;color:var(--ink)}
+.mn{display:block;width:100%;text-align:start;border:1.5px solid color-mix(in srgb,var(--c) 40%,transparent);background:color-mix(in srgb,var(--c) 7%,var(--bg));border-radius:12px;padding:10px 14px;margin:0 0 8px;min-height:46px;font:700 18px AmiriL,serif;position:relative;color:var(--ink)}
 .mn.sub{font-size:17px}
 .mn.sel{background:var(--c);color:#fff;border-color:var(--c)}
 :root[data-theme=dark] .mn.sel{color:#0d1416}
@@ -246,16 +249,31 @@ li:not(.cl)>.nd .ar{transform:rotate(-90deg)}
 .chip2:hover{border-color:var(--gold)}
 button:focus-visible,a:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
 @media(prefers-reduced-motion:reduce){.lbody.in,.det,.nest,.isteps li{animation:none!important;opacity:1}.map.wide .mn.sel::after{animation:none}}
+/* clear vowelled text */
+body{font-size:17px;-webkit-font-smoothing:antialiased;font-synthesis:none}
+.mt,.mt2,.sent,.exs,.pw,.ex,.qt,.mini li span,.rl,.ocr{font-family:AmiriQ,AmiriL,serif!important;font-weight:400!important}
+.mt{font-size:25px;line-height:2.3}
+.mt2,.qt{font-size:22px;line-height:2.2}
+.sent{font-size:clamp(42px,11vw,62px);line-height:2.1}
+.exs{font-size:clamp(32px,8.5vw,46px);line-height:2.2}
+.pw{font-size:clamp(28px,7.5vw,38px);line-height:2.1;padding:4px 18px}
+.ex{font-size:28px;line-height:2.1}
+.mini li span{font-size:22px;line-height:2}
+.rl{font-size:24px;line-height:2.1}
+.ocr{font-size:21px;line-height:2.1}
+.lq,.qq,.bigq,.prac .q{line-height:1.9}
+.sent .w,.ex em,.pw{letter-spacing:0}
+.lt2,.why p,.ex2,.sumL{font-size:18px;line-height:1.9}
 /* quiz */
 .qz{max-width:760px;margin:auto}
 .qcard{border:1px solid var(--line);border-radius:20px;padding:22px;background:var(--soft)}
-.qq{font:700 26px/1.6 Amiri,serif;margin:6px 0 16px}
+.qq{font:700 26px/1.6 AmiriL,serif;margin:6px 0 16px}
 .op{display:block;width:100%;text-align:start;border:2px solid var(--line);background:var(--bg);border-radius:14px;padding:12px 14px;margin:8px 0;min-height:48px;font-size:17px}
 .op.ok{border-color:var(--n);background:color-mix(in srgb,var(--n) 14%,var(--bg))}
 .op.bad{border-color:var(--x);background:color-mix(in srgb,var(--x) 12%,var(--bg))}
 .ex2{margin-top:12px;padding:12px;border-radius:12px;background:var(--bg);border-inline-start:4px solid var(--gold)}
 .qtop{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:8px;color:var(--mute);font-size:14px}
-.score{font:700 64px/1 Amiri,serif;color:var(--gold)}
+.score{font:700 64px/1 AmiriL,serif;color:var(--gold)}
 /* search */
 .sbox{display:flex;gap:8px;margin:0 0 16px}
 .sbox input{flex:1;height:48px;border:1.5px solid var(--line);border-radius:14px;padding:0 14px;background:var(--bg);font-size:17px}
@@ -460,7 +478,7 @@ const drawS=()=>{const W=sj.clientWidth||sj.parentNode.clientWidth;if(!W)return;
  s+=`<path d="M${cx} 54 V${H-24}" stroke="url(#tr)" stroke-width="10" stroke-linecap="round" fill="none"/>`;
  s+=`<path d="M${cx-46} ${H-14} Q${cx} ${H-34} ${cx+46} ${H-14}" stroke="var(--k)" stroke-width="5" fill="none" stroke-linecap="round" opacity=".6"/>`;
  const rw=two?190:Math.min(190,W-40);const rx=two?cx-rw/2:W-16-rw;
- s+=`<rect x="${rx}" y="10" width="${rw}" height="46" rx="23" fill="var(--k)"/><text x="${rx+rw/2}" y="40" text-anchor="middle" style="fill:#fff;font:700 22px Amiri,serif">الآجُرُّوميَّة</text>`;
+ s+=`<rect x="${rx}" y="10" width="${rw}" height="46" rx="23" fill="var(--k)"/><text x="${rx+rw/2}" y="40" text-anchor="middle" style="fill:#fff;font:700 22px AmiriL,serif">الآجُرُّوميَّة</text>`;
  T.forEach((t,i)=>{const side=two?(i%2?-1:1):-1;const row=two?Math.floor(i/2):i;const y=top+row*rowH+(two&&i%2?rowH/2:0)+18;
   const ex=cx+side*44;const bx=side>0?ex:ex-bw;
   s+=`<g class="g" data-b="${i}" role="button" tabindex="0"><path d="M${cx} ${y-26} C${cx} ${y},${cx+side*20} ${y+4},${ex} ${y+4}" stroke="var(--${t[2]})" stroke-width="4" fill="none" stroke-linecap="round"/>`;
