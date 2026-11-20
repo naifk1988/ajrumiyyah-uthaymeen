@@ -289,6 +289,37 @@ nav.tabs button.on{background:rgba(255,255,255,.14);color:#fff;font-weight:700}
  body{padding-bottom:calc(66px + env(safe-area-inset-bottom,0px))}
  .rbar{bottom:calc(62px + env(safe-area-inset-bottom,0px))}
 }
+/* book reader */
+.rd{max-width:780px}
+.rtools{display:flex;gap:6px;align-items:center;justify-content:flex-end;margin-bottom:6px}
+.book{font:400 var(--rfs,21px)/2.15 AmiriL,serif}
+.book .bp{margin:0 0 .7em;text-align:justify}
+.book .bp.cont{margin-top:-.4em}
+.bs{font:700 13px "IBM Plex Sans Arabic",sans-serif;color:var(--brand2);background:color-mix(in srgb,var(--brand2) 12%,var(--bg));border-radius:999px;padding:2px 8px;vertical-align:middle}
+.bh{font:700 calc(var(--rfs,21px) + 5px)/1.6 AmiriL,serif;color:var(--brand2);text-align:center;margin:1.4em 0 .7em}
+.bh::after{content:"";display:block;width:60px;height:3px;background:var(--gold);margin:6px auto 0;border-radius:3px}
+.bm{border:1.5px solid color-mix(in srgb,var(--gold) 60%,transparent);background:color-mix(in srgb,var(--gold) 8%,var(--bg));border-radius:16px;padding:10px 16px;margin:0 0 .9em}
+.bm p{margin:0;font-family:AmiriQ,AmiriL,serif;font-size:calc(var(--rfs,21px) + 2px);line-height:2.2}
+.bl{font:700 12px "IBM Plex Sans Arabic",sans-serif;color:var(--gold)}
+.bq{border-inline-start:4px solid var(--brand2);background:var(--soft);border-radius:12px;padding:8px 14px;margin:0 0 .8em}
+.bq .q1{margin:0;font-weight:700}.bq .a1{margin:.2em 0 0;color:var(--ink)}
+.bq .q1::before{content:"س: ";color:var(--brand2)}.bq .a1::before{content:"ج: ";color:var(--n);font-weight:700}
+.bv{display:grid;justify-items:center;gap:0;margin:.4em 0 .9em;font-family:AmiriQ,AmiriL,serif}
+.ayah{font-family:AmiriQ,serif;color:var(--n)}
+.qq2{color:var(--brand2)}
+.bm .qq2{color:inherit}
+.book sup{font-size:.6em;color:var(--mute)}
+.bfn{border-top:1px solid var(--line);margin:.4em 0 1em;padding-top:.3em;font-size:.72em;line-height:1.9;color:var(--mute)}
+.bfn p{margin:0}
+.pm{display:flex;align-items:center;gap:6px;margin:1.2em 0 .6em;color:var(--mute);font:13px "IBM Plex Sans Arabic",sans-serif}
+.pm::before,.pm::after{content:"";flex:1;border-top:1px dashed var(--line)}
+.pm .sm3{font-size:12px;min-height:30px;padding:2px 6px;color:var(--mute)}.pm .sm3.on{color:var(--gold)}
+.pend{color:var(--mute);font:15px "IBM Plex Sans Arabic",sans-serif;background:var(--soft);border-radius:12px;padding:10px 14px}
+.rdn{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;margin:26px 0}
+.orig{position:fixed;inset:0;z-index:50;background:rgba(0,0,0,.55);display:grid;place-items:center;padding:16px}
+.ob{background:var(--bg);border-radius:16px;max-width:640px;width:100%;max-height:92vh;overflow:auto;padding:12px}
+.ot{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.ob img{width:100%;display:block}
 /* quiz */
 .qz{max-width:760px;margin:auto}
 .qcard{border:1px solid var(--line);border-radius:20px;padding:22px;background:var(--soft)}
@@ -382,22 +413,14 @@ footer{padding:26px 0 40px;color:var(--mute);font-size:13px;border-top:1px solid
 <div id="matn"></div>
 </div></section>
 
-<section class="v" id="v-read"><div class="wrap">
-<div class="rtop"><span class="chip" id="rsec"></span><span class="small" id="rpos"></span></div>
-<div class="page" id="pg"><img id="pimg" alt="صفحة من الكتاب"></div>
-<div class="ocr" id="ocr" hidden></div>
-<div class="note" id="notebox" hidden><textarea id="note" placeholder="ملاحظتك على هذه الصفحة"></textarea></div>
+<section class="v" id="v-read"><div class="wrap sec rd">
+<div class="rtools"><span class="small">حجم الخط</span><button class="ib" id="fsm" aria-label="تصغير الخط">أ−</button><button class="ib" id="fsp" aria-label="تكبير الخط">أ+</button></div>
+<div id="rdh"></div>
+<article id="rdb" class="book"></article>
+<div class="rdn" id="rdn"></div>
 </div>
-<div class="rbar"><div class="wrap">
-<button class="ib" id="prev" aria-label="الصفحة السابقة">→</button>
-<input id="pnum" type="number" inputmode="numeric" min="1" max="576" aria-label="رقم الصفحة">
-<button class="ib" id="next" aria-label="الصفحة التالية">←</button>
-<button class="ib" id="bm" aria-label="علامة">★</button>
-<button class="ib" id="nb">ملاحظة</button>
-<button class="ib" id="tx">النص</button>
-</div></div>
+<div class="orig" id="orig" hidden><div class="ob"><div class="ot"><b id="origT"></b><button class="btn ghost sm" data-close>إغلاق</button></div><img id="origI" alt="صورة الصفحة الأصلية"></div></div>
 </section>
-
 <section class="v" id="v-toc"><div class="wrap sec">
 <h2>علاماتي</h2>
 <div class="marks" id="marks"></div>
@@ -522,28 +545,50 @@ $('#matn').addEventListener('click',e=>{const t=e.target.closest('.mt');if(t&&$(
 $('#hideB').onclick=()=>{const h=$('#matn').classList.toggle('hide');$('#hideB').textContent=h?'إظهار المتن':'وضع التسميع';$$('.mt.show').forEach(x=>x.classList.remove('show'))};
 memUpd();
 
-/* ---------- reader ---------- */
-let TX=null;const loadTX=()=>TX?Promise.resolve(TX):fetch('text.json').then(r=>r.json()).then(j=>TX=j).catch(()=>TX=[]);
-let showTx=false,showNote=false;
-const CH={};const chunk=k=>CH[k]||(CH[k]=fetch('c/'+k+'.json').then(r=>r.json()).catch(()=>{delete CH[k];return[]}));
+/* ---------- reader (formatted text) ---------- */
+const CHK={};const chunk=k=>CHK[k]||(CHK[k]=fetch('c/'+k+'.json').then(r=>r.json()).catch(()=>{delete CHK[k];return[]}));
 const img=p=>Promise.resolve('p/'+p+'.png');
-const render=()=>{const p=st.page;$('#pimg').style.opacity=.35;img(p).then(u=>{if(st.page===p){$('#pimg').src=u;$('#pimg').style.opacity=1}});if(p<LAST){const pre=new Image();pre.src='p/'+(p+1)+'.png'}$('#pnum').value=p;
- const s=secOf(p);$('#rsec').textContent=s[0];$('#rpos').textContent=`صفحة ${AR(p)} من ${AR(LAST)}`;
- $('#bm').classList.toggle('on',!!st.bm[p]);$('#note').value=st.notes[p]||'';$('#nb').classList.toggle('on',!!st.notes[p]||showNote);
- $('#notebox').hidden=!(showNote||st.notes[p]);$('#tx').classList.toggle('on',showTx);
- if(showTx){loadTX().then(t=>{$('#ocr').innerHTML='<p class="warn">نص مستخرج آليًّا من الصورة، فيه أخطاء ولا سيما في الحركات؛ فالمعتمد صورة الصفحة.</p>'+esc(t[p-1]||'');$('#ocr').hidden=false})}else $('#ocr').hidden=true;
- st.seen.add(p);save();home()};
-const to=p=>{p=Math.max(1,Math.min(LAST,p|0));st.page=p;if(location.hash!=='#p-'+p)history.replaceState(null,'','#p-'+p);render();window.scrollTo({top:0})};
-$('#prev').onclick=()=>to(st.page-1);$('#next').onclick=()=>to(st.page+1);
-$('#pnum').onchange=e=>to(+e.target.value);
-$('#bm').onclick=()=>{const p=st.page;if(st.bm[p])delete st.bm[p];else st.bm[p]=secOf(p)[0];save();render()};
-$('#nb').onclick=()=>{showNote=!showNote;render();if(showNote)$('#note').focus()};
-$('#note').oninput=e=>{const v=e.target.value.trim();if(v)st.notes[st.page]=e.target.value;else delete st.notes[st.page];save()};
-$('#tx').onclick=()=>{showTx=!showTx;render()};
-let sx=null,sy=0;$('#pg').addEventListener('touchstart',e=>{sx=e.touches[0].clientX;sy=e.touches[0].clientY},{passive:true});
-$('#pg').addEventListener('touchend',e=>{if(sx==null)return;const dx=e.changedTouches[0].clientX-sx,dy=e.changedTouches[0].clientY-sy;if(Math.abs(dx)>60&&Math.abs(dx)>Math.abs(dy)*1.5)to(st.page+(dx>0?1:-1));sx=null});
-document.addEventListener('keydown',e=>{if(cur!=='read'||e.target.closest('input,textarea'))return;if(e.key==='ArrowLeft')to(st.page+1);if(e.key==='ArrowRight')to(st.page-1)});
-
+let TX=null;const loadTX=()=>TX?Promise.resolve(TX):fetch('text.json').then(r=>r.json()).then(j=>TX=j).catch(()=>TX=[]);
+let BK=null;const loadBK=()=>BK?Promise.resolve(BK):fetch('book.json').then(r=>r.json()).then(j=>BK=j).catch(()=>BK={});
+const CH=main.filter(t=>t[1]<570);
+const chOf=p=>{let k=0;CH.forEach((t,i)=>{if(t[1]<=p)k=i});return k};
+const chRange=k=>[CH[k][1],(CH[k+1]?CH[k+1][1]:570)-1];
+const inl=t=>esc(t).replace(/﴿([^﴾]*)﴾/g,'<span class="ayah">﴿$1﴾</span>').replace(/«([^»]*)»/g,'<span class="qq2">«$1»</span>').replace(/\((\d+|[٠-٩]+)\)/g,'<sup>($1)</sup>');
+const pageHTML=(p,t)=>{const L=t.split('\n');let h='',fn='',first=true;
+ for(let l of L){l=l.trim();if(!l)continue;let cont=false;if(first&&l.startsWith('+')){cont=true;l=l.slice(1).trim()}first=false;
+  if(l.startsWith('# '))h+=`<h3 class="bh">${inl(l.slice(2))}</h3>`;
+  else if(l.startsWith('ص:'))h+=`<div class="bm"><span class="bl">قال المصنف</span><p>${inl(l.slice(2).trim())}</p></div>`;
+  else if(l.startsWith('ش:'))h+=`<p class="bp"><span class="bs">الشرح</span> ${inl(l.slice(2).trim())}</p>`;
+  else if(l.startsWith('س:'))h+=`<div class="bq"><p class="q1">${inl(l.slice(2).trim())}</p>`;
+  else if(l.startsWith('ج:'))h+=`<p class="a1">${inl(l.slice(2).trim())}</p></div>`;
+  else if(l.startsWith('> '))h+=`<p class="bv">${l.slice(2).split('…').map(x=>`<span>${inl(x.trim())}</span>`).join('')}</p>`;
+  else if(l.startsWith('^'))fn+=`<p>${inl(l.slice(1).trim())}</p>`;
+  else h+=`<p class="bp${cont?' cont':''}">${inl(l)}</p>`}
+ h=h.replace(/<div class="bq">(<p class="q1">[\s\S]*?<\/p>)(?!<p class="a1">)/g,'<div class="bq">$1</div>');
+ return h+(fn?`<div class="bfn">${fn}</div>`:'')};
+let rdK=-1;
+const render=()=>{const p=st.page,k=chOf(p);loadBK().then(B=>{
+ if(k!==rdK){rdK=k;const [a,b]=chRange(k);const subs=D.toc.filter(t=>t[1]>=a&&t[1]<=b&&t!==CH[k]);
+  let body='';let miss=0;for(let q=a;q<=b;q++){const t=B[q];
+   body+=`<div class="pm" id="pm-${q}"><span>ص ${AR(q)}</span><button class="lnk sm3" data-orig="${q}">الأصل</button><button class="lnk sm3 ${st.bm[q]?'on':''}" data-bmk="${q}" aria-label="علامة على الصفحة">${st.bm[q]?'★':'☆'}</button></div>`;
+   if(t!=null)body+=pageHTML(q,t);else{miss++;body+=`<p class="pend">هذه الصفحة قيد التحويل إلى نص.</p>`}}
+  $('#rdh').innerHTML=`<p class="small" style="margin:0">الفصل ${AR(k+1)} من ${AR(CH.length)} · الصفحات ${AR(a)}–${AR(b)}</p><h2>${CH[k][0]}</h2>${subs.length?`<div class="chips">${subs.map(t=>`<button class="chip2" data-jp="${t[1]}">${t[0]}</button>`).join('')}</div>`:''}`;
+  $('#rdb').innerHTML=body;
+  $('#rdn').innerHTML=`${k>0?`<button class="btn ghost" data-ch="${k-1}">→ ${CH[k-1][0]}</button>`:'<span></span>'}${k<CH.length-1?`<button class="btn" data-ch="${k+1}">${CH[k+1][0]} ←</button>`:''}`;
+  for(let q=a;q<=b;q++)st.seen.add(q);save();}
+ const el=$('#pm-'+p);if(el&&p!==CH[k][1])setTimeout(()=>el.scrollIntoView({block:'start'}),30);else window.scrollTo({top:0});
+ home()})};
+const to=p=>{p=Math.max(1,Math.min(LAST,p|0));st.page=p;save();if(location.hash!=='#p-'+p)history.replaceState(null,'','#p-'+p);render()};
+$('#v-read').addEventListener('click',e=>{const t=e.target;
+ const c=t.closest('[data-ch]');if(c){to(CH[+c.dataset.ch][1]);return}
+ const j=t.closest('[data-jp]');if(j){st.page=+j.dataset.jp;save();const el=$('#pm-'+j.dataset.jp);el&&el.scrollIntoView({behavior:'smooth',block:'start'});return}
+ const o=t.closest('[data-orig]');if(o){const q=+o.dataset.orig;img(q).then(u=>{$('#origI').src=u;$('#origT').textContent='صورة الأصل: صفحة '+AR(q);$('#orig').hidden=false})}
+ const b=t.closest('[data-bmk]');if(b){const q=+b.dataset.bmk;if(st.bm[q])delete st.bm[q];else st.bm[q]=secOf(q)[0];save();b.textContent=st.bm[q]?'★':'☆';b.classList.toggle('on',!!st.bm[q])}});
+$('#orig').addEventListener('click',e=>{if(e.target.closest('[data-close]')||e.target.id==='orig')$('#orig').hidden=true});
+const fs=d=>{st.fs=Math.max(17,Math.min(30,(st.fs||21)+d));ls.set('fs',st.fs);document.documentElement.style.setProperty('--rfs',st.fs+'px')};st.fs=ls.get('fs',21);fs(0);
+$('#fsm').onclick=()=>fs(-2);$('#fsp').onclick=()=>fs(2);
+const pmObs=new IntersectionObserver(es=>{es.forEach(x=>{if(x.isIntersecting){const q=+x.target.id.slice(3);if(q&&cur==='read'){st.page=q;ls.set('page',q);if(location.hash!=='#p-'+q)history.replaceState(null,'','#p-'+q)}}})},{rootMargin:'0px 0px -80% 0px'});
+new MutationObserver(()=>$$('.pm').forEach(m=>pmObs.observe(m))).observe($('#rdb'),{childList:true});
 /* ---------- toc & marks ---------- */
 const tocR=(f)=>{const isEx=t=>t[2]==2;$('#tl').innerHTML=D.toc.map((t,i)=>{if(f==='ex'&&!isEx(t))return'';const end=(D.toc.slice(i+1).find(x=>x[1]>t[1])||[0,t[1]+1])[1];let seen=true;for(let q=t[1];q<Math.max(end,t[1]+1);q++)if(!st.seen.has(q)){seen=false;break}
  return `<li><button data-p="${t[1]}" class="${t[2]==1?'l1':'l2'} ${seen?'seen':''}"><span>${t[0]}</span><span class="n">${AR(t[1])}</span></button></li>`}).join('')};
