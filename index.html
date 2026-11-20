@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>شرح الآجرومية التفاعلي</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=IBM+Plex+Sans+Arabic:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+/* VOICE  everyday study, calm and scholarly, warm but exact
+   IDEA   a lesson board (لوح) of a halaqa: one ink, four coloured inks for رفع/نصب/خفض/جزم
+   PICTURE a drawn tree (شجرة) of the Ajurrumiyya's chapters, every branch opens the explanation
+   COLOUR white or deep night, manuscript teal band, gold accent, four case inks
+   TYPE   Amiri for matn and titles, IBM Plex Sans Arabic for interface
+   LAYOUT band with title and progress, tree under it; reader full width; stack on phones */
+:root{color-scheme:light dark;
+--bg:light-dark(#ffffff,#0d1416);--ink:light-dark(#152120,#e6eeec);--mute:light-dark(#5d6b69,#9aaba8);
+--soft:light-dark(#f2f6f5,#152124);--line:light-dark(#dfe6e4,#25332f);
+--brand:light-dark(#0c4a4f,#0a3236);--brand2:light-dark(#0f5f66,#12464b);--gold:light-dark(#b07d10,#e3b649);
+--r:light-dark(#2347c0,#89a6ff);--n:light-dark(#0b7f5c,#53d3a6);--x:light-dark(#bd2846,#ff8a9f);--j:light-dark(#a96d00,#f3bd52);
+--k:light-dark(#0c4a4f,#7cc9c3);--i:light-dark(#9a4a22,#f0a07a);--m:light-dark(#5b4596,#b4a2f0)}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font:16px/1.7 "IBM Plex Sans Arabic",Tahoma,sans-serif;overflow-x:clip}
+button,input,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+a{color:inherit}
+.bar{position:sticky;top:0;z-index:20;background:var(--brand);color:#fff;box-shadow:0 1px 0 rgba(0,0,0,.15)}
+.bar .in{display:flex;align-items:center;gap:12px;padding:8px max(16px,3vw);max-width:1240px;margin:auto}
+.logo{font:700 22px/1 Amiri,serif;white-space:nowrap;background:none;border:0;color:#fff;padding:6px 0}
+.logo b{color:var(--gold)}
+nav{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;flex:1}
+nav::-webkit-scrollbar{display:none}
+nav button{flex:none;border:0;background:transparent;color:#d8ecea;padding:9px 12px;border-radius:10px;font-size:15px;min-height:42px}
+nav button.on{background:rgba(255,255,255,.14);color:#fff;font-weight:700}
+.v{display:none}.v.on{display:block}
+.wrap{max-width:1240px;margin:auto;padding:0 max(16px,3vw)}
+.hero{background:var(--brand);color:#fff;padding:28px 0 34px}
+.hero .wrap{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:28px;align-items:center}
+h1{font:700 clamp(36px,6vw,58px)/1.1 Amiri,serif;margin:0 0 6px;text-wrap:balance}
+h2{font:700 30px/1.2 Amiri,serif;margin:0 0 8px}
+h3{font:700 21px/1.3 Amiri,serif;margin:0}
+.sub{color:#cfe3e1;margin:0 0 18px;font-size:17px}
+.cases{display:flex;flex-wrap:wrap;gap:8px}
+.case{display:inline-flex;align-items:center;gap:8px;padding:6px 12px;border-radius:999px;background:rgba(255,255,255,.1);font-size:14px}
+.case i{width:12px;height:12px;border-radius:50%;display:inline-block}
+.go{display:flex;gap:16px;align-items:center;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);border-radius:18px;padding:16px}
+.ring{flex:none;width:96px;height:96px}
+.go p{margin:0;color:#d5e7e5;font-size:15px}
+.go strong{display:block;font:700 22px/1.3 Amiri,serif;color:#fff}
+.btn{display:inline-flex;align-items:center;gap:6px;border:0;border-radius:12px;padding:10px 16px;min-height:44px;font-weight:700;background:var(--gold);color:#1c1300}
+.btn.ghost{background:var(--soft);color:var(--ink);border:1px solid var(--line)}
+.btn.sm{min-height:36px;padding:6px 12px;font-size:14px}
+.sec{padding-top:30px;padding-bottom:30px}
+.lead{color:var(--mute);margin:0 0 16px}
+.fig{position:relative}
+#shajara{width:100%;display:block}
+#shajara text{font:600 15px "IBM Plex Sans Arabic",sans-serif;fill:var(--ink)}
+#shajara .g{cursor:pointer}
+#shajara .g:hover rect{stroke-width:3}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr));gap:12px;margin-top:22px}
+.tile{text-align:start;border:1px solid var(--line);background:var(--bg);border-radius:16px;padding:16px;display:grid;gap:4px}
+.tile b{font:700 20px Amiri,serif}
+.tile span{color:var(--mute);font-size:14px}
+.tile:hover{border-color:var(--gold)}
+/* tree */
+.tools{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 16px}
+.tree,.tree ul{list-style:none;margin:0;padding:0}
+.tree ul{margin-inline-start:14px;padding-inline-start:16px;border-inline-start:2px solid color-mix(in srgb,var(--c) 45%,transparent)}
+.tree li{position:relative;margin:6px 0}
+.tree ul>li::before{content:"";position:absolute;inset-inline-start:-16px;top:22px;width:14px;border-top:2px solid color-mix(in srgb,var(--c) 45%,transparent)}
+.nd{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.tg{border:0;min-height:44px;padding:8px 14px;border-radius:12px;text-align:start;background:color-mix(in srgb,var(--c) 12%,var(--bg));border:1.5px solid color-mix(in srgb,var(--c) 55%,transparent);color:var(--ink);font-weight:500}
+.tg.top{font:700 20px Amiri,serif;background:var(--c);color:#fff;border:0}
+:root[data-theme=dark] .tg.top{color:#0d1416}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]) .tg.top{color:#0d1416}}
+.tg .ar{display:inline-block;width:1em;transition:transform .2s;color:var(--c)}
+.tg.top .ar{color:inherit}
+li.cl>ul{display:none}
+li:not(.cl)>.nd .ar{transform:rotate(-90deg)}
+.pg{border:0;background:none;color:var(--c);font-size:13px;font-weight:700;padding:8px 4px;min-height:36px;text-decoration:underline;text-underline-offset:3px}
+/* irab matrix */
+.mx{width:100%;border-collapse:separate;border-spacing:4px;table-layout:fixed}
+.mx th{font-size:15px;padding:8px 4px;border-radius:10px;color:#fff}
+.mx th.t{background:none;color:var(--mute);text-align:start;width:30%}
+.mx td.t{font-weight:700;font-size:15px;padding:6px}
+.mx td.c{padding:0}
+.cell{width:100%;min-height:52px;border-radius:10px;border:2px solid var(--cc);background:var(--cc);color:#fff;font-weight:700;font-size:15px;padding:4px}
+.cell.f{background:color-mix(in srgb,var(--cc) 10%,var(--bg));color:var(--cc);border-style:dashed}
+.cell.no{background:var(--soft);border-color:var(--line);color:var(--mute);font-weight:400}
+.cell.sel{outline:3px solid var(--gold);outline-offset:2px}
+:root[data-theme=dark] .cell:not(.f):not(.no){color:#0d1416}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]) .cell:not(.f):not(.no){color:#0d1416}}
+.legend{display:flex;flex-wrap:wrap;gap:14px;font-size:14px;color:var(--mute);margin:10px 0}
+.legend span{display:inline-flex;gap:6px;align-items:center}
+.sw{width:22px;height:14px;border-radius:4px;border:2px solid var(--r);background:var(--r)}
+.sw.f{background:transparent;border-style:dashed}
+.det{border:1px solid var(--line);border-radius:16px;padding:16px;margin-top:14px;background:var(--soft)}
+.ex{font:700 26px/1.6 Amiri,serif}
+.ex em{font-style:normal;color:var(--cc);border-bottom:3px solid var(--cc)}
+/* matn */
+.mbox{border:1px solid var(--line);border-radius:18px;margin:0 0 16px;overflow:hidden}
+.mh{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 16px;background:color-mix(in srgb,var(--c) 12%,var(--bg));border-bottom:3px solid var(--c)}
+.mh h3{color:var(--c)}
+.mh label{display:flex;align-items:center;gap:6px;font-size:14px;white-space:nowrap}
+.mh input{width:20px;height:20px;accent-color:var(--gold)}
+.mp{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 12px;padding:12px 16px;border-bottom:1px dashed var(--line);align-items:start}
+.mp:last-child{border-bottom:0}
+.mt{font:400 22px/2 Amiri,serif;margin:0}
+.hide .mt{filter:blur(7px);cursor:pointer;user-select:none}
+.hide .mt.show{filter:none}
+.prog{height:8px;background:var(--soft);border-radius:9px;overflow:hidden;border:1px solid var(--line)}
+.prog i{display:block;height:100%;background:var(--gold);border-radius:9px;transition:width .4s}
+/* reader */
+.rtop{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 0;flex-wrap:wrap}
+.chip{display:inline-block;padding:4px 12px;border-radius:999px;background:var(--soft);border:1px solid var(--line);font-size:14px}
+.page{max-width:720px;margin:0 auto;position:relative;touch-action:pan-y}
+.page img{width:100%;display:block;transition:opacity .2s;border-radius:6px;box-shadow:0 1px 0 var(--line),0 0 0 1px var(--line);background:#fff;min-height:300px}
+:root[data-theme=dark] .page img{filter:invert(.88) hue-rotate(180deg)}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]) .page img{filter:invert(.88) hue-rotate(180deg)}}
+.rbar{position:sticky;bottom:0;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(8px);border-top:1px solid var(--line);padding:8px 0 calc(8px + env(safe-area-inset-bottom,0px));z-index:5}
+.rbar .wrap{display:flex;gap:6px;align-items:center;justify-content:center;flex-wrap:nowrap}
+.rbar input{width:64px;height:44px;border:1px solid var(--line);border-radius:12px;text-align:center;background:var(--bg);font-size:16px}
+.ib{min-width:44px;height:44px;border-radius:12px;border:1px solid var(--line);background:var(--soft);font-size:15px;padding:0 10px}
+#prev,#next{font-size:20px;min-width:46px;font-weight:700}
+.rbar .ib{font-size:14px;padding:0 8px}
+.ib.on{background:var(--gold);color:#1c1300;border-color:var(--gold)}
+.ocr{max-width:720px;margin:12px auto;padding:14px;border:1px solid var(--line);border-radius:14px;background:var(--soft);white-space:pre-wrap;font:19px/1.9 Amiri,serif}
+.warn{font:13px/1.5 "IBM Plex Sans Arabic",sans-serif;color:var(--x);margin:0 0 8px;white-space:normal}
+.note{max-width:720px;margin:12px auto}
+.note textarea{width:100%;min-height:80px;border:1px solid var(--line);border-radius:12px;padding:10px;background:var(--bg);font-size:16px}
+/* toc */
+.tl{list-style:none;margin:0;padding:0;columns:2 340px;column-gap:28px}
+.tl li{break-inside:avoid}
+.tl button{width:100%;display:flex;justify-content:space-between;gap:10px;border:0;background:none;text-align:start;padding:9px 6px;border-bottom:1px solid var(--line);min-height:44px;align-items:center}
+.tl .l1{font:700 19px Amiri,serif}
+.tl .l2{padding-inline-start:22px;color:var(--mute);font-size:15px}
+.tl .l2::before{content:"◆";color:var(--gold);font-size:9px;margin-inline-end:6px}
+.tl .n{color:var(--mute);font-size:14px;white-space:nowrap}
+.tl .seen .n::after{content:" ✓";color:var(--n);font-weight:700}
+.marks{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,260px),1fr));gap:8px;margin:0 0 22px}
+.mk{border:1px solid var(--line);border-radius:12px;padding:10px 12px;text-align:start;background:var(--soft)}
+.mk small{display:block;color:var(--mute)}
+.les{border:1px solid var(--line);border-radius:16px;padding:14px;display:grid;gap:8px;background:var(--bg)}
+.les.done{border-color:var(--n);background:color-mix(in srgb,var(--n) 7%,var(--bg))}
+.les.cur{outline:3px solid var(--gold);outline-offset:1px}
+.les b{font:700 20px Amiri,serif}
+.les .row{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.les a{text-decoration:none}
+/* quiz */
+.qz{max-width:760px;margin:auto}
+.qcard{border:1px solid var(--line);border-radius:20px;padding:22px;background:var(--soft)}
+.qq{font:700 26px/1.6 Amiri,serif;margin:6px 0 16px}
+.op{display:block;width:100%;text-align:start;border:2px solid var(--line);background:var(--bg);border-radius:14px;padding:12px 14px;margin:8px 0;min-height:48px;font-size:17px}
+.op.ok{border-color:var(--n);background:color-mix(in srgb,var(--n) 14%,var(--bg))}
+.op.bad{border-color:var(--x);background:color-mix(in srgb,var(--x) 12%,var(--bg))}
+.ex2{margin-top:12px;padding:12px;border-radius:12px;background:var(--bg);border-inline-start:4px solid var(--gold)}
+.qtop{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:8px;color:var(--mute);font-size:14px}
+.score{font:700 64px/1 Amiri,serif;color:var(--gold)}
+/* search */
+.sbox{display:flex;gap:8px;margin:0 0 16px}
+.sbox input{flex:1;height:48px;border:1.5px solid var(--line);border-radius:14px;padding:0 14px;background:var(--bg);font-size:17px}
+.res{list-style:none;margin:0;padding:0}
+.res li button{display:block;width:100%;text-align:start;border:0;border-bottom:1px solid var(--line);background:none;padding:12px 4px}
+.res mark{background:color-mix(in srgb,var(--gold) 35%,transparent);color:inherit;border-radius:3px}
+.res .n{color:var(--gold);font-weight:700;margin-inline-end:8px}
+.small{font-size:13px;color:var(--mute)}
+footer{padding:26px 0 40px;color:var(--mute);font-size:13px;border-top:1px solid var(--line);margin-top:20px}
+@media(max-width:760px){.hero .wrap{grid-template-columns:minmax(0,1fr)}.logo{display:none}}
+@media(max-width:600px){.mx th{font-size:13px}.cell{font-size:13px;min-height:48px}.mx td.t{font-size:13px}.mt{font-size:20px}.qq{font-size:22px}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<header class="bar"><div class="in">
+<button class="logo" data-go="home">شرح <b>الآجرومية</b></button>
+<nav id="nav">
+<button data-go="home">الرئيسية</button>
+<button data-go="tree">الشجرة</button>
+<button data-go="irab">لوحة الإعراب</button>
+<button data-go="matn">المتن</button>
+<button data-go="read">القارئ</button>
+<button data-go="toc">الفهرس</button>
+<button data-go="audio">الدروس الصوتية</button>
+<button data-go="quiz">اختبر نفسك</button>
+<button data-go="search">بحث</button>
+</nav></div></header>
+
+<main>
+<section class="v" id="v-home">
+<div class="hero"><div class="wrap">
+<div>
+<h1>شرح الآجرومية</h1>
+<p class="sub">للعلامة محمد بن صالح العثيمين رحمه الله، كتاب تفاعلي: شجرة للأبواب، ولوحة لعلامات الإعراب، ومتن يحيلك إلى شرحه، واختبارات.</p>
+<div class="cases">
+<span class="case"><i style="background:var(--r)"></i>رفع</span>
+<span class="case"><i style="background:var(--n)"></i>نصب</span>
+<span class="case"><i style="background:var(--x)"></i>خفض</span>
+<span class="case"><i style="background:var(--j)"></i>جزم</span>
+</div>
+</div>
+<div class="go">
+<svg class="ring" viewBox="0 0 100 100" aria-label="نسبة ما قرأت"><circle cx="50" cy="50" r="42" fill="none" stroke="rgba(255,255,255,.18)" stroke-width="10"/><circle id="ringv" cx="50" cy="50" r="42" fill="none" stroke="var(--gold)" stroke-width="10" stroke-linecap="round" stroke-dasharray="264" stroke-dashoffset="264" transform="rotate(-90 50 50)"/><text id="ringt" x="50" y="57" text-anchor="middle" fill="#fff" font-size="22" font-weight="700">٠٪</text></svg>
+<div><p id="gop">ابدأ القراءة من المقدمة</p><strong id="gos">مقدمة اللجنة</strong><p style="margin-top:8px"><button class="btn" id="gob">تابع القراءة</button></p></div>
+</div>
+</div></div>
+<div class="wrap sec">
+<h2>شجرة الآجرومية</h2>
+<p class="lead">أبواب المتن كلها في شجرة واحدة. اضغط أي غصن لتفتح فروعه.</p>
+<div class="fig"><svg id="shajara" role="img" aria-label="شجرة أبواب الآجرومية"></svg></div>
+<div class="tiles">
+<button class="tile" data-go="irab"><b>لوحة علامات الإعراب</b><span>عشرة أنواع من الكلمات في أربع حالات، مع العلامة الأصلية والنائبة ومثال لكل منها.</span></button>
+<button class="tile" data-go="matn"><b>المتن مع الشرح</b><span>اضغط على أي فقرة من المتن لتنتقل إلى موضع شرحها، وفيه وضع للتسميع.</span></button>
+<button class="tile" data-go="quiz"><b>اختبر نفسك</b><span id="qtile">٤٥ سؤالًا على أبواب المتن، ولكل سؤال إحالة إلى صفحة الشرح.</span></button>
+<button class="tile" data-go="toc"><b>الفهرس وعلاماتي</b><span>كل موضوعات الكتاب، وما قرأته، وعلاماتك وملاحظاتك.</span></button>
+</div>
+</div>
+</section>
+
+<section class="v" id="v-tree"><div class="wrap sec">
+<h2>شجرة الأبواب والمسائل</h2>
+<p class="lead">لون كل غصن يدل على بابه، ورقم الصفحة ينقلك إلى الشرح.</p>
+<div class="tools"><button class="btn ghost sm" id="tOpen">فتح الكل</button><button class="btn ghost sm" id="tClose">طي الكل</button></div>
+<ul class="tree" id="tree"></ul>
+</div></section>
+
+<section class="v" id="v-irab"><div class="wrap sec">
+<h2>لوحة علامات الإعراب</h2>
+<p class="lead">اضغط أي خانة لترى العلامة ومثالها وموضع شرحها.</p>
+<div class="legend"><span><i class="sw"></i>علامة أصلية</span><span><i class="sw f"></i>علامة نائبة (فرعية)</span><span><i class="sw" style="background:var(--soft);border-color:var(--line)"></i>لا يدخله هذا الإعراب</span></div>
+<div style="overflow-x:auto"><table class="mx" id="mx"></table></div>
+<div class="det" id="mxd"></div>
+</div></section>
+
+<section class="v" id="v-matn"><div class="wrap sec">
+<h2>متن الآجرومية</h2>
+<p class="lead">نص المتن مشكولًا كما في ملحق الكتاب. زر الصفحة يفتح موضع الشرح.</p>
+<div class="tools">
+<button class="btn ghost sm" id="hideB">وضع التسميع</button>
+<span class="small" id="memT"></span>
+</div>
+<div class="prog" style="margin:0 0 18px"><i id="memP" style="width:0"></i></div>
+<div id="matn"></div>
+</div></section>
+
+<section class="v" id="v-read"><div class="wrap">
+<div class="rtop"><span class="chip" id="rsec"></span><span class="small" id="rpos"></span></div>
+<div class="page" id="pg"><img id="pimg" alt="صفحة من الكتاب"></div>
+<div class="ocr" id="ocr" hidden></div>
+<div class="note" id="notebox" hidden><textarea id="note" placeholder="ملاحظتك على هذه الصفحة"></textarea></div>
+</div>
+<div class="rbar"><div class="wrap">
+<button class="ib" id="prev" aria-label="الصفحة السابقة">→</button>
+<input id="pnum" type="number" inputmode="numeric" min="1" max="576" aria-label="رقم الصفحة">
+<button class="ib" id="next" aria-label="الصفحة التالية">←</button>
+<button class="ib" id="bm" aria-label="علامة">★</button>
+<button class="ib" id="nb">ملاحظة</button>
+<button class="ib" id="tx">النص</button>
+</div></div>
+</section>
+
+<section class="v" id="v-toc"><div class="wrap sec">
+<h2>علاماتي</h2>
+<div class="marks" id="marks"></div>
+<h2>فهرس الموضوعات</h2>
+<div class="tools"><button class="btn ghost sm on" data-f="all" id="fa">الكل</button><button class="btn ghost sm" data-f="ex" id="fe">الأسئلة والتدريبات فقط</button></div>
+<ul class="tl" id="tl"></ul>
+</div></section>
+
+<section class="v" id="v-audio"><div class="wrap sec">
+<h2>الدروس الصوتية</h2>
+<p class="lead">شرح الآجرومية (الشرح الثاني) للشيخ ابن عثيمين في ستة عشر درسًا، من موقع الفقه في الدين ومحفوظة في أرشيف الإنترنت.</p>
+<div class="det" style="margin:0 0 18px">
+<h3 id="aT">المشغّل</h3>
+<p class="small" style="margin:4px 0 10px">اختر الدرس من القائمة فيعمل هنا مباشرة، ويُحفظ آخر موضع سمعته في كل درس.</p>
+<input id="afile" type="file" accept="audio/*" hidden>
+<audio id="aud" controls preload="metadata" style="width:100%"></audio>
+<div class="tools" style="margin-top:10px">
+<button class="ib" data-sk="-15">١٥- ث</button><button class="ib" data-sk="15">١٥+ ث</button>
+<button class="ib" data-rt="1">١×</button><button class="ib" data-rt="1.25">١٫٢٥×</button><button class="ib" data-rt="1.5">١٫٥×</button><button class="ib" data-rt="2">٢×</button>
+<button class="btn sm" id="amk">علّم هذا الموضع</button></div>
+<ul class="res" id="amarks"></ul>
+</div>
+<div class="tiles" id="alist"></div>
+</div></section>
+<section class="v" id="v-quiz"><div class="wrap sec qz" id="qz"></div></section>
+
+<section class="v" id="v-search"><div class="wrap sec">
+<h2>البحث في الكتاب</h2>
+<form class="sbox" id="sf"><input id="sq" type="search" placeholder="اكتب كلمة أو عبارة، مثل: الأسماء الخمسة" aria-label="بحث"><button class="btn">ابحث</button></form>
+<p class="small">البحث يتجاوز الحركات والهمزات، ويجري في نص مستخرج آليًّا من صور الكتاب، فقد يفوته موضع أو يخطئ في كلمة.</p>
+<ul class="res" id="res"></ul>
+</div></section>
+</main>
+<footer><div class="wrap">شرح الآجرومية، لفضيلة الشيخ محمد بن صالح العثيمين. صور الصفحات من النسخة المطبوعة، والبحث والنص المرافق مستخرجان آليًّا.</div></footer>
+
+<script>
+const D={"toc": [["مقدمة اللجنة", 5, 1], ["تمهيد", 9, 1], ["تعريف الكلام", 10, 1], ["أقسام الكلام", 14, 1], ["علامات الأسماء", 15, 1], ["أسئلة", 17, 2], ["حروف الخفض", 20, 1], ["أسئلة", 28, 2], ["علامات الأفعال", 29, 1], ["علامة الحرف", 32, 1], ["أسئلة", 35, 2], ["باب الإعراب", 39, 1], ["أسئلة", 44, 2], ["أقسام الإعراب", 45, 1], ["أسئلة", 49, 2], ["باب معرفة علامات الإعراب", 53, 1], ["مواضع الضمة", 54, 1], ["أسئلة", 59, 2], ["نيابة الواو عن الضمة", 60, 1], ["أسئلة", 65, 2], ["نيابة الألف عن الضمة", 69, 1], ["أسئلة", 73, 2], ["نيابة النون عن الضمة", 74, 1], ["أسئلة", 76, 2], ["علامات النصب", 77, 1], ["مواضع الفتحة", 79, 1], ["نيابة الألف عن الفتحة", 81, 1], ["نيابة الكسرة عن الفتحة", 82, 1], ["نيابة الياء عن الفتحة", 83, 1], ["أسئلة", 84, 2], ["نيابة حذف النون عن الفتحة", 88, 1], ["أسئلة", 91, 2], ["علامات الخفض", 93, 1], ["نيابة الياء عن الكسرة", 96, 1], ["أسئلة", 99, 2], ["نيابة الفتحة عن الكسرة", 100, 1], ["خلاصة التأنيث", 108, 1], ["أسئلة", 109, 2], ["أسئلة", 122, 2], ["علامتا الجزم", 127, 1], ["موضع السكون", 127, 1], ["موضعا الحذف", 129, 1], ["أسئلة", 134, 2], ["المعربات", 139, 1], ["المعرب بالحركات", 140, 1], ["المعربات بالحروف", 142, 1], ["أسئلة", 144, 2], ["أنواع الأفعال", 149, 1], ["أحكام الفعل", 151, 1], ["أسئلة", 154, 2], ["فائدة", 159, 2], ["أسئلة", 160, 2], ["فائدة", 165, 2], ["أسئلة", 166, 2], ["نواصب المضارع", 168, 1], ["أسئلة", 177, 2], ["الجواب بالفاء والواو", 180, 1], ["أسئلة", 185, 2], ["جوازم المضارع", 191, 1], ["أسئلة", 198, 2], ["ما أنواع أدوات الجزم", 198, 1], ["أدوات الشرط الجازمة", 201, 1], ["أسئلة", 213, 2], ["باب مرفوعات الأسماء", 219, 1], ["الفاعل", 223, 1], ["أنواع الفاعل المضمر", 226, 1], ["أسئلة", 228, 2], ["أعرب", 230, 2], ["المفعول الذي لم يسم فاعله", 235, 1], ["المبتدأ والخبر", 245, 1], ["تدريب على الإعراب", 253, 2], ["أنواع الخبر", 256, 1], ["أسئلة", 260, 2], ["تدريب على الإعراب", 260, 2], ["نواسخ المبتدأ والخبر", 265, 1], ["تدريب على الإعراب", 274, 2], ["أنواع خبر كان وأخواتها", 277, 1], ["إن وأخواتها", 278, 1], ["تدريب على الإعراب", 282, 2], ["فائدة", 283, 2], ["ظن وأخواتها", 285, 1], ["أسئلة على ظن وأخواتها", 293, 2], ["النعت", 297, 1], ["تدريب على النعت", 309, 2], ["العطف وحروفه", 315, 1], ["أسئلة على حروف العطف", 324, 2], ["والخلاصة", 328, 2], ["تدريب على الإعراب", 329, 2], ["التوكيد", 337, 1], ["تمرين على التوكيد", 340, 2], ["البدل", 347, 1], ["تدريب على الإعراب", 353, 2], ["باب منصوبات الأسماء", 361, 1], ["باب المفعول به", 367, 1], ["الإعراب", 370, 2], ["أسئلة", 374, 2], ["المصدر", 381, 1], ["تدريب على الإعراب", 385, 2], ["باب ظرف الزمان وظرف المكان", 391, 1], ["أسئلة", 398, 2], ["أعرب", 398, 2], ["الحال", 405, 1], ["أسئلة على الحال", 410, 2], ["أعرب", 411, 2], ["التمييز", 415, 1], ["أنواع التمييز", 416, 1], ["تدريب على التمييز", 423, 2], ["الاستثناء", 431, 1], ["المستثنى بغير وسوى", 441, 1], ["المستثنى بخلا وعدا وحاشا", 442, 1], ["تدريب على الاستثناء", 445, 2], ["تلخيص لأحكام الاستثناء", 456, 2], ["فوائد مهمة", 458, 2], ["«لا» النافية للجنس", 463, 1], ["أسئلة", 468, 2], ["مسألة", 474, 2], ["أحوال اسم «لا»", 474, 1], ["المنادى", 487, 1], ["أسئلة على المنادى", 490, 2], ["المفعول له", 499, 1], ["فائدة مهمة", 499, 2], ["فائدة مهمة أخرى", 501, 2], ["تدريب على الإعراب", 502, 2], ["المفعول معه", 511, 1], ["أسئلة على المنصوبات", 515, 2], ["القاعدة", 519, 2], ["المخفوضات من الأسماء", 522, 1], ["أسئلة على المخفوضات", 529, 2], ["صور المخطوط", 539, 1], ["قواعد في الإملاء", 547, 1], ["القاعدة الأولى: في كتابة الألف", 547, 2], ["القاعدة الثانية: في كتابة الهمزة", 548, 2], ["الذي يكتب ولا ينطق به", 550, 1], ["متن الآجرومية", 553, 1], ["فهرس الموضوعات", 570, 1]], "matn": [{"h": "مقدمة", "p": ["الكَلَامُ: هُوَ اللَّفْظُ المُرَكَّبُ، المُفِيدُ بِالوَضْعِ.", "وأَقْسَامُهُ ثَلَاثَةٌ: اسْمٌ، وفِعْلٌ وحَرْفٌ جَاءَ لِمَعْنًى.", "فالاسْمُ: يُعْرَفُ: بِالخَفْضِ، والتَّنْوِينِ، ودُخُولِ الألِفِ واللَّامِ عَلَيْهِ.", "وحُرُوفُ الخَفْضِ، وهِيَ: مِنْ، وإلَى، وعَنْ، وعَلَى، وفِي، ورُبَّ، والبَاءُ، والكَافُ، واللَّامُ.", "وحُرُوفُ القَسَمِ، وهِيَ: الوَاوُ، والبَاءُ، والتَّاءُ.", "والفِعْلُ يُعْرَفُ بِقَدْ، والسِّينِ، وسَوْفَ، وتَاءِ التَّأْنِيثِ السَّاكِنَةِ.", "والحَرْفُ: مَا لا يَصْلُحُ مَعَهُ دَلِيلُ الاسْمِ، ولا دَلِيلُ الفِعْلِ."]}, {"h": "بابُ الإعرابِ", "p": ["الإِعْرَابُ هُوَ: تَغْيِيرُ أَوَاخِرِ الكَلِمِ، لاخْتِلافِ العَوَامِلِ الدَّاخِلَةِ عَلَيْهَا لَفْظًا أَوْ تَقْدِيرًا.", "وأَقْسَامُهُ أَرْبَعَةٌ: رَفْعٌ، ونَصْبٌ، وخَفْضٌ، وجَزْمٌ؛ فَلِلأَسْمَاءِ مِنْ ذَلِكَ: الرَّفْعُ، والنَّصْبُ، والخَفْضُ، ولا جَزْمَ فِيهَا.", "ولِلأَفْعَالِ مِنْ ذَلِكَ: الرَّفْعُ، والنَّصْبُ، والجَزْمُ، ولا خَفْضَ فِيهَا."]}, {"h": "بابُ معرفةِ علاماتِ الإعرابِ", "p": ["لِلرَّفْعِ أَرْبَعُ عَلَامَاتٍ: الضَّمَّةُ، والوَاوُ، والأَلِفُ، والنُّونُ.", "فَأَمَّا الضَّمَّةُ: فَتَكُونُ عَلَامَةً لِلرَّفْعِ فِي أَرْبَعَةِ مَوَاضِعَ، فِي الاسْمِ المُفْرَدِ، وجَمْعِ التَّكْسِيرِ، وجَمْعِ المُؤَنَّثِ السَّالِمِ، والفِعْلِ المُضَارِعِ الَّذِي لَمْ يَتَّصِلْ بِآخِرِهِ شَيْءٌ.", "وأَمَّا الوَاوُ فَتَكُونُ عَلَامَةً لِلرَّفْعِ فِي مَوْضِعَيْنِ، فِي جَمْعِ المُذَكَّرِ السَّالِمِ، وفِي الأَسْمَاءِ الخَمْسَةِ، وهِيَ: أَبُوكَ، وأَخُوكَ، وحَمُوكَ، وفُوكَ، وذُو مَالٍ.", "وأَمَّا الأَلِفُ: فَتَكُونُ عَلَامَةً لِلرَّفْعِ، فِي تَثْنِيَةِ الأَسْمَاءِ خَاصَّةً.", "وأَمَّا النُّونُ فَتَكُونُ عَلَامَةً لِلرَّفْعِ فِي الفِعْلِ المُضَارِعِ إِذَا اتَّصَلَ بِهِ ضَمِيرُ تَثْنِيَةٍ أَوْ ضَمِيرُ جَمْعٍ أَوْ ضَمِيرُ المُؤَنَّثَةِ المُخَاطَبَةِ.", "ولِلنَّصْبِ خَمْسُ عَلَامَاتٍ: الفَتْحَةُ والأَلِفُ والكَسْرَةُ واليَاءُ وحَذْفُ النُّونِ، فَأَمَّا الفَتْحَةُ فَتَكُونُ عَلَامَةً لِلنَّصْبِ فِي ثَلَاثَةِ مَوَاضِعَ، فِي الاسْمِ المُفْرَدِ، وجَمْعِ التَّكْسِيرِ، والفِعْلِ المُضَارِعِ إِذَا دَخَلَ عَلَيْهِ نَاصِبٌ ولَمْ يَتَّصِلْ بِآخِرِهِ شَيْءٌ، وأَمَّا الأَلِفُ: فَتَكُونُ عَلَامَةً لِلنَّصْبِ فِي الأَسْمَاءِ الخَمْسَةِ، نَحْوُ: رَأَيْتُ أَبَاكَ، وأَخَاكَ، ومَا أَشْبَهَ ذَلِكَ.", "وأَمَّا الكَسْرَةُ: فَتَكُونُ عَلَامَةً لِلنَّصْبِ، فِي جَمْعِ المُؤَنَّثِ السَّالِمِ.", "وأَمَّا اليَاءُ: فَتَكُونُ عَلَامَةً لِلنَّصْبِ، فِي التَّثْنِيَةِ، والجَمْعِ.", "وأَمَّا حَذْفُ النُّونِ فَيَكُونُ عَلَامَةً لِلنَّصْبِ فِي الأَفْعَالِ الَّتِي رَفْعُهَا بِثَبَاتِ النُّونِ.", "ولِلْخَفْضِ ثَلَاثُ عَلَامَاتٍ: الكَسْرَةُ، واليَاءُ، والفَتْحَةُ. فَأَمَّا الكَسْرَةُ: فَتَكُونُ عَلَامَةً لِلْخَفْضِ فِي ثَلَاثَةِ مَوَاضِعَ، فِي الاسْمِ المُفْرَدِ المُنْصَرِفِ، وجَمْعِ التَّكْسِيرِ المُنْصَرِفِ؛ وفِي جَمْعِ المُؤَنَّثِ السَّالِمِ. وأَمَّا اليَاءُ: فَتَكُونُ عَلَامَةً لِلْخَفْضِ فِي ثَلَاثَةِ مَوَاضِعَ، فِي الأَسْمَاءِ الخَمْسَةِ، وفِي التَّثْنِيَةِ، والجَمْعِ.", "وأَمَّا الفَتْحَةُ: فَتَكُونُ عَلَامَةً لِلْخَفْضِ، فِي الاسْمِ الَّذِي لا يَنْصَرِفُ.", "ولِلْجَزْمِ عَلَامَتَانِ: السُّكُونُ، والحَذْفُ. فَأَمَّا السُّكُونُ: فَيَكُونُ عَلَامَةً لِلْجَزْمِ فِي الفِعْلِ المُضَارِعِ، الصَّحِيحِ الآخِرِ؛ وأَمَّا الحَذْفُ: فَيَكُونُ عَلَامَةً لِلْجَزْمِ فِي الفِعْلِ المُضَارِعِ، المُعْتَلِّ الآخِرِ، وفِي الأَفْعَالِ الَّتِي رَفْعُهَا بِثَبَاتِ النُّونِ."]}, {"h": "فصلٌ (المعربات)", "p": ["المُعْرَبَاتُ: قِسْمَانِ، قِسْمٌ: يُعْرَبُ بِالحَرَكَاتِ، وقِسْمٌ يُعْرَبُ بِالحُرُوفِ.", "فَالَّذِي يُعْرَبُ بِالحَرَكَاتِ: أَرْبَعَةُ أَنْوَاعٍ؛ الاسْمُ المُفْرَدُ، وجَمْعُ التَّكْسِيرِ، وجَمْعُ المُؤَنَّثِ السَّالِمِ، والفِعْلُ المُضَارِعُ، الَّذِي لَمْ يَتَّصِلْ بِآخِرِهِ شَيْءٌ، وكُلُّهَا تُرْفَعُ بِالضَّمَّةِ، وتُنْصَبُ بِالفَتْحَةِ، وتُخْفَضُ بِالكَسْرَةِ، وتُجْزَمُ بِالسُّكُونِ.", "وخَرَجَ عَنْ ذَلِكَ ثَلَاثَةُ أَشْيَاءَ: جَمْعُ المُؤَنَّثِ السَّالِمِ يُنْصَبُ بِالكَسْرَةِ.", "والاسْمُ الَّذِي لا يَنْصَرِفُ يُخْفَضُ بِالفَتْحَةِ، والفِعْلُ المُضَارِعُ المُعْتَلُّ الآخِرِ، يُجْزَمُ بِحَذْفِ آخِرِهِ.", "والَّذِي يُعْرَبُ بِالحُرُوفِ أَرْبَعَةُ أَنْوَاعٍ: التَّثْنِيَةُ، وجَمْعُ المُذَكَّرِ السَّالِمِ، والأَسْمَاءُ الخَمْسَةُ. والأَفْعَالُ الخَمْسَةُ، وهِيَ: يَفْعَلَانِ، وتَفْعَلَانِ، ويَفْعَلُونَ، وتَفْعَلُونَ، وتَفْعَلِينَ.", "فَأَمَّا التَّثْنِيَةُ: فَتُرْفَعُ بِالأَلِفِ، وتُنْصَبُ وتُخْفَضُ بِاليَاءِ.", "وأَمَّا جَمْعُ المُذَكَّرِ السَّالِمِ فَيُرْفَعُ بِالوَاوِ، ويُنْصَبُ ويُخْفَضُ بِاليَاءِ. وأَمَّا الأَسْمَاءُ الخَمْسَةُ: فَتُرْفَعُ بِالوَاوِ، وتُنْصَبُ بِالأَلِفِ، وتُخْفَضُ بِاليَاءِ. وأَمَّا الأَفْعَالُ الخَمْسَةُ: فَتُرْفَعُ بِالنُّونِ، وتُنْصَبُ وتُجْزَمُ بِحَذْفِهَا."]}, {"h": "بابُ الأفعالِ", "p": ["الأَفْعَالُ: ثَلَاثَةٌ، مَاضٍ، ومُضَارِعٌ وأَمْرٌ؛ نَحْوُ: ضَرَبَ، ويَضْرِبُ، واضْرِبْ.", "فَالمَاضِي: مَفْتُوحُ الآخِرِ أَبَدًا؛ والأَمْرُ: مَجْزُومٌ أَبَدًا.", "والمُضَارِعُ: مَا كَانَ فِي أَوَّلِهِ إِحْدَى الزَّوَائِدِ الأَرْبَعِ، يَجْمَعُهَا قَوْلُكَ: أَنَيْتُ، وهُوَ مَرْفُوعٌ أَبَدًا، حَتَّى يَدْخُلَ عَلَيْهِ نَاصِبٌ، أَوْ جَازِمٌ.", "فَالنَّوَاصِبُ عَشَرَةٌ، وهِيَ: أَنْ، ولَنْ، وإِذَنْ وكَيْ، ولامُ كَيْ، ولامُ الجُحُودِ، وحَتَّى، والجَوَابُ بِالفَاءِ، والوَاوِ، وأَوْ.", "والجَوَازِمُ: ثَمَانِيَةَ عَشَرَ، وهِيَ: لَمْ، ولَمَّا، وأَلَمْ، وأَلَمَّا، ولامُ الأَمْرِ، والدُّعَاءِ، ولا فِي النَّهْيِ، والدُّعَاءِ، وإِنْ، ومَا، ومَنْ، ومَهْمَا، وإِذْ مَا، وأَيٌّ، ومَتَى، وأَيَّانَ، وأَيْنَ، وأَنَّى، وحَيْثُمَا، وكَيْفَمَا، وإِذًا فِي الشِّعْرِ خَاصَّةً."]}, {"h": "بابُ مرفوعاتِ الأسماءِ", "p": ["المَرْفُوعَاتُ: سَبْعَةٌ؛ وهِيَ: الفَاعِلُ، والمَفْعُولُ الَّذِي لَمْ يُسَمَّ فَاعِلُهُ، والمُبْتَدَأُ، وخَبَرُهُ، واسْمُ كَانَ وأَخَوَاتِهَا، وخَبَرُ إِنَّ وأَخَوَاتِهَا.", "والتَّابِعُ لِلْمَرْفُوعِ، وهُوَ: أَرْبَعَةُ أَشْيَاءَ: النَّعْتُ، والعَطْفُ، والتَّوْكِيدُ، والبَدَلُ."]}, {"h": "بابُ الفاعلِ", "p": ["الفَاعِلُ، هُوَ: الاسْمُ المَرْفُوعُ، المَذْكُورُ قَبْلَهُ فِعْلُهُ، وهُوَ عَلَى قِسْمَيْنِ، ظَاهِرٌ ومُضْمَرٌ.", "فَالظَّاهِرُ نَحْوُ: قَوْلِكَ: قَامَ زَيْدٌ، ويَقُومُ زَيْدٌ، وقَامَ الزَّيْدَانِ، ويَقُومُ الزَّيْدَانِ، وقَامَ الزَّيْدُونَ، ويَقُومُ الزَّيْدُونَ، وقَامَ الرِّجَالُ، ويَقُومُ الرِّجَالُ، وقَامَتْ هِنْدٌ، وتَقُومُ هِنْدٌ، وقَامَتِ الهِنْدَانِ، وتَقُومُ الهِنْدَانِ، وقَامَتِ الهِنْدَاتُ، وتَقُومُ الهِنْدَاتُ، وقَامَتِ الهُنُودُ، وتَقُومُ الهُنُودُ، وقَامَ أَخُوكَ، ويَقُومُ أَخُوكَ، وقَامَ غُلَامِي، ويَقُومُ غُلَامِي، ومَا أَشْبَهَ ذَلِكَ.", "والمُضْمَرُ: اثْنَا عَشَرَ، نَحْوُ قَوْلِكَ: ضَرَبْتُ وضَرَبْنَا، وضَرَبْتَ، وضَرَبْتِ، وضَرَبْتُمَا، وضَرَبْتُمْ، وضَرَبْتُنَّ، وضَرَبَ، وضَرَبَتْ، وضَرَبَا، وضَرَبَتَا، وضَرَبُوا، وضَرَبْنَ."]}, {"h": "بابُ المفعولِ الذي لم يُسَمَّ فاعلُه", "p": ["وهُوَ الاسْمُ المَرْفُوعُ، الَّذِي لَمْ يُذْكَرْ مَعَهُ فَاعِلُهُ فَإِنْ كَانَ الفِعْلُ مَاضِيًا: ضُمَّ أَوَّلُهُ وكُسِرَ مَا قَبْلَ آخِرِهِ، وإِنْ كَانَ مُضَارِعًا: ضُمَّ أَوَّلُهُ وفُتِحَ مَا قَبْلَ آخِرِهِ.", "وهُوَ عَلَى قِسْمَيْنِ: ظَاهِرٌ، ومُضْمَرٌ، فَالظَّاهِرُ، نَحْوُ قَوْلِكَ: ضُرِبَ زَيْدٌ، ويُضْرَبُ زَيْدٌ، وأُكْرِمَ عَمْرٌو، ويُكْرَمُ عَمْرٌو؛ والمُضْمَرُ، نَحْوُ قَوْلِكَ: ضُرِبْتُ، وضُرِبْنَا، وضُرِبْتَ، وضُرِبْتِ، وضُرِبْتُمَا، وضُرِبْتُمْ، وضُرِبْتُنَّ، وضُرِبَ، وضُرِبَتْ، وضُرِبَا، وضُرِبُوا، وضُرِبْنَ."]}, {"h": "بابُ المبتدأِ والخبرِ", "p": ["المُبْتَدَأُ، هُوَ: الاسْمُ المَرْفُوعُ، العَارِي عَنِ العَوَامِلِ اللَّفْظِيَّةِ، والخَبَرُ، هُوَ: الاسْمُ المَرْفُوعُ المُسْنَدُ إِلَيْهِ، نَحْوُ قَوْلِكَ: زَيْدٌ قَائِمٌ، والزَّيْدَانِ قَائِمَانِ، والزَّيْدُونَ قَائِمُونَ.", "والمُبْتَدَأُ قِسْمَانِ: ظَاهِرٌ، ومُضْمَرٌ، فَالظَّاهِرُ، مَا تَقَدَّمَ ذِكْرُهُ؛ والمُضْمَرُ: اثْنَا عَشَرَ؛ وهِيَ: أَنَا ونَحْنُ، وأَنْتَ، وأَنْتِ، وأَنْتُمَا، وأَنْتُمْ، وأَنْتُنَّ، وهُوَ، وهِيَ، وهُمَا، وهُمْ، وهُنَّ، نَحْوُ قَوْلِكَ: أَنَا قَائِمٌ، ونَحْنُ قَائِمُونَ، ومَا أَشْبَهَ ذَلِكَ.", "والخَبَرُ قِسْمَانِ: مُفْرَدٌ، وغَيْرُ مُفْرَدٍ، فَالمُفْرَدُ، نَحْوُ قَوْلِكَ: زَيْدٌ قَائِمٌ، والزَّيْدَانِ قَائِمَانِ، والزَّيْدُونَ قَائِمُونَ.", "وغَيْرُ المُفْرَدِ أَرْبَعَةُ أَشْيَاءَ: الجَارُّ والمَجْرُورُ، والظَّرْفُ، والفِعْلُ مَعَ فَاعِلِهِ والمُبْتَدَأُ مَعَ خَبَرِهِ، نَحْوُ قَوْلِكَ: زَيْدٌ فِي الدَّارِ، وزَيْدٌ عِنْدَكَ، وزَيْدٌ قَامَ أَبُوهُ، وزَيْدٌ جَارِيَتُهُ ذَاهِبَةٌ."]}, {"h": "بابُ العواملِ الداخلةِ على المبتدأِ والخبرِ", "p": ["وهِيَ: كَانَ، وأَخَوَاتُهَا، وإِنَّ وأَخَوَاتُهَا، وظَنَنْتُ، وأَخَوَاتُهَا؛ فَأَمَّا كَانَ وأَخَوَاتُهَا: فَإِنَّهَا تَرْفَعُ الاسْمَ، وتَنْصِبُ الخَبَرَ، وهِيَ: كَانَ، وأَمْسَى، وأَصْبَحَ، وأَضْحَى، وظَلَّ، وبَاتَ، وصَارَ، ولَيْسَ، ومَا زَالَ، ومَا انْفَكَّ، ومَا فَتِئَ، ومَا بَرِحَ، ومَا دَامَ، ومَا تَصَرَّفَ مِنْهَا، نَحْوُ: كَانَ، ويَكُونُ، وكُنْ؛ وأَصْبَحَ، ويُصْبِحُ، وأَصْبِحْ، تَقُولُ: كَانَ زَيْدٌ قَائِمًا، ولَيْسَ عَمْرٌو شَاخِصًا، ومَا أَشْبَهَ ذَلِكَ.", "وأَمَّا إِنَّ، وأَخَوَاتُهَا، فَإِنَّهَا: تَنْصِبُ الاسْمَ، وتَرْفَعُ الخَبَرَ، وهِيَ: إِنَّ، وأَنَّ، ولَكِنَّ، وكَأَنَّ، ولَيْتَ، ولَعَلَّ؛ تَقُولُ: إِنَّ زَيْدًا قَائِمٌ، ولَيْتَ عَمْرًا شَاخِصٌ، ومَا أَشْبَهَ ذَلِكَ.", "ومَعْنَى: إِنَّ، وأَنَّ، لِلتَّوْكِيدِ، ولَكِنَّ لِلاسْتِدْرَاكِ، وكَأَنَّ لِلتَّشْبِيهِ، ولَيْتَ لِلتَّمَنِّي، ولَعَلَّ لِلتَّرَجِّي، والتَّوَقُّعِ.", "وأَمَّا ظَنَنْتُ، وأَخَوَاتُهَا، فَإِنَّهَا: تَنْصِبُ المُبْتَدَأَ، والخَبَرَ، عَلَى أَنَّهُمَا مَفْعُولَانِ لَهَا، وهِيَ: ظَنَنْتُ، وحَسِبْتُ، وخِلْتُ، وزَعَمْتُ، ورَأَيْتُ، وعَلِمْتُ، ووَجَدْتُ، واتَّخَذْتُ، وجَعَلْتُ، وسَمِعْتُ؛ تَقُولُ: ظَنَنْتُ زَيْدًا مُنْطَلِقًا، وخِلْتُ عَمْرًا شَاخِصًا، ومَا أَشْبَهَ ذَلِكَ."]}, {"h": "بابُ النعتِ", "p": ["النَّعْتُ: تَابِعٌ لِلْمَنْعُوتِ فِي رَفْعِهِ، ونَصْبِهِ، وخَفْضِهِ، وتَعْرِيفِهِ، وتَنْكِيرِهِ؛ تَقُولُ: جَاءَ زَيْدٌ العَاقِلُ، ورَأَيْتُ زَيْدًا العَاقِلَ، ومَرَرْتُ بِزَيْدٍ العَاقِلِ.", "والمَعْرِفَةُ: خَمْسَةُ أَشْيَاءَ، المُضْمَرُ، نَحْوُ: أَنَا، وأَنْتَ، والعَلَمُ، نَحْوُ: زَيْدٌ، ومَكَّةُ، والاسْمُ المُبْهَمُ، نَحْوُ: هَذَا، وهَذِهِ، وهَؤُلَاءِ.", "والاسْمُ الَّذِي فِيهِ الأَلِفُ واللَّامُ، نَحْوُ: الرَّجُلُ، والغُلَامُ، ومَا أُضِيفَ إِلَى وَاحِدٍ مِنْ هَذِهِ الأَرْبَعَةِ.", "والنَّكِرَةُ: كُلُّ اسْمٍ شَائِعٍ فِي جِنْسِهِ، لا يَخْتَصُّ بِهِ وَاحِدٌ دُونَ آخَرَ؛ وتَقْرِيبُهُ: كُلُّ مَا صَلَحَ دُخُولُ الأَلِفِ واللَّامِ عَلَيْهِ؛ نَحْوُ: الرَّجُلِ، والفَرَسِ."]}, {"h": "بابُ العطفِ", "p": ["وحُرُوفُ العَطْفِ: عَشَرَةٌ؛ وهِيَ: الوَاوُ، والفَاءُ، وثُمَّ، وأَوْ، وأَمْ، وإِمَّا، وبَلْ، ولا، ولَكِنْ، وحَتَّى فِي بَعْضِ المَوَاضِعِ، فَإِنْ عَطَفْتَ بِهَا عَلَى مَرْفُوعٍ رَفَعْتَ، أَوْ عَلَى مَنْصُوبٍ نَصَبْتَ، أَوْ عَلَى مَخْفُوضٍ خَفَضْتَ، أَوْ عَلَى مَجْزُومٍ، جَزَمْتَ؛ تَقُولُ: جَاءَ زَيْدٌ وعَمْرٌو، ورَأَيْتُ زَيْدًا وعَمْرًا، ومَرَرْتُ بِزَيْدٍ وعَمْرٍو، وزَيْدٌ لَمْ يَقُمْ ولَمْ يَقْعُدْ."]}, {"h": "بابُ التوكيدِ", "p": ["التَّوْكِيدُ: تَابِعٌ لِلْمُؤَكَّدِ، فِي رَفْعِهِ، ونَصْبِهِ، وخَفْضِهِ، وتَعْرِيفِهِ، ويَكُونُ بِأَلْفَاظٍ مَعْلُومَةٍ، وهِيَ: النَّفْسُ، والعَيْنُ، وكُلُّ، وأَجْمَعُ؛ وتَوَابِعُ أَجْمَعَ؛ وهِيَ: أَكْتَعُ، وأَبْتَعُ، وأَبْصَعُ؛ تَقُولُ: قَامَ زَيْدٌ نَفْسُهُ، ورَأَيْتُ القَوْمَ كُلَّهُمْ، ومَرَرْتُ بِالقَوْمِ أَجْمَعِينَ."]}, {"h": "بابُ البدلِ", "p": ["إِذَا أُبْدِلَ اسْمٌ مِنَ اسْمٍ، أَوْ فِعْلٌ مِنْ فِعْلٍ، تَبِعَهُ فِي جَمِيعِ إِعْرَابِهِ.", "وهُوَ عَلَى أَرْبَعَةِ أَقْسَامٍ: بَدَلُ الشَّيْءِ مِنَ الشَّيْءِ، وبَدَلُ البَعْضِ مِنَ الكُلِّ، وبَدَلُ الاشْتِمَالِ، وبَدَلُ الغَلَطِ.", "تَقُولُ: جَاءَ زَيْدٌ أَخُوكَ، وأَكَلْتُ الرَّغِيفَ ثُلُثَهُ، ونَفَعَنِي زَيْدٌ عِلْمُهُ، ورَأَيْتُ زَيْدًا الفَرَسَ، أَرَدْتَ أَنْ تَقُولَ: رَأَيْتُ الفَرَسَ، فَغَلِطْتَ، فَأَبْدَلْتَ زَيْدًا مِنْهُ."]}, {"h": "بابُ منصوباتِ الأسماءِ", "p": ["المَنْصُوبَاتُ: خَمْسَةَ عَشَرَ؛ وهِيَ: المَفْعُولُ بِهِ، والمَصْدَرُ، وظَرْفُ الزَّمَانِ، وظَرْفُ المَكَانِ، والحَالُ والتَّمْيِيزُ، والمُسْتَثْنَى، واسْمُ لا، والمُنَادَى، والمَفْعُولُ مِنْ أَجْلِهِ، والمَفْعُولُ مَعَهُ، وخَبَرُ كَانَ وأَخَوَاتِهَا، واسْمُ إِنَّ وأَخَوَاتِهَا؛ والتَّابِعُ لِلْمَنْصُوبِ، وهُوَ: أَرْبَعَةُ أَشْيَاءَ: النَّعْتُ، والعَطْفُ، والتَّوْكِيدُ، والبَدَلُ."]}, {"h": "بابُ المفعولِ به", "p": ["وهُوَ: الاسْمُ المَنْصُوبُ، الَّذِي يَقَعُ بِهِ الفِعْلُ، نَحْوُ: ضَرَبْتُ زَيْدًا، ورَكِبْتُ الفَرَسَ.", "وهُوَ قِسْمَانِ: ظَاهِرٌ ومُضْمَرٌ، فَالظَّاهِرُ مَا تَقَدَّمَ ذِكْرُهُ.", "والمُضْمَرُ قِسْمَانِ: مُتَّصِلٌ، ومُنْفَصِلٌ؛ فَالمُتَّصِلُ اثْنَا عَشَرَ، نَحْوُ قَوْلِكَ: ضَرَبَنِي، وضَرَبَنَا، وضَرَبَكَ، وضَرَبَكِ، وضَرَبَكُمَا، وضَرَبَكُمْ، وضَرَبَكُنَّ، وضَرَبَهُ، وضَرَبَهَا، وضَرَبَهُمَا، وضَرَبَهُمْ، وضَرَبَهُنَّ.", "والمُنْفَصِلُ اثْنَا عَشَرَ، نَحْوُ قَوْلِكَ: إِيَّايَ، وإِيَّانَا، وإِيَّاكَ، وإِيَّاكِ، وإِيَّاكُمَا، وإِيَّاكُمْ، وإِيَّاكُنَّ، وإِيَّاهُ، وإِيَّاهَا، وإِيَّاهُمَا، وإِيَّاهُمْ، وإِيَّاهُنَّ."]}, {"h": "بابُ المصدرِ", "p": ["المَصْدَرُ، هُوَ: الاسْمُ المَنْصُوبُ، الَّذِي يَجِيءُ ثَالِثًا فِي تَصْرِيفِ الفِعْلِ، نَحْوُ: ضَرَبَ يَضْرِبُ ضَرْبًا، وهُوَ عَلَى قِسْمَيْنِ: لَفْظِيٌّ، ومَعْنَوِيٌّ.", "فَإِنْ وَافَقَ لَفْظُهُ لَفْظَ فِعْلِهِ، فَهُوَ لَفْظِيٌّ، نَحْوُ: قَتَلْتُهُ قَتْلًا.", "وإِنْ وَافَقَ مَعْنَى فِعْلِهِ، دُونَ لَفْظِهِ، فَهُوَ مَعْنَوِيٌّ، نَحْوُ: جَلَسْتُ قُعُودًا، وقُمْتُ وُقُوفًا، ومَا أَشْبَهَ ذَلِكَ."]}, {"h": "بابُ ظرفِ الزمانِ وظرفِ المكانِ", "p": ["ظَرْفُ الزَّمَانِ، هُوَ: اسْمُ الزَّمَانِ المَنْصُوبُ بِتَقْدِيرِ فِي، نَحْوُ: اليَوْمَ، واللَّيْلَةَ، وغُدْوَةً، وبُكْرَةً، وسَحَرًا، وغَدًا، وعَتَمَةً، وصَبَاحًا، ومَسَاءً، وأَبَدًا، وأَمَدًا، وحِينًا، ووَقْتًا، ومَا أَشْبَهَ ذَلِكَ.", "وظَرْفُ المَكَانِ، هُوَ: اسْمُ المَكَانِ، المَنْصُوبُ بِتَقْدِيرِ فِي؛ نَحْوُ: أَمَامَ، وخَلْفَ، وقُدَّامَ، ووَرَاءَ، وفَوْقَ، وتَحْتَ، وعِنْدَ، ومَعَ، وإِزَاءَ، وحِذَاءَ، وتِلْقَاءَ، وهُنَا، وثَمَّ، ومَا أَشْبَهَ ذَلِكَ."]}, {"h": "بابُ الحالِ", "p": ["الحَالُ: هُوَ الاسْمُ المَنْصُوبُ، المُفَسِّرُ لِمَا انْبَهَمَ مِنَ الهَيْئَاتِ، نَحْوُ: جَاءَ زَيْدٌ رَاكِبًا، ورَكِبْتُ الفَرَسَ مُسْرَجًا، ولَقِيتُ عَبْدَ اللهِ مَاشِيًا، ومَا أَشْبَهَ ذَلِكَ. ولا يَكُونُ الحَالُ إِلَّا نَكِرَةً، ولا يَكُونُ إِلَّا بَعْدَ تَمَامِ الكَلَامِ، ولا يَكُونُ صَاحِبُهَا إِلَّا مَعْرِفَةً."]}, {"h": "بابُ التمييزِ", "p": ["التَّمْيِيزُ، هُوَ: الاسْمُ المَنْصُوبُ، المُفَسِّرُ لِمَا انْبَهَمَ مِنَ الذَّوَاتِ، نَحْوُ قَوْلِكَ: تَصَبَّبَ زَيْدٌ عَرَقًا، وتَفَقَّأَ بَكْرٌ شَحْمًا، وطَابَ مُحَمَّدٌ نَفْسًا، واشْتَرَيْتُ عِشْرِينَ غُلَامًا، ومَلَكْتُ تِسْعِينَ نَعْجَةً. وزَيْدٌ أَكْرَمُ مِنْكَ أَبًا، وأَجْمَلُ مِنْكَ وَجْهًا، ولا يَكُونُ إِلَّا نَكِرَةً، ولا يَكُونُ إِلَّا بَعْدَ تَمَامِ الكَلَامِ."]}, {"h": "بابُ الاستثناءِ", "p": ["وحُرُوفُ الاسْتِثْنَاءِ: ثَمَانِيَةٌ، وهِيَ: إِلَّا، وغَيْرُ، وسِوًى، وسُوًى، وسَوَاءٌ، وخَلَا، وعَدَا، وحَاشَا؛ فَالمُسْتَثْنَى بِإِلَّا: يُنْصَبُ، إِذَا كَانَ الكَلَامُ تَامًّا مُوجَبًا، نَحْوُ: قَامَ القَوْمُ إِلَّا زَيْدًا، وخَرَجَ النَّاسُ إِلَّا عَمْرًا.", "وإِنْ كَانَ الكَلَامُ مَنْفِيًّا تَامًّا، جَازَ فِيهِ البَدَلُ، والنَّصْبُ عَلَى الاسْتِثْنَاءِ، نَحْوُ: مَا قَامَ القَوْمُ إِلَّا زَيْدٌ وإِلَّا زَيْدًا، وإِنْ كَانَ الكَلَامُ نَاقِصًا، كَانَ عَلَى حَسَبِ العَوَامِلِ، نَحْوُ: مَا قَامَ إِلَّا زَيْدٌ، ومَا ضَرَبْتُ إِلَّا زَيْدًا، ومَا مَرَرْتُ إِلَّا بِزَيْدٍ.", "والمُسْتَثْنَى بِغَيْرٍ، وسِوًى، وسُوًى، وسَوَاءٍ مَجْرُورٌ لا غَيْرُ.", "والمُسْتَثْنَى بِخَلَا، وعَدَا، وحَاشَا: يَجُوزُ نَصْبُهُ، وجَرُّهُ، نَحْوُ: قَامَ القَوْمُ خَلَا زَيْدًا، وزَيْدٍ، وعَدَا عَمْرًا، وعَمْرٍو، وحَاشَا بَكْرًا، وبَكْرٍ."]}, {"h": "بابُ لا", "p": ["اعْلَمْ: أَنَّ لا، تَنْصِبُ النَّكِرَاتِ بِغَيْرِ تَنْوِينٍ، إِذَا بَاشَرَتِ النَّكِرَةَ، ولَمْ تَتَكَرَّرْ لا، نَحْوُ: لا رَجُلَ فِي الدَّارِ، فَإِنْ لَمْ تُبَاشِرْهَا: وَجَبَ الرَّفْعُ، ووَجَبَ تَكْرَارُ لا، نَحْوُ: لا فِي الدَّارِ رَجُلٌ ولا امْرَأَةٌ.", "وإِنْ تَكَرَّرَتْ، لا، جَازَ إِعْمَالُهَا، وإِلْغَاؤُهَا، فَإِنْ شِئْتَ قُلْتَ: لا رَجُلَ فِي الدَّارِ، ولا امْرَأَةَ، وإِنْ شِئْتَ قُلْتَ: لا رَجُلٌ فِي الدَّارِ، ولا امْرَأَةٌ."]}, {"h": "بابُ المنادى", "p": ["المُنَادَى: خَمْسَةُ أَنْوَاعٍ، المُفْرَدُ العَلَمُ، والنَّكِرَةُ المَقْصُودَةُ، والنَّكِرَةُ غَيْرُ المَقْصُودَةِ، والمُضَافُ، والمُشَبَّهُ بِالمُضَافِ.", "فَأَمَّا المُفْرَدُ العَلَمُ، والنَّكِرَةُ المَقْصُودَةُ: فَيُبْنَيَانِ عَلَى الضَّمِّ، مِنْ غَيْرِ تَنْوِينٍ، نَحْوُ: يَا زَيْدُ، ويَا رَجُلُ، والثَّلَاثَةُ البَاقِيَةُ: مَنْصُوبَةٌ لا غَيْرُ."]}, {"h": "بابُ المفعولِ من أجلِه", "p": ["وهُوَ: الاسْمُ المَنْصُوبُ، الَّذِي يُذْكَرُ بَيَانًا لِسَبَبِ وُقُوعِ الفِعْلِ، نَحْوُ: قَامَ زَيْدٌ إِجْلَالًا لِعَمْرٍو، وقَصَدْتُكَ ابْتِغَاءَ مَعْرُوفِكَ."]}, {"h": "بابُ المفعولِ معه", "p": ["وهُوَ: الاسْمُ المَنْصُوبُ الَّذِي يُذْكَرُ لِبَيَانِ مَنْ فُعِلَ مَعَهُ الفِعْلُ، نَحْوُ قَوْلِكَ: جَاءَ الأَمِيرُ والجَيْشَ، واسْتَوَى المَاءُ والخَشَبَةَ.", "وأما خبر كان وأخواتها، واسم إن وأخواتها فقد تقدم ذكرهما في المرفوعات، وكذلك التوابع فقد تقدمت هناك."]}, {"h": "بابُ مخفوضاتِ الأسماءِ", "p": ["المَخْفُوضَاتُ، ثَلَاثَةٌ: مَخْفُوضٌ بِالحَرْفِ، ومَخْفُوضٌ بِالإِضَافَةِ، وتَابِعٌ لِلْمَخْفُوضِ.", "فَأَمَّا المَخْفُوضُ بِالحَرْفِ، فَهُوَ: مَا يُخْفَضُ بِمِنْ، وإِلَى، وعَنْ، وعَلَى، وفِي، ورُبَّ، والبَاءِ، والكَافِ، واللَّامِ؛ وبِحُرُوفِ القَسَمِ وهِيَ: الوَاوُ، والبَاءُ، والتَّاءُ، وبِوَاوِ رُبَّ، وبِمُذْ، ومُنْذُ.", "وأَمَّا مَا يُخْفَضُ بِالإِضَافَةِ، فَنَحْوُ قَوْلِكَ: غُلَامُ زَيْدٍ، وهُوَ عَلَى قِسْمَيْنِ: مَا يُخْفَضُ بِاللَّامِ، نَحْوُ: غُلَامُ زَيْدٍ؛ ومَا يُقَدَّرُ بِمِنْ، نَحْوُ: ثَوْبُ خَزٍّ، وبَابُ سَاجٍ، وخَاتَمُ حَدِيدٍ، ومَا أَشْبَهَ ذَلِكَ."]}], "links": [[10, 14, 15, 20, 26, 29, 32], [39, 45, 47], [53, 54, 60, 69, 74, 77, 82, 83, 88, 93, 100, 127], [139, 140, 140, 140, 142, 142, 142], [149, 149, 161, 168, 191], [219, 219], [223, 223, 226], [235, 235], [245, 245, 256, 256], [265, 278, 280, 285], [297, 297, 297, 297], [315], [337], [347, 347, 347], [361], [367, 367, 367, 367], [381, 381, 381], [391, 391], [405], [415], [431, 431, 431, 431], [463, 463], [487, 487], [499], [511, 511], [523, 523, 523]], "quiz": [["الكلام عند النحاة هو:", ["اللفظ المركب المفيد بالوضع", "كل ما نطق به اللسان", "الكلمة المفردة الدالة على معنى", "ما تركّب من اسمين فقط"], 0, 10, "عرّفه ابن آجروم بأنه: اللفظ المركب المفيد بالوضع."], ["أقسام الكلام:", ["اسم وفعل وحرف جاء لمعنى", "اسم وفعل فقط", "اسم وفعل وحرف وجملة", "مبتدأ وخبر وفعل"], 0, 14, "«وأقسامه ثلاثة: اسم، وفعل، وحرف جاء لمعنى»."], ["أيّها ليس من علامات الاسم؟", ["دخول «قد»", "الخفض", "التنوين", "دخول الألف واللام"], 0, 15, "«قد» من علامات الفعل."], ["كم حرفًا من حروف الخفض ذكرها المصنف؟", ["تسعة", "سبعة", "عشرة", "ثلاثة"], 0, 20, "مِن، وإلى، وعن، وعلى، وفي، ورُبّ، والباء، والكاف، واللام."], ["حروف القسم هي:", ["الواو والباء والتاء", "الواو والفاء والتاء", "الباء واللام والكاف", "مِن وإلى وعن"], 0, 26, "«وحروف القسم، وهي: الواو، والباء، والتاء»."], ["علامة الحرف:", ["ألّا يصلح معه دليل الاسم ولا دليل الفعل", "دخول «قد» عليه", "قبوله التنوين", "سكون آخره"], 0, 32, "«والحرف: ما لا يصلح معه دليل الاسم، ولا دليل الفعل»."], ["الإعراب هو:", ["تغيير أواخر الكلم لاختلاف العوامل الداخلة عليها لفظًا أو تقديرًا", "لزوم آخر الكلمة حالة واحدة", "معرفة معاني المفردات", "تغيير أوائل الكلم"], 0, 39, "هذا تعريف المصنف للإعراب."], ["أيّ أنواع الإعراب لا يدخل الأسماء؟", ["الجزم", "الخفض", "النصب", "الرفع"], 0, 45, "«فللأسماء من ذلك: الرفع والنصب والخفض، ولا جزم فيها»."], ["أيّ أنواع الإعراب لا يدخل الأفعال؟", ["الخفض", "الجزم", "النصب", "الرفع"], 0, 45, "«وللأفعال من ذلك: الرفع والنصب والجزم، ولا خفض فيها»."], ["علامات الرفع:", ["الضمة والواو والألف والنون", "الضمة والفتحة والكسرة والسكون", "الضمة والواو والياء", "الضمة وحدها"], 0, 53, "للرفع أربع علامات: الضمة، والواو، والألف، والنون."], ["تكون الواو علامة للرفع في:", ["جمع المذكر السالم والأسماء الخمسة", "المثنى والجمع", "الأفعال الخمسة", "جمع التكسير"], 0, 60, "«في موضعين: في جمع المذكر السالم، وفي الأسماء الخمسة»."], ["تكون الألف علامة للرفع في:", ["تثنية الأسماء خاصة", "الأسماء الخمسة", "جمع المؤنث السالم", "الفعل المضارع"], 0, 69, "«فتكون علامة للرفع في تثنية الأسماء خاصة»."], ["تكون النون علامة للرفع في:", ["المضارع إذا اتصل به ضمير تثنية أو جمع أو المؤنثة المخاطبة", "جمع المذكر السالم", "المثنى", "نون التوكيد"], 0, 74, "وهي الأفعال الخمسة."], ["كم علامة للنصب؟", ["خمس", "أربع", "ثلاث", "اثنتان"], 0, 77, "الفتحة، والألف، والكسرة، والياء، وحذف النون."], ["جمع المؤنث السالم يُنصب بـ:", ["الكسرة", "الفتحة", "الياء", "الألف"], 0, 82, "«وأما الكسرة: فتكون علامة للنصب في جمع المؤنث السالم»."], ["تكون الياء علامة للنصب في:", ["التثنية والجمع", "الأسماء الخمسة", "جمع المؤنث السالم", "الممنوع من الصرف"], 0, 83, "المثنى وجمع المذكر السالم."], ["الاسم الذي لا ينصرف يُخفض بـ:", ["الفتحة", "الكسرة", "الياء", "السكون"], 0, 100, "«وأما الفتحة: فتكون علامة للخفض في الاسم الذي لا ينصرف»."], ["علامتا الجزم:", ["السكون والحذف", "السكون والكسرة", "الحذف والفتحة", "السكون وحده"], 0, 127, "«وللجزم علامتان: السكون، والحذف»."], ["المضارع المعتل الآخر يُجزم بـ:", ["حذف آخره", "السكون", "حذف النون", "الفتحة"], 0, 129, "«يُجزم بحذف آخره»."], ["الأفعال الخمسة تُرفع بـ:", ["النون", "الضمة", "الواو", "الألف"], 0, 142, "«وأما الأفعال الخمسة: فترفع بالنون، وتنصب وتجزم بحذفها»."], ["الزوائد الأربع في أول المضارع يجمعها قولك:", ["أَنَيْتُ", "سألتمونيها", "هويت السمان", "قد سما"], 0, 161, "الهمزة والنون والياء والتاء."], ["كم عدد نواصب المضارع عند المصنف؟", ["عشرة", "ثمانية عشر", "سبعة", "خمسة"], 0, 168, "أن، ولن، وإذن، وكي، ولام كي، ولام الجحود، وحتى، والجواب بالفاء، والواو، وأو."], ["كم عدد الجوازم عند المصنف؟", ["ثمانية عشر", "عشرة", "خمسة عشر", "سبعة"], 0, 191, "«والجوازم: ثمانية عشر»."], ["كم عدد المرفوعات؟", ["سبعة", "خمسة عشر", "ثلاثة", "عشرة"], 0, 219, "«المرفوعات: سبعة»."], ["الفاعل هو:", ["الاسم المرفوع المذكور قبله فعله", "الاسم المنصوب الذي يقع به الفعل", "الاسم المرفوع العاري عن العوامل اللفظية", "الاسم المرفوع الذي لم يُذكر معه فاعله"], 0, 223, "هذا تعريف الفاعل في المتن."], ["إذا بُني الماضي لما لم يُسمَّ فاعله:", ["ضُمّ أوله وكُسر ما قبل آخره", "ضُمّ أوله وفُتح ما قبل آخره", "فُتح أوله وكُسر آخره", "كُسر أوله"], 0, 235, "وفي المضارع: ضُمّ أوله وفُتح ما قبل آخره."], ["المبتدأ هو:", ["الاسم المرفوع العاري عن العوامل اللفظية", "الاسم المرفوع المسند إليه", "الاسم المرفوع المذكور قبله فعله", "كل اسم في أول الجملة"], 0, 245, "والخبر: الاسم المرفوع المسند إليه."], ["كم نوعًا لغير المفرد من الخبر؟", ["أربعة", "اثنان", "ثلاثة", "خمسة"], 0, 256, "الجار والمجرور، والظرف، والفعل مع فاعله، والمبتدأ مع خبره."], ["عمل «كان» وأخواتها:", ["ترفع الاسم وتنصب الخبر", "تنصب الاسم وترفع الخبر", "تنصبهما معًا", "ترفعهما معًا"], 0, 265, "«فإنها ترفع الاسم، وتنصب الخبر»."], ["معنى «لعلّ»:", ["الترجي والتوقع", "التمني", "التشبيه", "الاستدراك"], 0, 278, "«ولعلّ للترجي والتوقع»."], ["عمل «ظننت» وأخواتها:", ["تنصب المبتدأ والخبر على أنهما مفعولان لها", "ترفع المبتدأ وتنصب الخبر", "تنصب المبتدأ وترفع الخبر", "لا تعمل"], 0, 285, "«تنصب المبتدأ والخبر على أنهما مفعولان لها»."], ["كم عدد المعارف عند المصنف؟", ["خمسة", "أربعة", "ستة", "ثلاثة"], 0, 301, "المضمر، والعلم، والاسم المبهم، وما فيه الألف واللام، وما أضيف إلى واحد منها."], ["كم عدد حروف العطف؟", ["عشرة", "تسعة", "سبعة", "خمسة"], 0, 315, "الواو، والفاء، وثم، وأو، وأم، وإما، وبل، ولا، ولكن، وحتى في بعض المواضع."], ["في «أكلتُ الرغيفَ ثُلُثَه»: «ثلثه» بدل:", ["بعض من كل", "اشتمال", "كل من كل", "غلط"], 0, 347, "بدل البعض من الكل."], ["كم عدد المنصوبات؟", ["خمسة عشر", "سبعة", "عشرة", "ثلاثة"], 0, 361, "«المنصوبات: خمسة عشر»."], ["في «جلستُ قعودًا» المصدر:", ["معنوي", "لفظي", "ليس مصدرًا", "مؤكد لغيره"], 0, 381, "وافق معنى فعله دون لفظه."], ["لا يكون الحال إلا:", ["نكرة، بعد تمام الكلام، وصاحبها معرفة", "معرفة، وصاحبها نكرة", "نكرة في أول الكلام", "جامدًا"], 0, 405, "هذه شروط الحال الثلاثة في المتن."], ["في «تصبّب زيدٌ عرقًا»: «عرقًا»:", ["تمييز", "حال", "مفعول به", "مفعول من أجله"], 0, 415, "اسم منصوب مفسر لما انبهم من الذوات."], ["المستثنى بغير وسِوى وسُوى وسواء:", ["مجرور لا غير", "منصوب لا غير", "يجوز نصبه وجره", "مرفوع"], 0, 441, "«مجرور لا غير»."], ["متى تنصب «لا» النكرة بغير تنوين؟", ["إذا باشرت النكرة ولم تتكرر «لا»", "إذا تكررت «لا»", "إذا فُصل بينهما", "مطلقًا"], 0, 463, "فإن لم تباشرها وجب الرفع وتكرار «لا»."], ["المنادى المفرد العلم والنكرة المقصودة:", ["يُبنيان على الضم من غير تنوين", "يُنصبان", "يُجرّان", "يُرفعان بالتنوين"], 0, 487, "والثلاثة الباقية منصوبة لا غير."], ["في «قصدتك ابتغاءَ معروفك»: «ابتغاء»:", ["مفعول من أجله", "مفعول معه", "حال", "مصدر لفظي"], 0, 499, "ذُكر بيانًا لسبب وقوع الفعل."], ["في «استوى الماءُ والخشبةَ»: «الخشبة»:", ["مفعول معه", "معطوف على الماء", "مفعول به", "حال"], 0, 511, "ذُكر لبيان من فُعل معه الفعل."], ["المخفوضات:", ["ثلاثة: بالحرف، وبالإضافة، والتابع للمخفوض", "اثنان: بالحرف، وبالإضافة", "أربعة", "خمسة عشر"], 0, 522, "«المخفوضات ثلاثة»."], ["«خاتمُ حديدٍ» إضافة على تقدير:", ["مِن", "اللام", "في", "الباء"], 0, 522, "«وما يقدَّر بمِن، نحو: ثوب خزّ، وباب ساج، وخاتم حديد»."]]};
+{
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const AR=n=>String(n).replace(/\d/g,d=>'٠١٢٣٤٥٦٧٨٩'[d]);
+const LAST=576;
+const ls={get(k,d){try{const v=localStorage.getItem('ajr-'+k);return v?JSON.parse(v):d}catch(e){return d}},set(k,v){try{localStorage.setItem('ajr-'+k,JSON.stringify(v))}catch(e){}}};
+const st={page:ls.get('page',5),seen:new Set(ls.get('seen',[])),bm:ls.get('bm',{}),notes:ls.get('notes',{}),mem:ls.get('mem',{})};
+const save=()=>{ls.set('page',st.page);ls.set('seen',[...st.seen]);ls.set('bm',st.bm);ls.set('notes',st.notes);ls.set('mem',st.mem)};
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const main=D.toc.filter(t=>t[2]==1);
+const secOf=p=>{let s=main[0];for(const t of main){if(t[1]<=p)s=t}return s};
+
+/* ---------- tree data ---------- */
+const T=[
+['الكلام وأقسامه',10,'k',[['تعريفه: اللفظ المركب المفيد بالوضع',10],['الاسم',15,0,[['يُعرف بالخفض',15],['وبالتنوين',15],['وبدخول الألف واللام',15],['حروف الخفض (٩): مِن، إلى، عن، على، في، رُبّ، الباء، الكاف، اللام',20],['حروف القسم (٣): الواو، الباء، التاء',26]]],['الفعل',29,0,[['قد',29],['السين وسوف',29],['تاء التأنيث الساكنة',29]]],['الحرف: ما لا يصلح معه دليل الاسم ولا الفعل',32]]],
+['الإعراب وأقسامه',39,'i',[['تعريفه: تغيير أواخر الكلم لاختلاف العوامل الداخلة عليها لفظًا أو تقديرًا',39],['أقسامه الأربعة',45,0,[['الرفع: في الأسماء والأفعال',45,'r'],['النصب: في الأسماء والأفعال',45,'n'],['الخفض: في الأسماء خاصة',45,'x'],['الجزم: في الأفعال خاصة',45,'j']]]]],
+['علامات الإعراب',53,'i',[
+ ['للرفع أربع علامات',53,'r',[['الضمة',54,'r',[['الاسم المفرد',54],['جمع التكسير',54],['جمع المؤنث السالم',54],['المضارع الذي لم يتصل بآخره شيء',54]]],['الواو',60,'r',[['جمع المذكر السالم',60],['الأسماء الخمسة',60]]],['الألف: تثنية الأسماء خاصة',69,'r'],['النون: المضارع المتصل به ضمير تثنية أو جمع أو المخاطبة',74,'r']]],
+ ['للنصب خمس علامات',77,'n',[['الفتحة',79,'n',[['الاسم المفرد',79],['جمع التكسير',79],['المضارع إذا دخل عليه ناصب',79]]],['الألف: الأسماء الخمسة',81,'n'],['الكسرة: جمع المؤنث السالم',82,'n'],['الياء: التثنية والجمع',83,'n'],['حذف النون: الأفعال الخمسة',88,'n']]],
+ ['للخفض ثلاث علامات',93,'x',[['الكسرة',93,'x',[['الاسم المفرد المنصرف',93],['جمع التكسير المنصرف',93],['جمع المؤنث السالم',93]]],['الياء',96,'x',[['الأسماء الخمسة',96],['التثنية',96],['الجمع',96]]],['الفتحة: الاسم الذي لا ينصرف',100,'x']]],
+ ['للجزم علامتان',127,'j',[['السكون: المضارع الصحيح الآخر',127,'j'],['الحذف',129,'j',[['المضارع المعتل الآخر',129],['الأفعال الخمسة',129]]]]]]],
+['المعربات',139,'m',[['بالحركات (٤)',140,0,[['الاسم المفرد',140],['جمع التكسير',140],['جمع المؤنث السالم',140],['المضارع الذي لم يتصل بآخره شيء',140]]],['بالحروف (٤)',142,0,[['التثنية',142],['جمع المذكر السالم',142],['الأسماء الخمسة',142],['الأفعال الخمسة',142]]]]],
+['الأفعال',149,'j',[['الماضي: مفتوح الآخر أبدًا',149],['الأمر: مجزوم أبدًا',149],['المضارع: في أوله إحدى زوائد «أنيت»',161,0,[['النواصب (١٠)',168,'n',[['أن، لن، إذن، كي',168],['لام كي، لام الجحود، حتى',168],['الجواب بالفاء والواو، وأو',180]]],['الجوازم (١٨)',191,'j',[['لم، لمّا، ألم، ألمّا',191],['لام الأمر والدعاء، ولا في النهي والدعاء',191],['أدوات الشرط: إن، ما، من، مهما، إذما، أي، متى، أيان، أين، أنّى، حيثما، كيفما، وإذا في الشعر',201]]]]]]],
+['المرفوعات (٧)',219,'r',[['الفاعل',223,'r',[['ظاهر',223],['مضمر (١٢)',226]]],['المفعول الذي لم يُسمَّ فاعله',235,'r'],['المبتدأ',245,'r'],['الخبر',256,'r',[['مفرد',256],['غير مفرد: الجار والمجرور، الظرف، الفعل مع فاعله، المبتدأ مع خبره',256]]],['اسم كان وأخواتها',265,'r'],['خبر إنّ وأخواتها',278,'r'],['التابع للمرفوع',297,'r',[['النعت',297],['العطف',315],['التوكيد',337],['البدل',347]]]]],
+['المنصوبات (١٥)',361,'n',[['المفعول به',367,'n'],['المصدر',381,'n'],['ظرف الزمان',391,'n'],['ظرف المكان',391,'n'],['الحال',405,'n'],['التمييز',415,'n'],['المستثنى',431,'n'],['اسم لا',463,'n'],['المنادى',487,'n'],['المفعول من أجله',499,'n'],['المفعول معه',511,'n'],['خبر كان وأخواتها',277,'n'],['اسم إنّ وأخواتها',278,'n'],['التابع للمنصوب: النعت والعطف والتوكيد والبدل',297,'n']]],
+['المخفوضات (٣)',522,'x',[['المخفوض بالحرف',522,'x'],['المخفوض بالإضافة',522,'x',[['ما يقدّر باللام: غلامُ زيدٍ',522],['ما يقدّر بمِن: خاتمُ حديدٍ',522]]],['التابع للمخفوض',522,'x']]]];
+
+const nodeHTML=(n,c,top)=>{const [l,p,k,kids]=n;const cc=k||c;const has=kids&&kids.length;
+ return `<li class="${has?'cl':''}" style="--c:var(--${cc})"><div class="nd"><button class="tg${top?' top':''}" ${has?'data-tg':''}>${has?'<span class="ar">◀</span> ':''}${esc(l)}</button>${p?`<button class="pg" data-p="${p}">ص ${AR(p)}</button>`:''}</div>${has?`<ul style="--c:var(--${cc})">${kids.map(x=>nodeHTML(x,cc)).join('')}</ul>`:''}</li>`};
+$('#tree').innerHTML=T.map(n=>nodeHTML(n,n[2],1)).join('');
+$('#tree').addEventListener('click',e=>{const b=e.target.closest('[data-tg]');if(b)b.closest('li').classList.toggle('cl')});
+$('#tOpen').onclick=()=>$$('#tree li').forEach(l=>l.classList.remove('cl'));
+$('#tClose').onclick=()=>$$('#tree li').forEach(l=>{if(l.querySelector('ul'))l.classList.add('cl')});
+
+/* ---------- drawn shajara on home ---------- */
+const sj=$('#shajara');
+const drawS=()=>{const W=sj.clientWidth||sj.parentNode.clientWidth;if(!W)return;
+ const two=W>=620,rowH=two?62:58,top=78,n=T.length;
+ const rows=two?Math.ceil(n/2):n,H=top+rows*rowH+40;sj.setAttribute('viewBox',`0 0 ${W} ${H}`);sj.style.height=H+'px';
+ const cx=two?W/2:W-34;const bw=two?Math.min(300,W/2-70):W-110;
+ let s=`<defs><linearGradient id="tr" gradientUnits="userSpaceOnUse" x1="0" x2="0" y1="40" y2="${H}"><stop offset="0" stop-color="var(--gold)"/><stop offset="1" stop-color="var(--k)"/></linearGradient></defs>`;
+ s+=`<path d="M${cx} 54 V${H-24}" stroke="url(#tr)" stroke-width="10" stroke-linecap="round" fill="none"/>`;
+ s+=`<path d="M${cx-46} ${H-14} Q${cx} ${H-34} ${cx+46} ${H-14}" stroke="var(--k)" stroke-width="5" fill="none" stroke-linecap="round" opacity=".6"/>`;
+ const rw=two?190:Math.min(190,W-40);const rx=two?cx-rw/2:W-16-rw;
+ s+=`<rect x="${rx}" y="10" width="${rw}" height="46" rx="23" fill="var(--k)"/><text x="${rx+rw/2}" y="40" text-anchor="middle" style="fill:#fff;font:700 22px Amiri,serif">الآجُرُّوميَّة</text>`;
+ T.forEach((t,i)=>{const side=two?(i%2?-1:1):-1;const row=two?Math.floor(i/2):i;const y=top+row*rowH+(two&&i%2?rowH/2:0)+18;
+  const ex=cx+side*44;const bx=side>0?ex:ex-bw;
+  s+=`<g class="g" data-b="${i}" role="button" tabindex="0"><path d="M${cx} ${y-26} C${cx} ${y},${cx+side*20} ${y+4},${ex} ${y+4}" stroke="var(--${t[2]})" stroke-width="4" fill="none" stroke-linecap="round"/>`;
+  s+=`<circle cx="${cx}" cy="${y-24}" r="6" fill="var(--${t[2]})"/>`;
+  s+=`<rect x="${bx}" y="${y-18}" width="${bw}" height="44" rx="14" fill="color-mix(in srgb,var(--${t[2]}) 14%,var(--bg))" stroke="var(--${t[2]})" stroke-width="2"/>`;
+  s+=`<text x="${bx+bw/2}" y="${y+10}" text-anchor="middle">${esc(t[0])}</text>`;
+  const lv=(t[3]||[]).length;for(let j=0;j<Math.min(lv,7);j++){const lx=side>0?bx+bw+12+j*13:bx-12-j*13;if(lx>6&&lx<W-6)s+=`<circle cx="${lx}" cy="${y+4}" r="5" fill="var(--${t[2]})" opacity="${1-j*.11}"/>`}
+  s+='</g>'});
+ sj.innerHTML=s};
+const roS=new ResizeObserver(drawS);roS.observe(sj.parentNode);
+sj.addEventListener('click',e=>{const g=e.target.closest('[data-b]');if(!g)return;go('tree');const li=$('#tree').children[+g.dataset.b];$$('#tree>li').forEach(l=>l.classList.add('cl'));li.classList.remove('cl');setTimeout(()=>li.scrollIntoView({behavior:'smooth',block:'start'}),60)});
+
+/* ---------- irab matrix ---------- */
+const C=['r','n','x','j'],CN=['الرفع','النصب','الخفض','الجزم'];
+const M=[
+['الاسم المفرد',[['الضمة',0,'جاءَ <em>زيدٌ</em>',54],['الفتحة',0,'رأيتُ <em>زيدًا</em>',79],['الكسرة',0,'مررتُ <em>بزيدٍ</em>',93],null]],
+['جمع التكسير',[['الضمة',0,'جاءَ <em>الرجالُ</em>',54],['الفتحة',0,'رأيتُ <em>الرجالَ</em>',79],['الكسرة',0,'مررتُ <em>بالرجالِ</em>',93],null]],
+['جمع المؤنث السالم',[['الضمة',0,'جاءتِ <em>الهنداتُ</em>',54],['الكسرة',1,'رأيتُ <em>الهنداتِ</em>',82],['الكسرة',0,'مررتُ <em>بالهنداتِ</em>',93],null]],
+['المثنى',[['الألف',1,'جاءَ <em>الزيدانِ</em>',69],['الياء',1,'رأيتُ <em>الزيدَيْنِ</em>',83],['الياء',1,'مررتُ <em>بالزيدَيْنِ</em>',96],null]],
+['جمع المذكر السالم',[['الواو',1,'جاءَ <em>الزيدونَ</em>',60],['الياء',1,'رأيتُ <em>الزيدِينَ</em>',83],['الياء',1,'مررتُ <em>بالزيدِينَ</em>',96],null]],
+['الأسماء الخمسة',[['الواو',1,'جاءَ <em>أبوكَ</em>',60],['الألف',1,'رأيتُ <em>أباكَ</em>',81],['الياء',1,'مررتُ <em>بأبيكَ</em>',96],null]],
+['الاسم الذي لا ينصرف',[['الضمة',0,'جاءَ <em>أحمدُ</em>',54],['الفتحة',0,'رأيتُ <em>أحمدَ</em>',79],['الفتحة',1,'مررتُ <em>بأحمدَ</em>',100],null]],
+['المضارع الصحيح الآخر',[['الضمة',0,'<em>يضربُ</em> زيدٌ',54],['الفتحة',0,'لن <em>يضربَ</em>',79],null,['السكون',0,'لم <em>يضربْ</em>',127]]],
+['المضارع المعتل الآخر',[['الضمة المقدرة',0,'<em>يدعو</em> ربَّه',54],['الفتحة',0,'لن <em>يدعوَ</em>',79],null,['حذف آخره',1,'لم <em>يدعُ</em>',129]]],
+['الأفعال الخمسة',[['ثبوت النون',1,'<em>يفعلونَ</em>',74],['حذف النون',1,'لن <em>يفعلوا</em>',88],null,['حذف النون',1,'لم <em>يفعلوا</em>',129]]]];
+$('#mx').innerHTML=`<thead><tr><th class="t">نوع الكلمة</th>${CN.map((n,i)=>`<th style="background:var(--${C[i]})">${n}</th>`).join('')}</tr></thead><tbody>${M.map((r,ri)=>`<tr><td class="t">${r[0]}</td>${r[1].map((c,ci)=>`<td class="c"><button class="cell ${c?(c[1]?'f':''):'no'}" style="--cc:var(--${C[ci]})" data-r="${ri}" data-c="${ci}">${c?c[0]:'لا يدخله'}</button></td>`).join('')}</tr>`).join('')}</tbody>`;
+const showCell=(ri,ci)=>{$$('.cell').forEach(b=>b.classList.toggle('sel',b.dataset.r==ri&&b.dataset.c==ci));const r=M[ri],c=r[1][ci];const d=$('#mxd');d.style.setProperty('--cc',`var(--${C[ci]})`);
+ if(!c){d.innerHTML=`<h3>${r[0]} في حال ${CN[ci]}</h3><p>${ci==2?'الخفض لا يدخل الأفعال: «وللأفعال من ذلك: الرفع، والنصب، والجزم، ولا خفض فيها».':'الجزم لا يدخل الأسماء: «فللأسماء من ذلك: الرفع، والنصب، والخفض، ولا جزم فيها».'}</p><button class="btn sm" data-p="45">اقرأ الشرح ص ${AR(45)}</button>`;return}
+ d.innerHTML=`<h3>${r[0]} في حال ${CN[ci]}</h3><p style="margin:4px 0">العلامة: <b style="color:var(--cc)">${c[0]}</b> ${c[1]?'نيابةً عن العلامة الأصلية':'وهي العلامة الأصلية'}</p><div class="ex">${c[2]}</div><button class="btn sm" data-p="${c[3]}">اقرأ الشرح ص ${AR(c[3])}</button>`};
+$('#mx').addEventListener('click',e=>{const b=e.target.closest('.cell');if(b)showCell(+b.dataset.r,+b.dataset.c)});
+showCell(3,1);
+
+/* ---------- matn ---------- */
+const MC=['k','i','i','m','j','r','r','r','r','r','r','r','r','r','n','n','n','n','n','n','n','n','n','n','n','x'];
+$('#matn').innerHTML=D.matn.map((s,i)=>`<div class="mbox" style="--c:var(--${MC[i]})"><div class="mh"><h3>${s.h}</h3><label><input type="checkbox" data-mem="${i}">حفظتُه</label></div>${s.p.map((p,j)=>`<div class="mp"><p class="mt">${p}</p><button class="pg" data-p="${D.links[i][j]}">الشرح ص ${AR(D.links[i][j])}</button></div>`).join('')}</div>`).join('');
+const memUpd=()=>{const n=Object.values(st.mem).filter(Boolean).length;$('#memP').style.width=(n/D.matn.length*100)+'%';$('#memT').textContent=`حفظتَ ${AR(n)} من ${AR(D.matn.length)} بابًا`;$$('[data-mem]').forEach(c=>c.checked=!!st.mem[c.dataset.mem])};
+$('#matn').addEventListener('change',e=>{const c=e.target.closest('[data-mem]');if(c){st.mem[c.dataset.mem]=c.checked;save();memUpd()}});
+$('#matn').addEventListener('click',e=>{const t=e.target.closest('.mt');if(t&&$('#matn').classList.contains('hide'))t.classList.toggle('show')});
+$('#hideB').onclick=()=>{const h=$('#matn').classList.toggle('hide');$('#hideB').textContent=h?'إظهار المتن':'وضع التسميع';$$('.mt.show').forEach(x=>x.classList.remove('show'))};
+memUpd();
+
+/* ---------- reader ---------- */
+let TX=null;const loadTX=()=>TX?Promise.resolve(TX):fetch('text.json').then(r=>r.json()).then(j=>TX=j).catch(()=>TX=[]);
+let showTx=false,showNote=false;
+const CH={};const chunk=k=>CH[k]||(CH[k]=fetch('c/'+k+'.json').then(r=>r.json()).catch(()=>{delete CH[k];return[]}));
+const img=p=>Promise.resolve('p/'+p+'.png');
+const render=()=>{const p=st.page;$('#pimg').style.opacity=.35;img(p).then(u=>{if(st.page===p){$('#pimg').src=u;$('#pimg').style.opacity=1}});if(p<LAST){const pre=new Image();pre.src='p/'+(p+1)+'.png'}$('#pnum').value=p;
+ const s=secOf(p);$('#rsec').textContent=s[0];$('#rpos').textContent=`صفحة ${AR(p)} من ${AR(LAST)}`;
+ $('#bm').classList.toggle('on',!!st.bm[p]);$('#note').value=st.notes[p]||'';$('#nb').classList.toggle('on',!!st.notes[p]||showNote);
+ $('#notebox').hidden=!(showNote||st.notes[p]);$('#tx').classList.toggle('on',showTx);
+ if(showTx){loadTX().then(t=>{$('#ocr').innerHTML='<p class="warn">نص مستخرج آليًّا من الصورة، فيه أخطاء ولا سيما في الحركات؛ فالمعتمد صورة الصفحة.</p>'+esc(t[p-1]||'');$('#ocr').hidden=false})}else $('#ocr').hidden=true;
+ st.seen.add(p);save();home()};
+const to=p=>{p=Math.max(1,Math.min(LAST,p|0));st.page=p;if(location.hash!=='#p-'+p)history.replaceState(null,'','#p-'+p);render();window.scrollTo({top:0})};
+$('#prev').onclick=()=>to(st.page-1);$('#next').onclick=()=>to(st.page+1);
+$('#pnum').onchange=e=>to(+e.target.value);
+$('#bm').onclick=()=>{const p=st.page;if(st.bm[p])delete st.bm[p];else st.bm[p]=secOf(p)[0];save();render()};
+$('#nb').onclick=()=>{showNote=!showNote;render();if(showNote)$('#note').focus()};
+$('#note').oninput=e=>{const v=e.target.value.trim();if(v)st.notes[st.page]=e.target.value;else delete st.notes[st.page];save()};
+$('#tx').onclick=()=>{showTx=!showTx;render()};
+let sx=null,sy=0;$('#pg').addEventListener('touchstart',e=>{sx=e.touches[0].clientX;sy=e.touches[0].clientY},{passive:true});
+$('#pg').addEventListener('touchend',e=>{if(sx==null)return;const dx=e.changedTouches[0].clientX-sx,dy=e.changedTouches[0].clientY-sy;if(Math.abs(dx)>60&&Math.abs(dx)>Math.abs(dy)*1.5)to(st.page+(dx>0?1:-1));sx=null});
+document.addEventListener('keydown',e=>{if(cur!=='read'||e.target.closest('input,textarea'))return;if(e.key==='ArrowLeft')to(st.page+1);if(e.key==='ArrowRight')to(st.page-1)});
+
+/* ---------- toc & marks ---------- */
+const tocR=(f)=>{const isEx=t=>t[2]==2;$('#tl').innerHTML=D.toc.map((t,i)=>{if(f==='ex'&&!isEx(t))return'';const end=(D.toc.slice(i+1).find(x=>x[1]>t[1])||[0,t[1]+1])[1];let seen=true;for(let q=t[1];q<Math.max(end,t[1]+1);q++)if(!st.seen.has(q)){seen=false;break}
+ return `<li><button data-p="${t[1]}" class="${t[2]==1?'l1':'l2'} ${seen?'seen':''}"><span>${t[0]}</span><span class="n">${AR(t[1])}</span></button></li>`}).join('')};
+let tf='all';$('#fa').onclick=()=>{tf='all';tocR(tf)};$('#fe').onclick=()=>{tf='ex';tocR(tf)};
+const marksR=()=>{const ks=new Set([...Object.keys(st.bm),...Object.keys(st.notes)].map(Number));const a=[...ks].sort((x,y)=>x-y);
+ $('#marks').innerHTML=a.length?a.map(p=>`<button class="mk" data-p="${p}"><b>${st.bm[p]?'★ ':''}صفحة ${AR(p)}</b><small>${esc(secOf(p)[0])}</small>${st.notes[p]?`<small>${esc(st.notes[p].slice(0,90))}</small>`:''}</button>`).join(''):'<p class="small">لا علامات بعد. اضغط ★ في القارئ لتحفظ صفحة، أو «ملاحظة» لتكتب عليها.</p>'};
+
+/* ---------- quiz ---------- */
+let qi=0,qs=0,qwrong=[],qorder=D.quiz.map((_,i)=>i),qdone=false;
+const shuf=a=>{for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+const qR=()=>{const z=$('#qz');if(qi>=qorder.length){z.innerHTML=`<div class="qcard" style="text-align:center"><h2>انتهى الاختبار</h2><div class="score">${AR(qs)} / ${AR(qorder.length)}</div><p>${qs==qorder.length?'أحسنت، أجبت عن الأسئلة كلها.':'راجع هذه المواضع:'}</p>${qwrong.map(k=>`<button class="btn ghost sm" style="margin:4px" data-p="${D.quiz[k][3]}">${esc(D.quiz[k][0].replace(/:$/,''))} · ص ${AR(D.quiz[k][3])}</button>`).join('')}<p style="margin-top:16px"><button class="btn" id="qre">أعد الاختبار</button> <button class="btn ghost" id="qsh">اختبار بترتيب عشوائي</button></p></div>`;return}
+ const k=qorder[qi],q=D.quiz[k];const ops=shuf(q[1].map((o,j)=>[o,j]));
+ z.innerHTML=`<h2>اختبر نفسك</h2><div class="qtop"><span>السؤال ${AR(qi+1)} من ${AR(qorder.length)}</span><span>الصحيح: ${AR(qs)}</span></div><div class="prog" style="margin-bottom:14px"><i style="width:${qi/qorder.length*100}%"></i></div><div class="qcard"><div class="qq">${q[0]}</div>${ops.map(o=>`<button class="op" data-o="${o[1]}">${o[0]}</button>`).join('')}<div id="qex"></div></div>`;qdone=false};
+$('#qz').addEventListener('click',e=>{if(e.target.id==='qre'){qi=0;qs=0;qwrong=[];qorder=D.quiz.map((_,i)=>i);qR();return}if(e.target.id==='qsh'){qi=0;qs=0;qwrong=[];qorder=shuf(D.quiz.map((_,i)=>i));qR();return}
+ if(e.target.id==='qn'){qi++;qR();window.scrollTo({top:0});return}
+ const b=e.target.closest('.op');if(!b||qdone)return;qdone=true;const k=qorder[qi],q=D.quiz[k],ok=+b.dataset.o===q[2];
+ $$('.op').forEach(o=>{if(+o.dataset.o===q[2])o.classList.add('ok')});if(!ok){b.classList.add('bad');qwrong.push(k)}else qs++;
+ $('#qex').innerHTML=`<div class="ex2"><b>${ok?'إجابة صحيحة.':'ليست هذه.'}</b> ${q[4]}<div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap"><button class="btn sm" id="qn">${qi+1<qorder.length?'السؤال التالي':'النتيجة'}</button><button class="btn ghost sm" data-p="${q[3]}">الشرح ص ${AR(q[3])}</button></div></div>`});
+qR();
+
+/* ---------- search ---------- */
+const HR=/[ً-ْٰـ]/g;
+const nz=s=>s.replace(HR,'').replace(/[أإآٱ]/g,'ا').replace(/ة/g,'ه').replace(/ى/g,'ي');
+$('#sf').onsubmit=e=>{e.preventDefault();const q=nz($('#sq').value.trim());const R=$('#res');if(q.length<2){R.innerHTML='';return}R.innerHTML='<li class="small">جارٍ البحث…</li>';
+ loadTX().then(t=>{const out=[];t.forEach((pg,i)=>{const raw=pg.replace(/\n/g,' ');const n=nz(raw);let at=n.indexOf(q);if(at<0)return;
+  /* map index in normalized (no harakat) back approximately via stripped raw */
+  const plain=raw.replace(HR,'');const a=Math.max(0,at-50);const sn=esc(plain.slice(a,at))+'<mark>'+esc(plain.slice(at,at+q.length))+'</mark>'+esc(plain.slice(at+q.length,at+q.length+70));
+  out.push(`<li><button data-p="${i+1}"><span class="n">ص ${AR(i+1)}</span>${a?'…':''}${sn}…</button></li>`)});
+  R.innerHTML=out.length?`<li class="small">${AR(out.length)} صفحة</li>`+out.slice(0,300).join(''):'<li class="small">لا نتائج. جرّب كلمة أخرى أو جزءًا من الكلمة.</li>'})};
+
+/* ---------- audio ---------- */
+const AU='https://archive.org/download/Alajromiyah_2_Othaimeen/';
+const AN=['الأول','الثاني','الثالث','الرابع','الخامس','السادس','السابع','الثامن','التاسع','العاشر','الحادي عشر','الثاني عشر','الثالث عشر','الرابع عشر','الخامس عشر','السادس عشر'];
+st.heard=ls.get('heard',{});st.apos=ls.get('apos',{});st.amk=ls.get('amk',{});let aCur=ls.get('acur',0);
+const fmt=t=>{t=Math.floor(t||0);const h=Math.floor(t/3600),m=Math.floor(t%3600/60),x=t%60;return AR((h?h+':':'')+String(m).padStart(h?2:1,'0')+':'+String(x).padStart(2,'0'))};
+const aR=()=>{$('#alist').innerHTML=AN.map((n,i)=>{const f=String(i+1).padStart(2,'0');return `<div class="les ${st.heard[i]?'done':''} ${aCur===i?'cur':''}"><b>الدرس ${n}</b><span class="small">${st.apos[i]?'آخر موضع: '+fmt(st.apos[i]):'لم يبدأ بعد'}${(st.amk[i]||[]).length?' · '+AR(st.amk[i].length)+' علامة':''}</span><div class="row"><button class="btn sm" data-sel="${i}">▶ استمع</button><a class="btn ghost sm" href="${AU+f}.mp3" target="_blank" rel="noopener">تنزيل</a><label class="small" style="display:flex;gap:6px;align-items:center"><input type="checkbox" data-hd="${i}" ${st.heard[i]?'checked':''} style="width:20px;height:20px;accent-color:var(--n)">سمعتُه</label></div></div>`}).join('');
+ $('#aT').textContent='المشغّل: الدرس '+AN[aCur];const m=st.amk[aCur]||[];$('#amarks').innerHTML=m.map((x,j)=>`<li><button data-at="${x[0]}"><span class="n">${fmt(x[0])}</span>${esc(x[1]||'علامة')}</button></li>`).join('')};
+const saveA=()=>{ls.set('heard',st.heard);ls.set('apos',st.apos);ls.set('amk',st.amk);ls.set('acur',aCur)};
+const aud=$('#aud');
+const loadA=play=>{aud.src=AU+String(aCur+1).padStart(2,'0')+'.mp3';aud.onloadedmetadata=()=>{if(st.apos[aCur])aud.currentTime=st.apos[aCur]};if(play)aud.play().catch(()=>{})};
+loadA(false);
+$('#afile').onchange=e=>{const f=e.target.files[0];if(!f)return;const k=(f.name.match(/(\d{1,2})/)||[])[1];if(k&&+k>=1&&+k<=16)aCur=+k-1;aud.src=URL.createObjectURL(f);aud.onloadedmetadata=()=>{if(st.apos[aCur])aud.currentTime=st.apos[aCur]};saveA();aR()};
+let lastS=0;aud.ontimeupdate=()=>{if(Math.abs(aud.currentTime-lastS)>5){lastS=aud.currentTime;st.apos[aCur]=aud.currentTime;saveA()}};
+aud.onended=()=>{st.heard[aCur]=true;saveA();aR()};
+$('#v-audio').addEventListener('click',e=>{const t=e.target;
+ if(t.dataset.sk){aud.currentTime=Math.max(0,aud.currentTime+ +t.dataset.sk)}
+ if(t.dataset.rt){aud.playbackRate=+t.dataset.rt;$$('[data-rt]').forEach(b=>b.classList.toggle('on',b===t))}
+ if(t.dataset.sel){aCur=+t.dataset.sel;loadA(true);saveA();aR();$('#aT').scrollIntoView({behavior:'smooth'})}
+ if(t.id==='amk'){const tx=window.getSelection?'':'';(st.amk[aCur]=st.amk[aCur]||[]).push([aud.currentTime||0,'الدقيقة '+fmt(aud.currentTime)]);st.amk[aCur].sort((a,b)=>a[0]-b[0]);saveA();aR()}
+ const at=t.closest('[data-at]');if(at){aud.currentTime=+at.dataset.at;aud.play().catch(()=>{})}});
+$('#v-audio').addEventListener('change',e=>{const c=e.target.closest('[data-hd]');if(c){st.heard[c.dataset.hd]=c.checked;saveA();aR()}});
+aR();
+
+/* ---------- home & routing ---------- */
+function home(){const pct=Math.round(Math.min(st.seen.size,538)/538*100);$('#ringv').style.strokeDashoffset=264-264*pct/100;$('#ringt').textContent=AR(pct)+'٪';
+ const p=st.page;$('#gop').textContent=st.seen.size>1?`آخر موضع: صفحة ${AR(p)}`:'ابدأ القراءة من المقدمة';$('#gos').textContent=secOf(p)[0]}
+$('#gob').onclick=()=>go('p-'+st.page);
+let cur='home';
+function go(v){if(location.hash==='#'+v)route();else location.hash=v}
+const route=()=>{let h=location.hash.slice(1)||'home';let m=h.match(/^p-(\d+)$/);let v=m?'read':h;if(!document.getElementById('v-'+v))v='home';
+ if(v==='read'){if(m)st.page=Math.max(1,Math.min(LAST,+m[1]));render()}
+ if(v==='toc'){tocR(tf);marksR()}if(v==='home'){home();drawS()}
+ cur=v;$$('.v').forEach(s=>s.classList.toggle('on',s.id==='v-'+v));$$('#nav button').forEach(b=>b.classList.toggle('on',b.dataset.go===v));
+ const nb=$(`#nav [data-go="${v}"]`);nb&&nb.scrollIntoView({inline:'center',block:'nearest'});if(!m)window.scrollTo({top:0})};
+window.addEventListener('hashchange',route);
+document.addEventListener('click',e=>{const g=e.target.closest('[data-go]');if(g){const v=g.dataset.go;go(v==='read'?'p-'+st.page:v);return}
+ const p=e.target.closest('[data-p]');if(p){go('p-'+p.dataset.p)}});
+route();
+}
+</script>
+</body>
+</html>
