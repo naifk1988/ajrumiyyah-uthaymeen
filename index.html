@@ -500,7 +500,7 @@ footer{padding:26px 0 40px;color:var(--mute);font-size:13px;border-top:1px solid
 
 <section class="v" id="v-lesson"><div class="wrap sec ls">
 <p class="small" style="margin:0"><button class="lnk" data-go="path">الدروس</button> ‹ <span id="lstep"></span></p>
-<span class="lbr" id="lbr"></span><h2 id="lt"></h2><p class="lead" id="lg"></p><p style="margin:-6px 0 14px;display:flex;gap:8px;flex-wrap:wrap"><button class="btn ghost sm" id="lsh" data-p="5">اقرأ شرح الشيخ لهذه المسألة</button><button class="btn ghost sm" id="lask">اسأل عن هذه المسألة</button><button class="btn ghost sm" id="lau">🎧 اسمع الشيخ</button></p><div id="laud" hidden></div>
+<span class="lbr" id="lbr"></span><h2 id="lt"></h2><p class="lead" id="lg"></p><p style="margin:-6px 0 14px;display:flex;gap:8px;flex-wrap:wrap"><button class="btn ghost sm" id="lsh" data-p="5">اقرأ شرح الشيخ لهذه المسألة</button><button class="btn ghost sm" id="lau">🎧 اسمع الشيخ</button></p><div id="laud" hidden></div>
 <div class="dots" id="ldots"></div>
 <div class="lbody" id="lbody"></div>
 <div class="lnav"><button class="btn ghost" id="lprev">السابق</button><button class="lnk" id="lskip">تجاوز</button><button class="btn" id="lnext">التالي</button></div>
@@ -625,7 +625,7 @@ footer{padding:26px 0 40px;color:var(--mute);font-size:13px;border-top:1px solid
 <ul class="res" id="res"></ul>
 </div></section>
 <div class="orig glsheet" id="glS" hidden><div class="ob"><div class="ot"><b id="glT"></b><button class="btn ghost sm" data-close>إغلاق</button></div><p id="glD" style="font-size:18px;margin:6px 0"></p><p id="glE" class="small"></p><button class="lnk" data-go="gloss" onclick="document.getElementById('glS').hidden=true">كل المصطلحات</button></div></div>
-<div class="orig" id="ask" hidden><div class="ob"><div class="ot"><b id="askT"></b><button class="btn ghost sm" data-close>إغلاق</button></div><textarea id="askX" rows="4" placeholder="اكتب ما أشكل عليك في هذه المسألة"></textarea><div class="tools"><button class="btn" id="askSh">أرسل سؤالي</button><button class="btn ghost" id="askCp">انسخ السؤال</button></div><p class="small">زر الإرسال يفتح قائمة المشاركة في جوالك، فترسل السؤال إلى شيخك أو معلّمك أو مجموعة الدراسة، ومعه رابط الدرس.</p></div></div>
+
 </main>
 <footer id="foot"><div class="wrap">شرح الآجرومية، لفضيلة الشيخ محمد بن صالح العثيمين. النص منقول عن النسخة المطبوعة، وصورة كل صفحة متاحة من زر «الأصل».</div></footer>
 
@@ -2075,13 +2075,6 @@ document.addEventListener('click',e=>{const b=e.target.closest('[data-bt]');if(b
 $('#v-lesson').addEventListener('click',e=>{const h=e.target.closest('[data-x="hint"]');if(!h)return;const s=curStep();const sel=s.t==='mcq'?'[data-mo]':'[data-pw]';const arr=s.t==='mcq'?s.o:s.w;
  const w=$$('#lbody '+sel).filter(b=>!b.disabled&&!arr[+(b.dataset.mo??b.dataset.pw)].ok);if(w.length>1||(w.length===1&&arr.length>2)){w[0].disabled=true;w[0].classList.add('off')}else if(s.why){$('#xout')&&($('#xout').innerHTML=`<div class="ex2">${s.why}</div>`)}h.remove()},true);
 
-/* ask about this */
-const askOpen=()=>{const L=LES[LC];$('#askT').textContent='سؤالك عن درس «'+L.title+'»';$('#askX').value='';$('#ask').hidden=false;setTimeout(()=>$('#askX').focus(),50)};
-const askText=()=>`سؤال عن درس «${LES[LC].title}» (شرح الآجرومية لابن عثيمين، ص ${LES[LC].page}):\n${$('#askX').value.trim()}\n${location.origin+location.pathname}#lesson-${LC}`;
-$('#ask').addEventListener('click',e=>{const t=e.target;if(t.closest('[data-close]')||t.id==='ask'){$('#ask').hidden=true;return}
- if(t.id==='askSh'){const s=askText();if(navigator.share)navigator.share({text:s}).catch(()=>{});else navigator.clipboard&&navigator.clipboard.writeText(s).then(()=>t.textContent='نُسخ السؤال')}
- if(t.id==='askCp'){navigator.clipboard&&navigator.clipboard.writeText(askText()).then(()=>t.textContent='نُسخ السؤال').catch(()=>{$('#askX').select()})}});
-
 /* daily reminder (.ics) */
 const remMake=()=>{const tm=($('#remT').value||'20:00').split(':');const d=new Date();d.setDate(d.getDate()+1);d.setHours(+tm[0],+tm[1],0,0);const p=n=>String(n).padStart(2,'0');
  const dt=`${d.getFullYear()}${p(d.getMonth()+1)}${p(d.getDate())}T${p(d.getHours())}${p(d.getMinutes())}00`;const url=location.origin+location.pathname;
@@ -2115,7 +2108,7 @@ const missItems=()=>st.miss.map(m=>{const L=LES[m.l];const s=L&&L.steps[m.i];ret
 const missR=()=>{const it=missItems();$('#msB').innerHTML=it.length?`<p class="lead">${AR(it.length)} مسألة تعثّرت فيها. تدرّب عليها حتى تخرج من الدفتر: كل سؤال تجيبه صوابًا يُحذف منه.</p><div class="tools"><button class="btn" id="msGo">أعد تدريبي عليها</button></div><ul class="res">${st.miss.slice().reverse().map(m=>LES[m.l]?`<li><button data-mr="${m.l},${m.i}"><span class="n">${LES[m.l].title}</span>${esc((m.q||'').replace(/<[^>]+>/g,''))}</button></li>`:'').join('')}</ul><div id="msT" class="qz"></div>`:'<p class="lead">دفترك فارغ. كل سؤال تخطئ فيه في الدروس يُسجّل هنا لتعود إليه.</p><button class="btn" data-go="home">إلى شجرة الرحلة</button>'};
 $('#v-miss').addEventListener('click',e=>{if(e.target.id==='msGo'){const it=missItems();teStart('msT',shuf(it),{done:(p,pct,T)=>{const bad=new Set(T.wrong.map(q=>q.q));st.miss=st.miss.filter(m=>{const L=LES[m.l],s=L&&L.steps[m.i];return s&&bad.has(s.q)});saveL()},after:'<button class="btn ghost" data-go="miss">حدّث الدفتر</button>'});$('#msT').scrollIntoView({behavior:'smooth'})}});
 
-$('#lask').onclick=askOpen;$('#remMk').onclick=remMake;
+$('#remMk').onclick=remMake;
 /* ---------- link the sheikh's audio to lessons and chapters (no transcription) ---------- */
 const ALEN=[5252,5399,5466,5546,5362,5519,5505,5481,5457,5423,5504,5440,5501,5485,5499,5323];
 const ACUM=ALEN.reduce((a,x)=>(a.push(a[a.length-1]+x),a),[0]);const ATOT=ACUM[16];
