@@ -292,6 +292,12 @@ li:not(.cl)>.nd .ar{transform:rotate(-90deg)}
 #askX{direction:rtl;font-size:16px}
 .ib.on,.pg.on{background:var(--gold);color:#1c1300}
 
+.aubox{border:2px solid var(--gold);border-radius:16px;padding:12px 14px;background:color-mix(in srgb,var(--gold) 8%,var(--bg));margin:6px 0 14px}
+.aut b{display:block;font:700 18px AmiriL,serif}.aut small{color:var(--mute)}
+.aum{width:100%;margin:8px 0 4px}
+details.aud2{margin:6px 0 10px}details.aud2 summary{cursor:pointer;font-weight:700;color:var(--gold);list-style:none;padding:8px 12px;border:1px solid var(--line);border-radius:12px;display:inline-block}
+.aedl li.aed{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);padding:10px 2px}
+.aedl li.aed div:first-child{flex:1;min-width:180px}.aedl small{display:block;color:var(--mute)}.aedl li.ok b{color:var(--n)}
 .entries{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:-22px;position:relative}
 .ent{text-align:start;border:1px solid var(--line);border-radius:18px;padding:16px;background:var(--bg);box-shadow:0 6px 20px rgba(0,0,0,.08);display:grid;gap:2px;min-height:84px}
 .ent b{font:700 22px AmiriL,serif;color:var(--brand2)}
@@ -494,7 +500,7 @@ footer{padding:26px 0 40px;color:var(--mute);font-size:13px;border-top:1px solid
 
 <section class="v" id="v-lesson"><div class="wrap sec ls">
 <p class="small" style="margin:0"><button class="lnk" data-go="path">الدروس</button> ‹ <span id="lstep"></span></p>
-<span class="lbr" id="lbr"></span><h2 id="lt"></h2><p class="lead" id="lg"></p><p style="margin:-6px 0 14px;display:flex;gap:8px;flex-wrap:wrap"><button class="btn ghost sm" id="lsh" data-p="5">اقرأ شرح الشيخ لهذه المسألة</button><button class="btn ghost sm" id="lask">اسأل عن هذه المسألة</button></p>
+<span class="lbr" id="lbr"></span><h2 id="lt"></h2><p class="lead" id="lg"></p><p style="margin:-6px 0 14px;display:flex;gap:8px;flex-wrap:wrap"><button class="btn ghost sm" id="lsh" data-p="5">اقرأ شرح الشيخ لهذه المسألة</button><button class="btn ghost sm" id="lask">اسأل عن هذه المسألة</button><button class="btn ghost sm" id="lau">🎧 اسمع الشيخ</button></p><div id="laud" hidden></div>
 <div class="dots" id="ldots"></div>
 <div class="lbody" id="lbody"></div>
 <div class="lnav"><button class="btn ghost" id="lprev">السابق</button><button class="lnk" id="lskip">تجاوز</button><button class="btn" id="lnext">التالي</button></div>
@@ -556,6 +562,9 @@ footer{padding:26px 0 40px;color:var(--mute);font-size:13px;border-top:1px solid
 <button class="btn sm" id="amk">علّم هذا الموضع</button></div>
 <ul class="res" id="amarks"></ul>
 </div>
+<p><button class="lnk" id="aedT">وضع ضبط مواضع الأبواب في الصوت (لصاحب الموقع)</button></p>
+<div class="det" id="aed" hidden><h3>ضبط بداية كل باب</h3><p class="small">اضغط «اقفز قبله بدقيقتين» فيبدأ التشغيل قرب الموضع التقديري، وحين يبدأ الشيخ الباب اضغط «هنا يبدأ». بعد الانتهاء اضغط «انسخ الرمز» وأرسله في المحادثة، فأثبّت المواضع لكل الطلاب. المواضع التي تضبطها تُستعمل فورًا في جهازك.</p>
+<p class="small"><b id="aedC"></b> · <span id="aedM"></span></p><div class="tools"><button class="btn" id="aedX">انسخ الرمز</button></div><textarea id="aedO" rows="2" readonly hidden style="width:100%;direction:ltr"></textarea><ul class="res aedl" id="aedL"></ul></div>
 <div class="tiles" id="alist"></div>
 </div></section>
 <section class="v" id="v-review"><div class="wrap sec qz"><h2>مراجعة اليوم</h2><p class="small" id="rvT"></p><div class="prog" style="margin:0 0 14px"><i id="rvP" style="width:0"></i></div><div id="rvB"></div></div></section>
@@ -736,7 +745,7 @@ const render=()=>{const p=st.page,k=chOf(p);loadBK().then(B=>{
    body+=`<div class="pm" id="pm-${q}"><span>ص ${AR(q)}</span><button class="lnk sm3" data-orig="${q}">الأصل</button><button class="lnk sm3 ${st.bm[q]?'on':''}" data-bmk="${q}" aria-label="علامة على الصفحة">${st.bm[q]?'★':'☆'}</button><button class="lnk sm3 ${st.notes[q]?'on':''}" data-note="${q}">ملاحظة</button><button class="lnk sm3" data-rep="${q}">أبلغ عن خطأ</button></div>`;
    if(t!=null)body+=pageHTML(q,t);else{miss++;body+=`<p class="pend">هذه الصفحة قيد التحويل إلى نص.</p>`}}
   const lsn=PATH.filter(x=>x[2]&&x[1]>=a&&x[1]<=b);DR=DR||buildDR(B);const nd=DR.filter(x=>x.k===k).length;
-  $('#rdh').innerHTML=`<p class="small" style="margin:0">الفصل ${AR(k+1)} من ${AR(CH.length)} · الصفحات ${AR(a)}–${AR(b)}</p><h2>${CH[k][0]}</h2>${lsn.length||nd?`<div class="chips" style="margin-bottom:8px">${lsn.map(x=>`<button class="chip2 lc" data-go="lesson-${x[2]}">درس تفاعلي: ${x[0]}</button>`).join('')}${nd?`<button class="chip2 lc" data-drch="${k}">تمارين إعراب من هذا الفصل (${AR(nd)})</button>`:''}</div>`:''}${subs.length?`<div class="chips">${subs.map(t=>`<button class="chip2" data-jp="${t[1]}">${t[0]}</button>`).join('')}</div>`:''}`;
+  $('#rdh').innerHTML=`<p class="small" style="margin:0">الفصل ${AR(k+1)} من ${AR(CH.length)} · الصفحات ${AR(a)}–${AR(b)}</p><h2>${CH[k][0]}</h2>${a>=AP0&&a<=AP1?`<details class="aud2"><summary>🎧 اسمع الشيخ يشرح هذا الفصل</summary>${audBox(a,'من بداية هذا الفصل')}</details>`:''}${lsn.length||nd?`<div class="chips" style="margin-bottom:8px">${lsn.map(x=>`<button class="chip2 lc" data-go="lesson-${x[2]}">درس تفاعلي: ${x[0]}</button>`).join('')}${nd?`<button class="chip2 lc" data-drch="${k}">تمارين إعراب من هذا الفصل (${AR(nd)})</button>`:''}</div>`:''}${subs.length?`<div class="chips">${subs.map(t=>`<button class="chip2" data-jp="${t[1]}">${t[0]}</button>`).join('')}</div>`:''}`;
   $('#rdb').innerHTML=body;document.querySelectorAll('#rdb [data-pimg]').forEach(e=>img(+e.dataset.pimg).then(u=>e.src=u));
   $('#rdn').innerHTML=`${k>0?`<button class="btn ghost" data-ch="${k-1}">→ ${CH[k-1][0]}</button>`:'<span></span>'}${k<CH.length-1?`<button class="btn" data-ch="${k+1}">${CH[k+1][0]} ←</button>`:''}`;
   for(let q=a;q<=b;q++)st.seen.add(q);save();}
@@ -994,9 +1003,9 @@ muthanna:{title:'كيف يُعرب المثنّى؟',goal:'الهدف: أن تع
 const LORDER=['muthanna','fail'];
 st.lp=ls.get('lp',{});st.miss=ls.get('miss',[]);
 const saveL=()=>{ls.set('lp',st.lp);ls.set('miss',st.miss)};
-let LC=null,LI=0,stepDone=false,alt=false;
+let lauFor=null;let LC=null,LI=0,stepDone=false,alt=false;
 const lessonOpen=(id,i)=>{LC=id;const P=st.lp[id]=st.lp[id]||{i:0,max:0,done:false,skill:false};P.opened=1;LI=i!=null?i:(P.done?0:P.i);alt=false;saveL();lRender()};
-const lRender=()=>{const L=LES[LC],P=st.lp[LC];{const b=BR.find(x=>x[3].includes(LC));const lb=$('#lbr');if(b){lb.textContent=b[0]+' · الدرس '+AR(LORDER.indexOf(LC)+1)+' من '+AR(LORDER.length);lb.style.setProperty('--c',`var(--${b[2]})`);lb.hidden=false}else lb.hidden=true}$('#lsh').dataset.p=L.page;P.i=LI;P.max=Math.max(P.max,LI);saveL();stepDone=false;
+const lRender=()=>{const L=LES[LC],P=st.lp[LC];if(lauFor!==LC){$('#laud').hidden=true;$('#laud').innerHTML='';lauFor=null}{const b=BR.find(x=>x[3].includes(LC));const lb=$('#lbr');if(b){lb.textContent=b[0]+' · الدرس '+AR(LORDER.indexOf(LC)+1)+' من '+AR(LORDER.length);lb.style.setProperty('--c',`var(--${b[2]})`);lb.hidden=false}else lb.hidden=true}$('#lsh').dataset.p=L.page;P.i=LI;P.max=Math.max(P.max,LI);saveL();stepDone=false;
  const s=alt&&L.steps[LI].simple?L.steps[LI].simple:L.steps[LI];
  $('#lt').textContent=L.title;$('#lg').textContent=L.goal;
  $('#ldots').innerHTML=L.steps.map((_,j)=>`<button class="dot ${j===LI?'on':''} ${j<=P.max?'seen':''}" ${j<=P.max?'':'disabled'} data-li="${j}" aria-label="الخطوة ${AR(j+1)}"></button>`).join('');
@@ -1873,6 +1882,39 @@ const missR=()=>{const it=missItems();$('#msB').innerHTML=it.length?`<p class="l
 $('#v-miss').addEventListener('click',e=>{if(e.target.id==='msGo'){const it=missItems();teStart('msT',shuf(it),{done:(p,pct,T)=>{const bad=new Set(T.wrong.map(q=>q.q));st.miss=st.miss.filter(m=>{const L=LES[m.l],s=L&&L.steps[m.i];return s&&bad.has(s.q)});saveL()},after:'<button class="btn ghost" data-go="miss">حدّث الدفتر</button>'});$('#msT').scrollIntoView({behavior:'smooth'})}});
 
 $('#lask').onclick=askOpen;$('#remMk').onclick=remMake;
+/* ---------- link the sheikh's audio to lessons and chapters (no transcription) ---------- */
+const ALEN=[5252,5399,5466,5546,5362,5519,5505,5481,5457,5423,5504,5440,5501,5485,5499,5323];
+const ACUM=ALEN.reduce((a,x)=>(a.push(a[a.length-1]+x),a),[0]);const ATOT=ACUM[16];
+const AP0=9,AP1=535;/* first and last pages of the sharh */
+const AUDFIX={};/* exact starts set by the owner: bab start page -> [lesson index, seconds] */
+st.afix=ls.get('afix',{});
+let ACH=null;
+const audCum=()=>{if(ACH)return ACH;if(!BK)return null;const c={};let s=0;for(let p=AP0;p<=AP1+1;p++){c[p]=s;s+=(BK[p]||'').length}ACH={c,tot:s};return ACH};
+const fixAll=()=>Object.assign({},AUDFIX,st.afix);
+const audAt=p=>{const C=audCum();if(!C)return null;p=Math.max(AP0,Math.min(AP1,p));const f=q=>C.c[q]/C.tot;
+ const an=[[AP0,0],[AP1+1,ATOT]];Object.entries(fixAll()).forEach(([pg,[k,s]])=>an.push([+pg,ACUM[k]+s]));an.sort((a,b)=>a[0]-b[0]);
+ let i=0;while(i<an.length-2&&an[i+1][0]<=p)i++;const [pa,ta]=an[i],[pb,tb]=an[i+1];const exact=fixAll()[p]!=null;
+ const g=pb>pa?ta+(f(p)-f(pa))/(f(pb)-f(pa)||1)*(tb-ta):ta;let k=0;while(k<15&&ACUM[k+1]<=g)k++;return{k,s:Math.max(0,Math.round(g-ACUM[k])),exact}};
+const mmss=t=>{t=Math.round(t);const h=Math.floor(t/3600),m=Math.floor(t%3600/60),x=t%60;return AR((h?h+':':'')+String(m).padStart(h?2:1,'0')+':'+String(x).padStart(2,'0'))};
+const aSrc=k=>AU+String(k+1).padStart(2,'0')+'.mp3';
+const audBox=(p,label)=>{const a=audAt(p);if(!a)return'';const back=a.exact?0:60;const s0=Math.max(0,a.s-back);
+ return `<div class="aubox"><div class="aut"><b>🎧 ${label||'اسمع الشيخ يشرح هذه المسألة'}</b><small>الدرس الصوتي ${AN[a.k]} · من ${mmss(s0)}${a.exact?'':' تقريبًا'}</small></div><audio class="aum" controls preload="none" data-at="${s0}" src="${aSrc(a.k)}#t=${s0}"></audio><div class="tools"><button class="btn ghost sm" data-ask="-30">٣٠- ث</button><button class="btn ghost sm" data-ask="30">٣٠+ ث</button><a class="lnk" href="${aSrc(a.k)}#t=${s0}" target="_blank" rel="noopener">افتح المقطع في نافذة</a></div>${a.exact?'':'<p class="small">الموضع تقديري، فإن لم يبدأ عند المسألة تمامًا فقدّم أو أخّر قليلًا.</p>'}</div>`};
+document.addEventListener('play',e=>{const a=e.target;if(a.classList&&a.classList.contains('aum')&&!a._seek){a._seek=1;const t=+a.dataset.at;if(Math.abs(a.currentTime-t)>3)try{a.currentTime=t}catch(_){}}},true);
+document.addEventListener('click',e=>{const b=e.target.closest('[data-ask]');if(!b)return;const a=b.closest('.aubox').querySelector('audio');a.currentTime=Math.max(0,a.currentTime+ +b.dataset.ask);a._seek=1});
+/* show inside lessons (intro step) and reader chapter header */
+const lAudR=()=>{const L=LES[LC];loadBK().then(()=>{const el=$('#laud');if(el)el.innerHTML=audBox(L.page)})};
+/* owner editor: mark exact starts while listening */
+const BABS=()=>D.matn.map((m,i)=>[m.h,D.links[i][0]]).filter(x=>x[1]>=AP0&&x[1]<=AP1);
+const aedR=()=>loadBK().then(()=>{const F=fixAll();$('#aedL').innerHTML=BABS().map(([h,p])=>{const a=audAt(p),fx=F[p];return `<li class="aed ${fx?'ok':''}"><div><b>${h}</b><small>ص ${AR(p)} · ${fx?`مضبوط: الدرس ${AN[fx[0]]} عند ${mmss(fx[1])}`:`تقديري: الدرس ${AN[a.k]} عند ${mmss(a.s)}`}</small></div><div class="row"><button class="btn ghost sm" data-aj="${p}">اقفز قبله بدقيقتين</button><button class="btn sm" data-am="${p}">هنا يبدأ</button>${st.afix[p]?`<button class="lnk" data-ax="${p}">إلغاء</button>`:''}</div></li>`}).join('');
+ const n=Object.keys(st.afix).length;$('#aedC').textContent=n?`ضبطت ${AR(n)} من ${AR(BABS().length)} بابًا`:'لم تضبط شيئًا بعد'});
+$('#v-audio').addEventListener('click',e=>{const t=e.target;
+ if(t.id==='aedT'){const b=$('#aed');b.hidden=!b.hidden;if(!b.hidden)aedR();return}
+ const j=t.closest('[data-aj]');if(j){const a=audAt(+j.dataset.aj);aCur=a.k;aud.src=aSrc(a.k);aud.onloadedmetadata=()=>{aud.currentTime=Math.max(0,a.s-120);aud.play().catch(()=>{})};aud.load();saveA();aR();$('#aT').scrollIntoView({behavior:'smooth'});return}
+ const m=t.closest('[data-am]');if(m){if(!aud.src||isNaN(aud.duration)){$('#aedM').textContent='شغّل الدرس الصوتي أولًا، ثم اضغط «هنا يبدأ» عند بداية الباب.';return}st.afix[m.dataset.am]=[aCur,Math.round(aud.currentTime)];ls.set('afix',st.afix);$('#aedM').textContent='حُفظ.';aedR();return}
+ const x=t.closest('[data-ax]');if(x){delete st.afix[x.dataset.ax];ls.set('afix',st.afix);aedR();return}
+ if(t.id==='aedX'){const c='AJA1.'+btoa(JSON.stringify(st.afix));$('#aedO').value=c;$('#aedO').hidden=false;navigator.clipboard&&navigator.clipboard.writeText(c).then(()=>$('#aedM').textContent='نُسخ الرمز. أرسله في المحادثة لأثبّته للجميع.').catch(()=>{})}});
+
+$('#lau').onclick=()=>{const b=$('#laud');b.hidden=!b.hidden;if(!b.hidden){lauFor=LC;lAudR()}};
 route();
 if('serviceWorker' in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));
 }
