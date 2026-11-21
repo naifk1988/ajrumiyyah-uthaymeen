@@ -398,6 +398,27 @@ nav.tabs button.on{background:rgba(255,255,255,.14);color:#fff;font-weight:700}
  body{padding-bottom:calc(66px + env(safe-area-inset-bottom,0px))}
  .rbar{bottom:calc(62px + env(safe-area-inset-bottom,0px))}
 }
+
+/* mini player */
+#mp{position:fixed;left:0;right:0;bottom:0;z-index:31;background:var(--bg);border-top:1px solid var(--line);box-shadow:0 -4px 14px rgba(0,0,0,.08);padding:6px 12px calc(6px + env(safe-area-inset-bottom,0px))}
+#mp[hidden]{display:none}
+#mp .mpi{max-width:900px;margin:0 auto;display:flex;align-items:center;gap:8px}
+#mp .mpb{width:40px;height:40px;border-radius:50%;border:0;background:var(--k);color:var(--bg);font-size:17px;flex:none;display:grid;place-items:center;cursor:pointer}
+#mp .mps{border:1px solid var(--line);background:transparent;color:var(--ink);border-radius:10px;min-width:40px;height:36px;font:inherit;font-size:13px;flex:none;cursor:pointer;padding:0 6px}
+#mp .mpm{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+#mp .mpt{font-size:13px;display:flex;justify-content:space-between;gap:6px;white-space:nowrap;overflow:hidden}
+#mp .mpt b{overflow:hidden;text-overflow:ellipsis;cursor:pointer}
+#mp .mpt span{color:var(--mute);font-size:12px}
+#mp input[type=range]{width:100%;accent-color:var(--k);height:18px;margin:0}
+body.mpOn{padding-bottom:64px}
+body.mpOn .rbar{bottom:64px}
+@media(max-width:760px){
+ #mp{bottom:calc(66px + env(safe-area-inset-bottom,0px));padding-bottom:6px}
+ #mp .mpx2{display:none}
+ body.mpOn{padding-bottom:calc(130px + env(safe-area-inset-bottom,0px))}
+ body.mpOn .rbar{bottom:calc(126px + env(safe-area-inset-bottom,0px))}
+ body.mpOn .lnav{bottom:calc(130px + env(safe-area-inset-bottom,0px))}
+}
 /* book reader */
 .rd{max-width:780px}
 .rtools{display:flex;gap:6px;align-items:center;justify-content:flex-end;margin-bottom:6px}
@@ -560,7 +581,7 @@ footer{padding:26px 0 40px;color:var(--mute);font-size:13px;border-top:1px solid
 <p class="lead">شرح الآجرومية (الشرح الثاني) للشيخ ابن عثيمين في ستة عشر درسًا، من موقع الفقه في الدين ومحفوظة في أرشيف الإنترنت.</p>
 <div class="det" style="margin:0 0 18px">
 <h3 id="aT">المشغّل</h3>
-<p class="small" style="margin:4px 0 10px">اختر الدرس من القائمة فيعمل هنا مباشرة، ويُحفظ آخر موضع سمعته في كل درس.</p>
+<p class="small" style="margin:4px 0 10px">اضغط «استمع» على أي درس فيبدأ من آخر موضع وقفت عنده، ويستمر وأنت تتنقل في الموقع، وتتحكم به من الشريط أسفل الشاشة: إيقاف، وتقديم وتأخير، وسرعة.</p>
 <input id="afile" type="file" accept="audio/*" hidden>
 <audio id="aud" controls preload="metadata" style="width:100%"></audio>
 <div class="tools" style="margin-top:10px">
@@ -633,6 +654,14 @@ footer{padding:26px 0 40px;color:var(--mute);font-size:13px;border-top:1px solid
 </div></section>
 <div class="orig glsheet" id="glS" hidden><div class="ob"><div class="ot"><b id="glT"></b><button class="btn ghost sm" data-close>إغلاق</button></div><p id="glD" style="font-size:18px;margin:6px 0"></p><p id="glE" class="small"></p><button class="lnk" data-go="gloss" onclick="document.getElementById('glS').hidden=true">كل المصطلحات</button></div></div>
 
+<div id="mp" hidden role="region" aria-label="مشغّل الدرس الصوتي"><div class="mpi">
+<button class="mpb" id="mpP" aria-label="تشغيل أو إيقاف مؤقت">▶</button>
+<button class="mps" data-mpk="-15" aria-label="رجوع ١٥ ثانية">١٥-</button>
+<div class="mpm"><div class="mpt"><b id="mpT" title="افتح صفحة الدروس الصوتية">الدرس</b><span id="mpC">٠:٠٠</span></div><input type="range" id="mpR" min="0" max="1000" value="0" aria-label="موضع التشغيل"></div>
+<button class="mps" data-mpk="15" aria-label="تقديم ١٥ ثانية">١٥+</button>
+<button class="mps mpx2" id="mpS" aria-label="سرعة التشغيل">١×</button>
+<button class="mps" id="mpX" aria-label="إيقاف وإغلاق المشغّل">✕</button>
+</div></div>
 </main>
 <footer id="foot"><div class="wrap">شرح الآجرومية، لفضيلة الشيخ محمد بن صالح العثيمين. النص منقول عن النسخة المطبوعة، وصورة كل صفحة متاحة من زر «الأصل».</div></footer>
 
@@ -935,7 +964,7 @@ const AU='https://archive.org/download/Alajromiyah_2_Othaimeen/';
 const AN=['الأول','الثاني','الثالث','الرابع','الخامس','السادس','السابع','الثامن','التاسع','العاشر','الحادي عشر','الثاني عشر','الثالث عشر','الرابع عشر','الخامس عشر','السادس عشر'];
 st.heard=ls.get('heard',{});st.apos=ls.get('apos',{});st.amk=ls.get('amk',{});let aCur=ls.get('acur',0);
 const fmt=t=>{t=Math.floor(t||0);const h=Math.floor(t/3600),m=Math.floor(t%3600/60),x=t%60;return AR((h?h+':':'')+String(m).padStart(h?2:1,'0')+':'+String(x).padStart(2,'0'))};
-const aR=()=>{$('#alist').innerHTML=AN.map((n,i)=>{const f=String(i+1).padStart(2,'0');return `<div class="les ${st.heard[i]?'done':''} ${aCur===i?'cur':''}"><b>الدرس ${n}</b><span class="small">${st.apos[i]?'آخر موضع: '+fmt(st.apos[i]):'لم يبدأ بعد'}${(st.amk[i]||[]).length?' · '+AR(st.amk[i].length)+' علامة':''}</span><div class="row"><button class="btn sm" data-sel="${i}">▶ استمع</button><a class="btn ghost sm" href="${AU+f}.mp3" target="_blank" rel="noopener">تنزيل</a><label class="small" style="display:flex;gap:6px;align-items:center"><input type="checkbox" data-hd="${i}" ${st.heard[i]?'checked':''} style="width:20px;height:20px;accent-color:var(--n)">سمعتُه</label></div></div>`}).join('');
+const aR=()=>{$('#alist').innerHTML=AN.map((n,i)=>{const f=String(i+1).padStart(2,'0');return `<div class="les ${st.heard[i]?'done':''} ${aCur===i?'cur':''}"><b>الدرس ${n}</b><span class="small">${st.apos[i]?'آخر موضع: '+fmt(st.apos[i]):'لم يبدأ بعد'}${(st.amk[i]||[]).length?' · '+AR(st.amk[i].length)+' علامة':''}</span><div class="row"><button class="btn sm" data-apl="${i}">${aCur===i&&!aud.paused?'⏸ يُشغَّل':'▶ استمع'}</button><a class="btn ghost sm" href="${AU+f}.mp3" target="_blank" rel="noopener">تنزيل</a><label class="small" style="display:flex;gap:6px;align-items:center"><input type="checkbox" data-hd="${i}" ${st.heard[i]?'checked':''} style="width:20px;height:20px;accent-color:var(--n)">سمعتُه</label></div></div>`}).join('');
  $('#aT').textContent='المشغّل: الدرس '+AN[aCur];const m=st.amk[aCur]||[];$('#amarks').innerHTML=m.map((x,j)=>`<li><button data-at="${x[0]}"><span class="n">${fmt(x[0])}</span>${esc(x[1]||'علامة')}</button></li>`).join('')};
 const saveA=()=>{ls.set('heard',st.heard);ls.set('apos',st.apos);ls.set('amk',st.amk);ls.set('acur',aCur)};
 const aud=$('#aud');
@@ -947,7 +976,7 @@ aud.onended=()=>{st.heard[aCur]=true;saveA();aR()};
 $('#v-audio').addEventListener('click',e=>{const t=e.target;
  if(t.dataset.sk){aud.currentTime=Math.max(0,aud.currentTime+ +t.dataset.sk)}
  if(t.dataset.rt){aud.playbackRate=+t.dataset.rt;$$('[data-rt]').forEach(b=>b.classList.toggle('on',b===t))}
- if(t.dataset.sel){aCur=+t.dataset.sel;loadA(true);saveA();aR();$('#aT').scrollIntoView({behavior:'smooth'})}
+ if(t.dataset.sel){aCur=+t.dataset.sel;saveA();aR()}
  if(t.id==='amk'){const tx=window.getSelection?'':'';(st.amk[aCur]=st.amk[aCur]||[]).push([aud.currentTime||0,'الدقيقة '+fmt(aud.currentTime)]);st.amk[aCur].sort((a,b)=>a[0]-b[0]);saveA();aR()}
  const at=t.closest('[data-at]');if(at){aud.currentTime=+at.dataset.at;aud.play().catch(()=>{})}});
 $('#v-audio').addEventListener('change',e=>{const c=e.target.closest('[data-hd]');if(c){st.heard[c.dataset.hd]=c.checked;saveA();aR()}});
@@ -2136,9 +2165,9 @@ const aSrc=k=>AU+String(k+1).padStart(2,'0')+'.mp3';
 const audOk=p=>{const F=fixAll();const ks=Object.keys(F).map(Number).sort((a,b)=>a-b);const pa=ks.filter(k=>k<=p).pop();if(pa==null)return false;const nb=ks.find(k=>k>p);const ta=ACUM[F[pa][0]]+F[pa][1],tb=nb!=null?ACUM[F[nb][0]]+F[nb][1]:ATOT;return pa===p||(tb-ta)<=6600};
 const audNone=()=>`<div class="aubox"><div class="aut"><b>🎧 صوت الشيخ</b><small>لم تُضبط بعدُ مواضع هذا الباب في التسجيل.</small></div><p class="small">الدروس الصوتية المتاحة ستة عشر درسًا، وهي على الأرجح الشرح الثاني للشيخ (عام ١٤١١هـ)، والكتاب يجمع شرحيه (١٤٠٧ و١٤١١هـ) كما في مقدمة اللجنة، فلا يطابقه التسجيل صفحةً بصفحة. لذلك لا نعرض موضعًا إلا بعد ضبطه بالسماع.</p><button class="btn ghost sm" data-go="audio">الدروس الصوتية كاملة</button></div>`;
 const audBox=(p,label)=>{if(!audOk(p))return label?'':audNone();const a=audAt(p);if(!a)return'';const back=a.exact?0:60;const s0=Math.max(0,a.s-back);
- return `<div class="aubox"><div class="aut"><b>🎧 ${label||'اسمع الشيخ يشرح هذه المسألة'}</b><small>الدرس الصوتي ${AN[a.k]} · من ${mmss(s0)}${a.exact?'':' تقريبًا'}</small></div><audio class="aum" controls preload="none" data-at="${s0}" src="${aSrc(a.k)}#t=${s0}"></audio><div class="tools"><button class="btn ghost sm" data-ask="-30">٣٠- ث</button><button class="btn ghost sm" data-ask="30">٣٠+ ث</button><a class="lnk" href="${aSrc(a.k)}#t=${s0}" target="_blank" rel="noopener">افتح المقطع في نافذة</a></div>${a.exact?'':'<p class="small">الموضع تقديري، فإن لم يبدأ عند المسألة تمامًا فقدّم أو أخّر قليلًا.</p>'}</div>`};
+ return `<div class="aubox"><div class="aut"><b>🎧 ${label||'اسمع الشيخ يشرح هذه المسألة'}</b><small>الدرس الصوتي ${AN[a.k]} · من ${mmss(s0)}${a.exact?'':' تقريبًا'}</small></div><div class="tools"><button class="btn sm" data-apl="${a.k}" data-apt="${s0}">▶ شغّل من ${mmss(s0)}</button><a class="lnk" href="${aSrc(a.k)}#t=${s0}" target="_blank" rel="noopener">افتح المقطع في نافذة</a></div>${a.exact?'':'<p class="small">الموضع تقديري، فإن لم يبدأ عند المسألة تمامًا فقدّم أو أخّر قليلًا.</p>'}</div>`};
 document.addEventListener('play',e=>{const a=e.target;if(a.classList&&a.classList.contains('aum')&&!a._seek){a._seek=1;const t=+a.dataset.at;if(Math.abs(a.currentTime-t)>3)try{a.currentTime=t}catch(_){}}},true);
-document.addEventListener('click',e=>{const b=e.target.closest('[data-ask]');if(!b)return;const a=b.closest('.aubox').querySelector('audio');a.currentTime=Math.max(0,a.currentTime+ +b.dataset.ask);a._seek=1});
+
 /* show inside lessons (intro step) and reader chapter header */
 const lAudR=()=>{const L=LES[LC];loadBK().then(()=>{const el=$('#laud');if(el)el.innerHTML=audBox(L.page)})};
 /* owner editor: mark exact starts while listening */
@@ -2160,6 +2189,32 @@ document.addEventListener('click',e=>{const m=e.target.closest('[data-pmore]');i
 /* fold finished branches */
 document.addEventListener('click',e=>{const h=e.target.closest('[data-jfold]');if(h){const b=h.closest('.jb');b.classList.toggle('fold');h.textContent=b.classList.contains('fold')?'اعرض الدروس':'اطوِ الدروس'}});
 
+
+/* ---------- persistent mini player ---------- */
+const mpRates=[1,1.25,1.5,1.75,2,0.75];let mpGone=false,mpOn1=false;
+const aPlay=(k,t)=>{mpGone=false;const same=aCur===k&&aud.src&&aud.src.indexOf(aSrc(k))===0;aCur=k;saveA();
+ const go=()=>{try{aud.currentTime=t!=null?t:(st.apos[k]||0)}catch(_){}aud.play().catch(()=>{});};
+ if(same){if(t!=null)go();else aud.play().catch(()=>{})}else{aud.src=aSrc(k);aud.onloadedmetadata=()=>{aud.onloadedmetadata=null;go()};aud.load();}
+ aR();mpUpd()};
+const mpUpd=()=>{const mp=$('#mp');const has=mpOn1&&!!aud.currentSrc&&!mpGone;const onA=(location.hash.slice(1)==='audio');const show=has&&!onA;mp.hidden=!show;document.body.classList.toggle('mpOn',show);
+ if(!has)return;$('#mpP').textContent=aud.paused?'▶':'⏸';$('#mpT').textContent='الدرس '+AN[aCur];
+ const d=aud.duration||ALEN[aCur]||0;$('#mpC').textContent=fmt(aud.currentTime)+' / '+fmt(d);if(!mpDrag)$('#mpR').value=d?Math.round(aud.currentTime/d*1000):0;$('#mpS').textContent=AR(String(aud.playbackRate))+'×';
+ if('mediaSession' in navigator){navigator.mediaSession.playbackState=aud.paused?'paused':'playing'}};
+let mpDrag=false;
+$('#mpP').onclick=()=>{if(aud.paused)aud.play().catch(()=>{});else aud.pause()};
+$('#mpX').onclick=()=>{aud.pause();mpGone=true;mpUpd()};
+$('#mpT').onclick=()=>{location.hash='audio'};
+$('#mpS').onclick=()=>{const i=mpRates.indexOf(aud.playbackRate);aud.playbackRate=mpRates[(i+1)%mpRates.length];$$('[data-rt]').forEach(b=>b.classList.toggle('on',+b.dataset.rt===aud.playbackRate));mpUpd()};
+$('#mpR').addEventListener('input',()=>{mpDrag=true;const d=aud.duration||0;if(d)$('#mpC').textContent=fmt($('#mpR').value/1000*d)+' / '+fmt(d)});
+$('#mpR').addEventListener('change',()=>{const d=aud.duration||0;if(d)aud.currentTime=$('#mpR').value/1000*d;mpDrag=false});
+$('#mp').addEventListener('click',e=>{const b=e.target.closest('[data-mpk]');if(b)aud.currentTime=Math.max(0,aud.currentTime+ +b.dataset.mpk)});
+['play','pause','timeupdate','loadedmetadata','ratechange','ended','emptied'].forEach(ev=>aud.addEventListener(ev,mpUpd));
+aud.addEventListener('play',()=>{mpGone=false;mpOn1=true;mpUpd();aR();if('mediaSession' in navigator){try{navigator.mediaSession.metadata=new MediaMetadata({title:'شرح الآجرومية · الدرس '+AN[aCur],artist:'الشيخ محمد بن صالح العثيمين',album:'شرح الآجرومية',artwork:[{src:'icon-512.png',sizes:'512x512',type:'image/png'}]})}catch(_){}}});
+aud.addEventListener('pause',()=>aR());
+if('mediaSession' in navigator){const ms=navigator.mediaSession;const sa=(a,f)=>{try{ms.setActionHandler(a,f)}catch(_){}};
+ sa('play',()=>aud.play());sa('pause',()=>aud.pause());sa('seekbackward',()=>{aud.currentTime=Math.max(0,aud.currentTime-15)});sa('seekforward',()=>{aud.currentTime+=15});sa('seekto',d=>{if(d.seekTime!=null)aud.currentTime=d.seekTime})}
+document.addEventListener('click',e=>{const b=e.target.closest('[data-apl]');if(!b)return;e.preventDefault();const k=+b.dataset.apl;if(b.dataset.apt==null&&aCur===k&&!aud.paused){aud.pause();return}aPlay(k,b.dataset.apt!=null?+b.dataset.apt:null)});
+addEventListener('hashchange',mpUpd);
 route();
 if('serviceWorker' in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));
 }
