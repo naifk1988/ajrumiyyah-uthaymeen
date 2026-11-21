@@ -1680,7 +1680,7 @@ st.placed=ls.get('placed',0);
 const brDone=b=>b[3].every(id=>st.lp[id]&&st.lp[id].done);
 const bdgHTML=()=>`<div class="bdgs">${BR.map(b=>`<span class="bdg ${brDone(b)?'on':''}" style="--c:var(--${b[2]})" title="${b[0]}"><i>${brDone(b)?'✓':''}</i><small>${b[0]}</small></span>`).join('')}</div>`;
 const certR=()=>{const done=LORDER.filter(x=>st.lp[x]&&st.lp[x].done).length,all=done===LORDER.length;
- $('#certB').innerHTML=bdgHTML()+(all?`<p class="lead">أتممت الدروس كلها. اكتب اسمك كما تريده على الشهادة:</p><input id="cName" class="ixq" placeholder="اسمك" value="${esc(ls.get('cname',''))}"><div class="tools"><button class="btn" id="cMake">أنشئ الشهادة</button></div><canvas id="cCv" width="1600" height="1130" style="width:100%;height:auto;border-radius:12px;border:1px solid var(--line);margin-top:12px" hidden></canvas><div class="tools" id="cDl" hidden><a class="btn" id="cA" download="شهادة-الآجرومية.png">نزّل الشهادة</a></div><p class="small">شهادة إتمام شخصية من هذا الموقع التعليمي، وليست إجازة علمية.</p>`
+ $('#certB').innerHTML=bdgHTML()+(all?`<p class="lead">أتممت الدروس كلها. اكتب اسمك كما تريده على الشهادة:</p><input id="cName" class="ixq" placeholder="اسمك" value="${esc(ls.get('cname',''))}"><div class="tools"><button class="btn" id="cMake">أنشئ الشهادة</button></div><canvas id="cCv" width="1600" height="1130" hidden></canvas><img id="cImg" alt="شهادة الإتمام" style="width:100%;height:auto;border-radius:12px;border:1px solid var(--line);margin-top:12px" hidden><div class="tools" id="cDl" hidden><a class="btn" id="cA" download="شهادة-الآجرومية.png">نزّل الشهادة</a></div><p class="small">إن لم يعمل زر التنزيل، فاضغط مطوّلًا على صورة الشهادة واختر «حفظ الصورة».</p><p class="small">شهادة إتمام شخصية من هذا الموقع التعليمي، وليست إجازة علمية.</p>`
   :`<p class="lead">الشهادة تظهر هنا عند إتمام الدروس الاثنين والعشرين. أنهيت ${AR(done)}، وبقي ${AR(LORDER.length-done)}.</p><button class="btn" data-go="home">تابع رحلتك</button>`)};
 const certDraw=name=>document.fonts.load('60px AmiriL').then(()=>{const c=$('#cCv'),x=c.getContext('2d'),W=c.width,H=c.height;
  x.fillStyle='#fbf8f0';x.fillRect(0,0,W,H);x.strokeStyle='#0c4a4f';x.lineWidth=18;x.strokeRect(30,30,W-60,H-60);x.strokeStyle='#b07d10';x.lineWidth=4;x.strokeRect(62,62,W-124,H-124);
@@ -1691,7 +1691,7 @@ const certDraw=name=>document.fonts.load('60px AmiriL').then(()=>{const c=$('#cC
  x.fillStyle='#152120';x.font='44px AmiriL';x.fillText('أتمّ الدروس الاثنين والعشرين في متن الآجرومية',W/2,660);x.fillText('على شرح العلامة محمد بن صالح العثيمين رحمه الله',W/2,730);
  let dt='';try{dt=new Intl.DateTimeFormat('ar-SA-u-ca-islamic-umalqura',{day:'numeric',month:'long',year:'numeric'}).format(new Date())}catch(e){dt=new Date().toLocaleDateString('ar')}
  x.fillStyle='#5d6b69';x.font='36px AmiriL';x.fillText(dt,W/2,880);x.font='30px AmiriL';x.fillText('ajrumiyyah-uthaymeen.vercel.app',W/2,1000);
- c.hidden=false;$('#cDl').hidden=false;try{$('#cA').href=c.toDataURL('image/png')}catch(e){}});
+ try{const u=c.toDataURL('image/png');$('#cImg').src=u;$('#cImg').hidden=false;$('#cA').href=u}catch(e){c.hidden=false;c.style.width='100%'}$('#cDl').hidden=false});
 $('#v-cert').addEventListener('click',e=>{if(e.target.id==='cMake'){const n=$('#cName').value.trim();if(!n){$('#cName').focus();return}ls.set('cname',n);certDraw(n)}});
 
 route();
