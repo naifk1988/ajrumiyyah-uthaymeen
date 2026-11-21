@@ -257,9 +257,9 @@ li:not(.cl)>.nd .ar{transform:rotate(-90deg)}
 .ps{position:relative;padding-top:58px;margin:8px 0 12px}
 .psv{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:visible}
 .psw{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;position:relative;z-index:1;row-gap:64px}
-.pwd{display:flex;flex-direction:column;align-items:center;border:2px solid var(--line);border-radius:14px;background:var(--bg);padding:6px 8px;min-width:64px;max-width:118px;color:var(--ink)}
+.pwd{display:flex;flex-direction:column;align-items:center;border:2px solid var(--line);border-radius:14px;background:var(--bg);padding:6px 8px;min-width:64px;max-width:132px;color:var(--ink)}
 .pwd .pt{font:700 27px/1.5 AmiriL,serif}
-.pwd .pr{font-size:11px;font-weight:700;color:var(--c);visibility:hidden;min-height:18px;text-align:center;line-height:1.35}
+.pwd .pr{font-size:13px;font-weight:700;color:var(--c);visibility:hidden;min-height:18px;text-align:center;line-height:1.35}
 .pwd.on{border-color:var(--c);background:color-mix(in srgb,var(--c) 10%,var(--bg))}.pwd.on .pr{visibility:visible}.pwd.on .pt{color:var(--c)}
 .rvc{display:flex;gap:12px;align-items:center;border:2px solid var(--gold);background:color-mix(in srgb,var(--gold) 10%,var(--bg));border-radius:16px;padding:12px 14px;margin:10px 0}
 .rvc.ok{border-color:var(--n);background:color-mix(in srgb,var(--n) 10%,var(--bg))}
@@ -298,6 +298,13 @@ li:not(.cl)>.nd .ar{transform:rotate(-90deg)}
 details.aud2{margin:6px 0 10px}details.aud2 summary{cursor:pointer;font-weight:700;color:var(--gold);list-style:none;padding:8px 12px;border:1px solid var(--line);border-radius:12px;display:inline-block}
 .aedl li.aed{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);padding:10px 2px}
 .aedl li.aed div:first-child{flex:1;min-width:180px}.aedl small{display:block;color:var(--mute)}.aedl li.ok b{color:var(--n)}
+.ls.cmp #lg,.ls.cmp .lhb,.ls.cmp > p.small:first-child{display:none}
+.ls.cmp #lt{font-size:22px;margin:2px 0 6px}
+.ls.cmp .lbr{margin:0}
+@media(max-width:760px){.lnav{position:sticky;bottom:calc(66px + env(safe-area-inset-bottom,0px));z-index:6;background:var(--bg);margin:10px -16px 0;padding:10px 16px;border-top:1px solid var(--line)}}
+.jb.fold .jl{display:none}
+.lnk.jf{flex-basis:100%;text-align:start;font-size:13px;color:var(--mute)}
+.pmx{display:inline-flex;gap:6px}
 .entries{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:-22px;position:relative}
 .ent{text-align:start;border:1px solid var(--line);border-radius:18px;padding:16px;background:var(--bg);box-shadow:0 6px 20px rgba(0,0,0,.08);display:grid;gap:2px;min-height:84px}
 .ent b{font:700 22px AmiriL,serif;color:var(--k)}
@@ -500,7 +507,7 @@ footer{padding:26px 0 40px;color:var(--mute);font-size:13px;border-top:1px solid
 
 <section class="v" id="v-lesson"><div class="wrap sec ls">
 <p class="small" style="margin:0"><button class="lnk" data-go="path">الدروس</button> ‹ <span id="lstep"></span></p>
-<span class="lbr" id="lbr"></span><h2 id="lt"></h2><p class="lead" id="lg"></p><p style="margin:-6px 0 14px;display:flex;gap:8px;flex-wrap:wrap"><button class="btn ghost sm" id="lsh" data-p="5">اقرأ شرح الشيخ لهذه المسألة</button><button class="btn ghost sm" id="lau">🎧 اسمع الشيخ</button></p><div id="laud" hidden></div>
+<span class="lbr" id="lbr"></span><h2 id="lt"></h2><p class="lead" id="lg"></p><p class="lhb" style="margin:-6px 0 14px;display:flex;gap:8px;flex-wrap:wrap"><button class="btn ghost sm" id="lsh" data-p="5">اقرأ شرح الشيخ لهذه المسألة</button><button class="btn ghost sm" id="lau">🎧 اسمع الشيخ</button></p><div id="laud" hidden></div>
 <div class="dots" id="ldots"></div>
 <div class="lbody" id="lbody"></div>
 <div class="lnav"><button class="btn ghost" id="lprev">السابق</button><button class="lnk" id="lskip">تجاوز</button><button class="btn" id="lnext">التالي</button></div>
@@ -742,7 +749,7 @@ let rdK=-1;
 const render=()=>{const p=st.page,k=chOf(p);loadBK().then(B=>{
  if(k!==rdK){rdK=k;const [a,b]=chRange(k);const subs=D.toc.filter(t=>t[1]>=a&&t[1]<=b&&t!==CH[k]);
   let body='';let miss=0;for(let q=a;q<=b;q++){const t=B[q];
-   body+=`<div class="pm" id="pm-${q}"><span>ص ${AR(q)}</span><button class="lnk sm3" data-orig="${q}">الأصل</button><button class="lnk sm3 ${st.bm[q]?'on':''}" data-bmk="${q}" aria-label="علامة على الصفحة">${st.bm[q]?'★':'☆'}</button><button class="lnk sm3 ${st.notes[q]?'on':''}" data-note="${q}">ملاحظة</button><button class="lnk sm3" data-rep="${q}">أبلغ عن خطأ</button></div>`;
+   body+=`<div class="pm" id="pm-${q}"><span>ص ${AR(q)}</span><button class="lnk sm3" data-orig="${q}">الأصل</button><button class="lnk sm3 ${st.bm[q]?'on':''}" data-bmk="${q}" aria-label="علامة على الصفحة">${st.bm[q]?'★':'☆'}</button><button class="lnk sm3" data-pmore aria-label="المزيد">⋯</button><span class="pmx" hidden><button class="lnk sm3 ${st.notes[q]?'on':''}" data-note="${q}">ملاحظة</button><button class="lnk sm3" data-rep="${q}">أبلغ عن خطأ</button></span></div>`;
    if(t!=null)body+=pageHTML(q,t);else{miss++;body+=`<p class="pend">هذه الصفحة قيد التحويل إلى نص.</p>`}}
   const lsn=PATH.filter(x=>x[2]&&x[1]>=a&&x[1]<=b);DR=DR||buildDR(B);const nd=DR.filter(x=>x.k===k).length;
   $('#rdh').innerHTML=`<p class="small" style="margin:0">الفصل ${AR(k+1)} من ${AR(CH.length)} · الصفحات ${AR(a)}–${AR(b)}</p><h2>${CH[k][0]}</h2>${a>=AP0&&a<=AP1&&audOk(a)?`<details class="aud2"><summary>🎧 اسمع الشيخ يشرح هذا الفصل</summary>${audBox(a,'من بداية هذا الفصل')}</details>`:''}${lsn.length||nd?`<div class="chips" style="margin-bottom:8px">${lsn.map(x=>`<button class="chip2 lc" data-go="lesson-${x[2]}">درس تفاعلي: ${x[0]}</button>`).join('')}${nd?`<button class="chip2 lc" data-drch="${k}">تمارين إعراب من هذا الفصل (${AR(nd)})</button>`:''}</div>`:''}${subs.length?`<div class="chips">${subs.map(t=>`<button class="chip2" data-jp="${t[1]}">${t[0]}</button>`).join('')}</div>`:''}`;
@@ -868,6 +875,8 @@ const ROLE=[[/^فعل ماض/,'فعلٌ ماضٍ'],[/^فعل مضارع/,'فعل
  [/^ظرف مكان/,'ظرفُ مكان'],[/^ظرف زمان/,'ظرفُ زمان'],[/^تمييز/,'تمييز'],[/^حال /,'حال'],[/^اداه استثناء ملغاه/,'أداةُ استثناءٍ مُلغاة'],[/^اداه استثناء/,'أداةُ استثناء'],[/^مستثني/,'مستثنى'],
  [/^مبتدا/,'مبتدأ'],[/^خبر (المبتدا|مرفوع بالمبتدا)/,'خبرُ المبتدأ'],[/^خبر كان/,'خبرُ كان'],[/^خبر ليس/,'خبرُ ليس'],[/^خبر ان/,'خبرُ إنّ'],[/^خبر لا/,'خبرُ «لا»'],[/^اسم كان/,'اسمُ كان'],[/^اسم ليس/,'اسمُ ليس'],[/^اسم ان/,'اسمُ إنّ'],[/^اسم لا/,'اسمُ «لا»'],
  [/^بدل/,'بدل'],[/^(معطوف)/,'معطوف'],[/^(نعت|صفه)/,'نعت'],[/^توكيد/,'توكيد'],[/^اسم موصول/,'اسمٌ موصول'],[/^واو المعيه/,'واوُ المعيّة'],[/^حرف نفي/,'حرفُ نفي']];
+const RG=[['فاعل','نائبُ فاعل','مبتدأ','خبرُ المبتدأ','اسمُ كان','اسمُ ليس','خبرُ إنّ','خبرُ «لا»'],['مفعولٌ به','مفعولٌ لأجله','مفعولٌ مطلق','مفعولٌ معه','مفعولٌ به أول','مفعولٌ به ثانٍ','منادى','ظرفُ مكان','ظرفُ زمان','تمييز','حال','مستثنى','خبرُ كان','خبرُ ليس','اسمُ إنّ','اسمُ «لا»'],['اسمٌ مجرور بحرف الجر','مضافٌ إليه'],['بدل','معطوف','نعت','توكيد','اسمٌ موصول'],['حرفُ جر','حرفُ نداء','حرفُ عطف','حرفُ توكيدٍ ونصب','«لا» النافية للجنس','نافيةٌ مُلغاة','«لا» الناهية','أداةُ استثناء','أداةُ استثناءٍ مُلغاة','واوُ المعيّة','حرفُ نفي'],['فعلٌ ماضٍ','فعلٌ مضارع','فعلُ أمرٍ (أو دعاء)']];
+const drDis=(role,n)=>{const all=[...new Set(DR.map(x=>x.role))].filter(r=>r!==role);const g=RG.find(x=>x.includes(role))||[];const gi=RG.indexOf(g);const same=shuf(all.filter(r=>g.includes(r)));const near=shuf(all.filter(r=>!g.includes(r)&&(gi<3?RG.slice(0,4).some(x=>x.includes(r)):!RG.slice(0,3).some(x=>x.includes(r)))));return [...same,...near,...shuf(all)].filter((r,i,a)=>a.indexOf(r)===i).slice(0,n)};
 const roleOf=r=>{r=nz(r).replace(/^[^\s:«»]{1,10}:\s*/,'').trim();for(const [re,l] of ROLE)if(re.test(r+' '))return l;return null};
 let DR=null;
 const buildDR=B=>{const paras=[];Object.keys(B).map(Number).sort((a,b)=>a-b).forEach(p=>B[p].split('\n').forEach(l=>{l=l.trim();if(!l||/^(\^|#|!img|>)/.test(l))return;
@@ -896,7 +905,7 @@ const dR=()=>loadDR().then(()=>{const sel=$('#dch');if(!sel.options.length){cons
  if(!pool.length&&dMode==='new')pool=P.filter(x=>!st.dok.has(x.id));
  const z=$('#dq');if(!pool.length){dCur=null;z.innerHTML=`<div class="qcard" style="text-align:center"><h3>${dMode==='rev'?'لا أخطاء للمراجعة هنا.':'أتممت تمارين هذا الاختيار.'}</h3><p class="small">اختر بابًا آخر من القائمة، أو أعد التمارين من جديد.</p><button class="btn ghost" id="dreset">أعد تمارين هذا الاختيار</button></div>`;return}
  const fresh=pool.filter(x=>!dLast.includes(x.id));dCur=(fresh.length?fresh:pool)[Math.floor(Math.random()*(fresh.length||pool.length))];dLast=[dCur.id,...dLast].slice(0,8);dDone=false;
- const roles=[...new Set(DR.map(x=>x.role))].filter(r=>r!==dCur.role);const ops=shuf([dCur.role,...shuf(roles).slice(0,3)]);const s=dCur.sent;
+ const ops=shuf([dCur.role,...drDis(dCur.role,3)]);const s=dCur.sent;
  const sh=esc(s.slice(0,dCur.s0))+`<mark class="dw">${esc(s.slice(dCur.s0,dCur.s1))}</mark>`+esc(s.slice(dCur.s1));
  z.innerHTML=`<div class="qcard"><p class="small" style="margin:0 0 6px">${dMode==='rev'?'مراجعة · ':''}${esc(CH[dCur.k][0])}</p><p class="dsent ${dCur.ay?'ayah':''}">${dCur.ay?'﴿'+sh+'﴾':sh}</p><div class="qq">ما إعراب «${esc(dCur.w)}» في هذه الجملة؟</div>${ops.map(o=>`<button class="op" data-dop="${esc(o)}">${esc(o)}</button>`).join('')}<div id="dex"></div></div>`});
 $('#v-drill').addEventListener('click',e=>{const t=e.target;
@@ -1005,7 +1014,7 @@ st.lp=ls.get('lp',{});st.miss=ls.get('miss',[]);
 const saveL=()=>{ls.set('lp',st.lp);ls.set('miss',st.miss)};
 let lauFor=null;let LC=null,LI=0,stepDone=false,alt=false;
 const lessonOpen=(id,i)=>{LC=id;const P=st.lp[id]=st.lp[id]||{i:0,max:0,done:false,skill:false};P.opened=1;LI=i!=null?i:(P.done?0:P.i);alt=false;saveL();lRender()};
-const lRender=()=>{const L=LES[LC],P=st.lp[LC];if(lauFor!==LC){$('#laud').hidden=true;$('#laud').innerHTML='';lauFor=null}{const b=BR.find(x=>x[3].includes(LC));const lb=$('#lbr');if(b){lb.textContent=b[0]+' · الدرس '+AR(LORDER.indexOf(LC)+1)+' من '+AR(LORDER.length);lb.style.setProperty('--c',`var(--${b[2]})`);lb.hidden=false}else lb.hidden=true}$('#lsh').dataset.p=L.page;P.i=LI;P.max=Math.max(P.max,LI);saveL();stepDone=false;
+const lRender=()=>{const L=LES[LC],P=st.lp[LC];$('#v-lesson .ls').classList.toggle('cmp',LI>0&&!(lauFor===LC));$('#lau').hidden=!audOk(L.page);if(lauFor!==LC){$('#laud').hidden=true;$('#laud').innerHTML='';lauFor=null}{const b=BR.find(x=>x[3].includes(LC));const lb=$('#lbr');if(b){lb.textContent=b[0]+' · الدرس '+AR(LORDER.indexOf(LC)+1)+' من '+AR(LORDER.length);lb.style.setProperty('--c',`var(--${b[2]})`);lb.hidden=false}else lb.hidden=true}$('#lsh').dataset.p=L.page;P.i=LI;P.max=Math.max(P.max,LI);saveL();stepDone=false;
  const s=alt&&L.steps[LI].simple?L.steps[LI].simple:L.steps[LI];
  $('#lt').textContent=L.title;$('#lg').textContent=L.goal;
  $('#ldots').innerHTML=L.steps.map((_,j)=>`<button class="dot ${j===LI?'on':''} ${j<=P.max?'seen':''}" ${j<=P.max?'':'disabled'} data-li="${j}" aria-label="الخطوة ${AR(j+1)}"></button>`).join('');
@@ -1013,7 +1022,7 @@ const lRender=()=>{const L=LES[LC],P=st.lp[LC];if(lauFor!==LC){$('#laud').hidden
  const b=$('#lbody');b.innerHTML=stepHTML(s,L);b.classList.remove('in');void b.offsetWidth;b.classList.add('in');
  if(s.t==='switch')swInit();
  if(['mark','rule','sum','tree','intro'].includes(s.t))stepDone=true;
- if(s.t==='test')loadDR().then(runLessonTest);else glWrap(b);
+ if(s.t==='test')loadDR().then(runLessonTest);else if(['intro','rule'].includes(s.t))glWrap(b);
  if(s.t==='sum'){P.done=true;saveL()}
  navUpd();
  $('#lprev').disabled=LI===0;
@@ -1022,8 +1031,8 @@ const navUpd=()=>{const L=LES[LC];const last=LI===L.steps.length-1;$('#lnext').t
 const extras=s=>{let x='';if(s.why)x+=`<button class="btn ghost sm" data-x="why">لماذا؟</button>`;if(s.simple&&!alt)x+=`<button class="btn ghost sm" data-x="simple">أحتاج مثالًا أبسط</button>`;if(alt)x+=`<button class="btn ghost sm" data-x="back">العودة إلى المثال الأصلي</button>`;if(s.steps)x+=`<button class="btn ghost sm" data-x="steps">أرني الخطوات</button>`;return x?`<div class="xtr">${x}</div><div id="xout"></div>`:''};
 const qHTML=q=>q?`<blockquote class="qt">${q[0]}<button class="pg" style="--c:var(--gold)" data-p="${q[1]}">نص الشيخ ص ${AR(q[1])}</button></blockquote>`:'';
 const stepHTML=(s,L)=>{
- if(s.t==='pick')return `<p class="lq">${s.q}</p><div class="pick" role="group">${s.w.map((w,j)=>`<button class="pw" data-pw="${j}">${w.w}</button>`).join(' ')}</div><button class="lnk hint" data-x="hint">تلميح</button><div class="fb" id="fb" aria-live="polite"></div>${extras(s)}`;
- if(s.t==='mcq')return `${s.ex?`<div class="exs">${s.ex}</div>`:''}<p class="lq">${s.q}</p>${shuf(s.o.map((o,j)=>j)).map(j=>`<button class="op" data-mo="${j}">${s.o[j].x}</button>`).join('')}<button class="lnk hint" data-x="hint">تلميح</button><div class="fb" id="fb" aria-live="polite"></div>${extras(s)}`;
+ if(s.t==='pick')return `<p class="lq">${s.q}</p><div class="pick" role="group">${s.w.map((w,j)=>`<button class="pw" data-pw="${j}">${w.w}</button>`).join(' ')}</div>${(s.o||s.w).length>2?'<button class="lnk hint" data-x="hint">تلميح</button>':''}<div class="fb" id="fb" aria-live="polite"></div>${extras(s)}`;
+ if(s.t==='mcq')return `${s.ex?`<div class="exs">${s.ex}</div>`:''}<p class="lq">${s.q}</p>${shuf(s.o.map((o,j)=>j)).map(j=>`<button class="op" data-mo="${j}">${s.o[j].x}</button>`).join('')}${(s.o||s.w).length>2?'<button class="lnk hint" data-x="hint">تلميح</button>':''}<div class="fb" id="fb" aria-live="polite"></div>${extras(s)}`;
  if(s.t==='mark')return `<div class="stage sm2"><div class="sent">${s.html}</div><div class="sign" style="color:var(--r)">${s.sign}</div></div><p class="lt2"><span class="tag">شرح مبسّط</span> ${s.text}</p>${extras(s)}${qHTML(s.quote)}`;
  if(s.t==='switch')return `<p class="lq">اضغط الحالات الثلاث، ولاحظ ما يتغير في الكلمة.</p><div class="stage" id="stage"><div class="sent" id="sent"></div><div class="sign" id="sign"></div></div>
   <div class="cbtn" role="group" aria-label="الحالة الإعرابية"><button data-cs="0" style="--cc:var(--r)">رفع</button><button data-cs="1" style="--cc:var(--n)">نصب</button><button data-cs="2" style="--cc:var(--x)">جرّ <small>(الخفض)</small></button></div>
@@ -1763,7 +1772,7 @@ const BR=BR2;
 const nextL=()=>LORDER.find(x=>!(st.lp[x]&&st.lp[x].done))||null;
 const jrHTML=()=>{const nx=nextL();let n=0;
  return `<div class="jroot"><i></i>متن الآجرومية</div>`+BR.map(([t,sb,c,ids],bi)=>{const dn=ids.filter(id=>st.lp[id]&&st.lp[id].done).length;
-  return `<div class="jb" style="--c:var(--${c})"><div class="jh"><b>${t}</b><small>${sb}</small><span class="jp">${dn===ids.length?'✓ أتممت الفرع':AR(dn)+' من '+AR(ids.length)}</span>${dn===ids.length?`<button class="lnk bt" data-bt="${bi}">${st.bt&&st.bt[t]?'🏅 وسام الفرع · أعد الاختبار':'اختبار الفرع ←'}</button>`:''}</div><ol class="jl">${ids.map(id=>{n++;const P=st.lp[id]||{};const d=P.done,cur=id===nx,op=P.opened&&!d;const pa=PATH.find(x=>x[2]===id)||[];
+  const fd=dn===ids.length&&!ids.includes(nx);return `<div class="jb ${fd?'fold':''}" style="--c:var(--${c})"><div class="jh"><b>${t}</b><small>${sb}</small><span class="jp">${dn===ids.length?'✓ أتممت الفرع':AR(dn)+' من '+AR(ids.length)}</span>${dn===ids.length?`<button class="lnk jf" data-jfold>${fd?'اعرض الدروس':'اطوِ الدروس'}</button>`:''}${dn===ids.length?`<button class="lnk bt" data-bt="${bi}">${st.bt&&st.bt[t]?'🏅 وسام الفرع · أعد الاختبار':'اختبار الفرع ←'}</button>`:''}</div><ol class="jl">${ids.map(id=>{n++;const P=st.lp[id]||{};const d=P.done,cur=id===nx,op=P.opened&&!d;const pa=PATH.find(x=>x[2]===id)||[];
    return `<li><button class="jx ${d?'done':''} ${cur?'cur':''}" data-go="lesson-${id}"><i class="jd">${d?'✓':AR(n)}</i><span><b>${LES[id].title}</b><small>${P.skill?'<span class="sk">★ أتقنته</span> ':''}${pa[3]||''}${op?` · وصلت إلى الخطوة ${AR((P.i||0)+1)}`:''}</small></span>${cur?`<span class="go2">${op?'تابع':'ابدأ هنا'} ←</span>`:d?'<span class="go2 m">أعِد</span>':''}</button></li>`}).join('')}</ol></div>`}).join('')};
 const goBoxR=()=>{const nx=nextL();const done=LORDER.filter(x=>st.lp[x]&&st.lp[x].done).length;const P=nx&&st.lp[nx];const fresh=!done&&!LORDER.some(x=>st.lp[x]&&st.lp[x].opened);
  let h;if(!nx)h=`<div class="cta"><button class="btn big" data-go="cert">أتممت الرحلة، خذ شهادتك ←</button></div>`;
@@ -2045,7 +2054,7 @@ $('#glq')&&$('#glq').addEventListener('input',glPageR);
 Object.assign(INTRO,INTRO2);Object.assign(XQ,XQ2);Object.keys(LES).forEach(id=>{const L=LES[id];if(L._y)return;L._y=1;if(INTRO[id])L.steps.unshift({t:'intro',d:INTRO[id]});const si=L.steps.findIndex(s=>s.t==='sum');L.steps.splice(si>=0?si:L.steps.length,0,{t:'test'})});
 const qOf=s=>s.t==='mcq'?{ex:s.ex||'',q:s.q,o:s.o.map(o=>({x:o.x,ok:!!o.ok,fb:o.fb}))}:{ex:'',q:s.q,o:s.w.map(w=>({x:w.w,ok:!!w.ok,fb:w.fb}))};
 const xqOf=a=>({ex:a[0],q:a[1],o:a[2].map((x,i)=>({x,ok:i===0,fb:a[3]}))});
-const drOf=d=>{const roles=shuf([...new Set(DR.map(x=>x.role))].filter(r=>r!==d.role)).slice(0,2);return{ex:(d.ay?'﴿':'')+esc(d.sent.slice(0,d.s0))+'<mark class="dw">'+esc(d.sent.slice(d.s0,d.s1))+'</mark>'+esc(d.sent.slice(d.s1))+(d.ay?'﴾':''),q:`ما إعراب «${esc(d.w)}»؟`,o:[{x:d.role,ok:true,fb:'إعراب الشيخ: '+esc(d.exp)},...roles.map(r=>({x:r,ok:false,fb:''}))]}};
+const drOf=d=>{const roles=drDis(d.role,2);return{ex:(d.ay?'﴿':'')+esc(d.sent.slice(0,d.s0))+'<mark class="dw">'+esc(d.sent.slice(d.s0,d.s1))+'</mark>'+esc(d.sent.slice(d.s1))+(d.ay?'﴾':''),q:`ما إعراب «${esc(d.w)}»؟`,o:[{x:d.role,ok:true,fb:'إعراب الشيخ: '+esc(d.exp)},...roles.map(r=>({x:r,ok:false,fb:''}))]}};
 const lessonTest=id=>{const L=LES[id];let it=L.steps.filter(s=>s.t==='mcq'||s.t==='pick').map(qOf);it=shuf(it).slice(0,4).concat((XQ[id]||[]).map(xqOf));
  if(DR){const i=LORDER.indexOf(id),a=PATH.find(x=>x[2]===id)[1],nx=PATH[i+1]?PATH[i+1][1]:570;shuf(DR.filter(d=>d.p>=a&&d.p<nx)).slice(0,2).forEach(d=>it.push(drOf(d)))}return shuf(it)};
 /* generic test engine */
@@ -2145,6 +2154,12 @@ $('#v-audio').addEventListener('click',e=>{const t=e.target;
  if(t.id==='aedX'){const c='AJA1.'+btoa(JSON.stringify(st.afix));$('#aedO').value=c;$('#aedO').hidden=false;navigator.clipboard&&navigator.clipboard.writeText(c).then(()=>$('#aedM').textContent='نُسخ الرمز. أرسله في المحادثة لأثبّته للجميع.').catch(()=>{})}});
 
 $('#lau').onclick=()=>{const b=$('#laud');b.hidden=!b.hidden;if(!b.hidden){lauFor=LC;lAudR()}};
+document.addEventListener('click',e=>{if(!e.target.closest('[data-mo],[data-pw],[data-te],[data-ro],[data-x="show"]'))return;setTimeout(()=>{const f=document.querySelector('.v.on #fb:not(:empty), .v.on .tfb:not(:empty), .v.on #rvF:not(:empty), .v.on #dex:not(:empty)');if(f){const r=f.getBoundingClientRect(),H=innerHeight-140;if(r.bottom>H||r.top<80)f.scrollIntoView({block:'center',behavior:'smooth'})}if(stepDone)$$('#lbody .hint').forEach(h=>h.remove())},60)});
+/* reader page menu */
+document.addEventListener('click',e=>{const m=e.target.closest('[data-pmore]');if(m){const x=m.nextElementSibling;x.hidden=!x.hidden;return}});
+/* fold finished branches */
+document.addEventListener('click',e=>{const h=e.target.closest('[data-jfold]');if(h){const b=h.closest('.jb');b.classList.toggle('fold');h.textContent=b.classList.contains('fold')?'اعرض الدروس':'اطوِ الدروس'}});
+
 route();
 if('serviceWorker' in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));
 }

@@ -1,4 +1,4 @@
-const V='ajr-v8',IMG='ajr-img';
+const V='ajr-v9',IMG='ajr-img';
 const CORE=['./','index.html','book.json','manifest.webmanifest','icon-192.png','fonts/Amiri-Regular.ttf','fonts/Amiri-Bold.ttf','fonts/AmiriQuran-Regular.ttf'];
 self.addEventListener('install',e=>{e.waitUntil(caches.open(V).then(c=>c.addAll(CORE)).then(()=>self.skipWaiting()))});
 self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(ks=>Promise.all(ks.filter(k=>k!==V&&k!==IMG).map(k=>caches.delete(k)))).then(()=>self.clients.claim()))});
