@@ -273,6 +273,25 @@ li:not(.cl)>.nd .ar{transform:rotate(-90deg)}
 .bdg small{font-size:12px;color:var(--mute);line-height:1.3}.bdg.on small{color:var(--c);font-weight:700}
 .donebx .bdg{width:auto;flex-direction:row}
 
+.gl{display:inline;border:0;background:none;padding:0;margin:0;font:inherit;color:inherit;border-bottom:2px dotted var(--gold);cursor:help;line-height:inherit}
+.glsheet{align-items:flex-end}
+.glsheet .ob{max-width:560px;width:100%}
+.glh{font:700 20px AmiriL,serif;color:var(--brand2)}
+.lnk.hint{display:inline-block;margin:6px 0 0;color:var(--gold);font-weight:700}
+.op.off,.pw.off{opacity:.35;text-decoration:line-through;pointer-events:none}
+.tres{text-align:center;border:2px solid var(--n);border-radius:18px;padding:18px;background:color-mix(in srgb,var(--n) 8%,var(--bg))}
+.tres.r{border-color:var(--x);background:color-mix(in srgb,var(--x) 7%,var(--bg))}
+.tres b{display:block;font:700 21px AmiriL,serif;margin:6px 0}
+.tsc{font:700 40px AmiriL,serif}
+.row2{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:10px}
+.sk{color:var(--gold);font-weight:700}
+.lnk.bt{flex-basis:100%;text-align:start;color:var(--c);font-weight:700;font-size:14px}
+.rvc.ms{border-color:var(--x);background:color-mix(in srgb,var(--x) 7%,var(--bg))}
+.rvc.rm{border-color:var(--line);background:var(--soft)}
+#xfOut,#xfIn,#askX{width:100%;font:inherit;font-size:14px;border:1px solid var(--line);border-radius:12px;padding:10px 12px;background:var(--bg);color:var(--ink);margin:8px 0;direction:ltr}
+#askX{direction:rtl;font-size:16px}
+.ib.on,.pg.on{background:var(--gold);color:#1c1300}
+
 .entries{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:-22px;position:relative}
 .ent{text-align:start;border:1px solid var(--line);border-radius:18px;padding:16px;background:var(--bg);box-shadow:0 6px 20px rgba(0,0,0,.08);display:grid;gap:2px;min-height:84px}
 .ent b{font:700 22px AmiriL,serif;color:var(--brand2)}
@@ -280,6 +299,7 @@ li:not(.cl)>.nd .ar{transform:rotate(-90deg)}
 @media(max-width:600px){.entries{grid-template-columns:minmax(0,1fr);margin-top:14px}}
 .dots{display:flex;gap:6px;margin:0 0 14px;flex-wrap:wrap}
 .dot{width:28px;height:28px;border-radius:50%;border:2px solid var(--line);background:var(--bg);padding:0}
+.dots:has(.dot:nth-child(10)) .dot{width:22px;height:22px}
 .dot.seen{border-color:var(--brand2);background:color-mix(in srgb,var(--brand2) 20%,var(--bg))}
 .dot.on{background:var(--brand2);border-color:var(--brand2)}
 .lbody{border:1px solid var(--line);border-radius:22px;padding:18px;background:var(--soft);min-height:340px}
@@ -474,7 +494,7 @@ footer{padding:26px 0 40px;color:var(--mute);font-size:13px;border-top:1px solid
 
 <section class="v" id="v-lesson"><div class="wrap sec ls">
 <p class="small" style="margin:0"><button class="lnk" data-go="path">الدروس</button> ‹ <span id="lstep"></span></p>
-<span class="lbr" id="lbr"></span><h2 id="lt"></h2><p class="lead" id="lg"></p><p style="margin:-6px 0 14px"><button class="btn ghost sm" id="lsh" data-p="5">اقرأ شرح الشيخ لهذه المسألة</button></p>
+<span class="lbr" id="lbr"></span><h2 id="lt"></h2><p class="lead" id="lg"></p><p style="margin:-6px 0 14px;display:flex;gap:8px;flex-wrap:wrap"><button class="btn ghost sm" id="lsh" data-p="5">اقرأ شرح الشيخ لهذه المسألة</button><button class="btn ghost sm" id="lask">اسأل عن هذه المسألة</button></p>
 <div class="dots" id="ldots"></div>
 <div class="lbody" id="lbody"></div>
 <div class="lnav"><button class="btn ghost" id="lprev">السابق</button><button class="lnk" id="lskip">تجاوز</button><button class="btn" id="lnext">التالي</button></div>
@@ -501,6 +521,7 @@ footer{padding:26px 0 40px;color:var(--mute);font-size:13px;border-top:1px solid
 <span class="small" id="memT"></span>
 </div>
 <div class="prog" style="margin:0 0 18px"><i id="memP" style="width:0"></i></div>
+<div id="mtToday"></div>
 <div id="matn"></div>
 </div></section>
 
@@ -545,6 +566,9 @@ footer{padding:26px 0 40px;color:var(--mute);font-size:13px;border-top:1px solid
 <button class="ent" data-go="review"><b>مراجعة اليوم</b><span>خمسة أسئلة يومية مما تعلّمته.</span></button>
 <button class="ent" data-go="drill"><b>تمارين الإعراب</b><span>مئات الأمثلة من الشرح، مع إعراب الشيخ.</span></button>
 <button class="ent" data-go="quiz"><b>اختبر نفسك</b><span>أسئلة على أبواب المتن.</span></button>
+<button class="ent" data-go="miss"><b>دفتر أخطائي</b><span>المسائل التي تعثّرت فيها، وتدريب عليها.</span></button>
+<button class="ent" data-go="gloss"><b>قاموس المصطلحات</b><span>تعريف مبسّط لكل مصطلح بمثال.</span></button>
+<button class="ent" data-go="xfer"><b>التذكير ونقل التقدّم</b><span>تذكير يومي في التقويم، ونقل تقدّمك بين أجهزتك.</span></button>
 <button class="ent" data-go="place"><b>حدّد مستواك</b><span>ثمانية أسئلة تحدد درس بدايتك.</span></button>
 <button class="ent" data-go="cert"><b>شاراتي وشهادتي</b><span>شارة لكل فرع، وشهادة في آخر الرحلة.</span></button></div>
 <h3 class="mh">خرائط ولوحات</h3><div class="entries2">
@@ -555,6 +579,17 @@ footer{padding:26px 0 40px;color:var(--mute);font-size:13px;border-top:1px solid
 <button class="ent" data-go="toc"><b>الفهرس وعلاماتي</b><span>موضوعات الكتاب، وصفحاتك المحفوظة وملاحظاتك.</span></button>
 <button class="ent" data-go="idx"><b>الفهارس</b><span>الآيات والأحاديث والشواهد الشعرية.</span></button>
 <button class="ent" data-go="audio"><b>الدروس الصوتية</b><span>شرح الشيخ مسموعًا في ستة عشر درسًا.</span></button></div>
+</div></section>
+<section class="v" id="v-btest"><div class="wrap sec qz"><h2 id="tvH">اختبار الفرع</h2><p class="lead">عشرة أسئلة من دروس الفرع كلها. النجاح من ٨٠٪، وبه تنال وسام الفرع.</p><div id="tvB"></div></div></section>
+<section class="v" id="v-miss"><div class="wrap sec"><h2>دفتر أخطائي</h2><div id="msB"></div></div></section>
+<section class="v" id="v-gloss"><div class="wrap sec"><h2>قاموس المصطلحات</h2><p class="lead">كل مصطلح يمر بك في الدروس تجده هنا بتعريف مبسّط ومثال.</p><input id="glq" class="ixq" type="search" placeholder="ابحث عن مصطلح"><div id="glL"></div></div></section>
+<section class="v" id="v-xfer"><div class="wrap sec"><h2>التذكير ونقل التقدّم</h2>
+<h3 class="mh">ذكّرني يوميًّا</h3><p class="small">اختر الوقت، ثم اضغط «أضف التذكير إلى التقويم»؛ فيُضاف موعد يومي متكرر بتنبيه يعيدك إلى الموقع.</p>
+<div class="tools"><input type="time" id="remT" class="sel" value="20:00"><button class="btn" id="remMk">جهّز التذكير</button><a class="btn" id="remA" download="تذكير-الآجرومية.ics" hidden>أضف التذكير إلى التقويم</a></div>
+<h3 class="mh">انقل تقدّمك إلى جهاز آخر</h3><p class="small">في الجهاز القديم: أنشئ الرمز وانسخه. في الجهاز الجديد: الصقه هنا واضغط «انقل».</p>
+<div class="tools"><button class="btn ghost" id="xfMk">أنشئ رمز تقدّمي</button><button class="btn ghost" id="xfCp" hidden>انسخ الرمز</button></div>
+<textarea id="xfOut" rows="3" readonly hidden></textarea>
+<textarea id="xfIn" rows="3" placeholder="الصق رمز التقدّم هنا"></textarea><div class="tools"><button class="btn" id="xfLd">انقل تقدّمي إلى هذا الجهاز</button></div><p class="small" id="xfMsg"></p>
 </div></section>
 <section class="v" id="v-drill"><div class="wrap sec qz">
 <h2>تمارين الإعراب</h2>
@@ -580,6 +615,8 @@ footer{padding:26px 0 40px;color:var(--mute);font-size:13px;border-top:1px solid
 <div id="ans"></div>
 <ul class="res" id="res"></ul>
 </div></section>
+<div class="orig glsheet" id="glS" hidden><div class="ob"><div class="ot"><b id="glT"></b><button class="btn ghost sm" data-close>إغلاق</button></div><p id="glD" style="font-size:18px;margin:6px 0"></p><p id="glE" class="small"></p><button class="lnk" data-go="gloss" onclick="document.getElementById('glS').hidden=true">كل المصطلحات</button></div></div>
+<div class="orig" id="ask" hidden><div class="ob"><div class="ot"><b id="askT"></b><button class="btn ghost sm" data-close>إغلاق</button></div><textarea id="askX" rows="4" placeholder="اكتب ما أشكل عليك في هذه المسألة"></textarea><div class="tools"><button class="btn" id="askSh">أرسل سؤالي</button><button class="btn ghost" id="askCp">انسخ السؤال</button></div><p class="small">زر الإرسال يفتح قائمة المشاركة في جوالك، فترسل السؤال إلى شيخك أو معلّمك أو مجموعة الدراسة، ومعه رابط الدرس.</p></div></div>
 </main>
 <footer id="foot"><div class="wrap">شرح الآجرومية، لفضيلة الشيخ محمد بن صالح العثيمين. النص منقول عن النسخة المطبوعة، وصورة كل صفحة متاحة من زر «الأصل».</div></footer>
 
@@ -966,7 +1003,8 @@ const lRender=()=>{const L=LES[LC],P=st.lp[LC];{const b=BR.find(x=>x[3].includes
  $('#lstep').textContent=`الخطوة ${AR(LI+1)} من ${AR(L.steps.length)}`;
  const b=$('#lbody');b.innerHTML=stepHTML(s,L);b.classList.remove('in');void b.offsetWidth;b.classList.add('in');
  if(s.t==='switch')swInit();
- if(['mark','rule','sum','tree'].includes(s.t))stepDone=true;
+ if(['mark','rule','sum','tree','intro'].includes(s.t))stepDone=true;
+ if(s.t==='test')loadDR().then(runLessonTest);else glWrap(b);
  if(s.t==='sum'){P.done=true;saveL()}
  navUpd();
  $('#lprev').disabled=LI===0;
@@ -975,14 +1013,16 @@ const navUpd=()=>{const L=LES[LC];const last=LI===L.steps.length-1;$('#lnext').t
 const extras=s=>{let x='';if(s.why)x+=`<button class="btn ghost sm" data-x="why">لماذا؟</button>`;if(s.simple&&!alt)x+=`<button class="btn ghost sm" data-x="simple">أحتاج مثالًا أبسط</button>`;if(alt)x+=`<button class="btn ghost sm" data-x="back">العودة إلى المثال الأصلي</button>`;if(s.steps)x+=`<button class="btn ghost sm" data-x="steps">أرني الخطوات</button>`;return x?`<div class="xtr">${x}</div><div id="xout"></div>`:''};
 const qHTML=q=>q?`<blockquote class="qt">${q[0]}<button class="pg" style="--c:var(--gold)" data-p="${q[1]}">نص الشيخ ص ${AR(q[1])}</button></blockquote>`:'';
 const stepHTML=(s,L)=>{
- if(s.t==='pick')return `<p class="lq">${s.q}</p><div class="pick" role="group">${s.w.map((w,j)=>`<button class="pw" data-pw="${j}">${w.w}</button>`).join(' ')}</div><div class="fb" id="fb" aria-live="polite"></div>${extras(s)}`;
- if(s.t==='mcq')return `${s.ex?`<div class="exs">${s.ex}</div>`:''}<p class="lq">${s.q}</p>${shuf(s.o.map((o,j)=>j)).map(j=>`<button class="op" data-mo="${j}">${s.o[j].x}</button>`).join('')}<div class="fb" id="fb" aria-live="polite"></div>${extras(s)}`;
+ if(s.t==='pick')return `<p class="lq">${s.q}</p><div class="pick" role="group">${s.w.map((w,j)=>`<button class="pw" data-pw="${j}">${w.w}</button>`).join(' ')}</div><button class="lnk hint" data-x="hint">تلميح</button><div class="fb" id="fb" aria-live="polite"></div>${extras(s)}`;
+ if(s.t==='mcq')return `${s.ex?`<div class="exs">${s.ex}</div>`:''}<p class="lq">${s.q}</p>${shuf(s.o.map((o,j)=>j)).map(j=>`<button class="op" data-mo="${j}">${s.o[j].x}</button>`).join('')}<button class="lnk hint" data-x="hint">تلميح</button><div class="fb" id="fb" aria-live="polite"></div>${extras(s)}`;
  if(s.t==='mark')return `<div class="stage sm2"><div class="sent">${s.html}</div><div class="sign" style="color:var(--r)">${s.sign}</div></div><p class="lt2"><span class="tag">شرح مبسّط</span> ${s.text}</p>${extras(s)}${qHTML(s.quote)}`;
  if(s.t==='switch')return `<p class="lq">اضغط الحالات الثلاث، ولاحظ ما يتغير في الكلمة.</p><div class="stage" id="stage"><div class="sent" id="sent"></div><div class="sign" id="sign"></div></div>
   <div class="cbtn" role="group" aria-label="الحالة الإعرابية"><button data-cs="0" style="--cc:var(--r)">رفع</button><button data-cs="1" style="--cc:var(--n)">نصب</button><button data-cs="2" style="--cc:var(--x)">جرّ <small>(الخفض)</small></button></div>
   <div class="why"><span class="tag">شرح مبسّط</span><p id="why"></p><p class="aha" id="aha" hidden></p></div>`;
  if(s.t==='rule')return `<span class="tag gold">القاعدة</span>${s.html}`;
  if(s.t==='tree')return mmHTML(s);
+ if(s.t==='intro')return `<span class="tag gold">فكرة الدرس</span><p class="lt2" style="font-size:19px">${s.d[0]}</p><div class="exs">${s.d[1]}</div><p class="lt2">${s.d[2]}</p><p class="small">اضغط أي مصطلح منقّط لترى تعريفه.</p>`;
+ if(s.t==='test')return testStepHTML();
  if(s.t==='parse')return psHTML(s);
  if(s.t==='sum')return `<span class="tag gold">الخلاصة</span>${s.html}<div class="row2"><button class="btn" data-p="${L.page}">اقرأ شرح الشيخ ص ${AR(L.page)}</button><button class="btn ghost" data-tree="${L.tree.join(',')}">موضعه في الشجرة</button>${(()=>{const nx=LORDER[LORDER.indexOf(LC)+1];return nx?`<button class="btn ghost" data-go="lesson-${nx}">الدرس التالي: ${LES[nx].title}</button>`:''})()}</div>`;
  return ''};
@@ -1480,8 +1520,8 @@ const BR=[['المقدمات','الكلام والإعراب','k',['kalam','irab
 const nextL=()=>LORDER.find(x=>!(st.lp[x]&&st.lp[x].done))||null;
 const jrHTML=()=>{const nx=nextL();let n=0;
  return `<div class="jroot"><i></i>متن الآجرومية</div>`+BR.map(([t,sb,c,ids],bi)=>{const dn=ids.filter(id=>st.lp[id]&&st.lp[id].done).length;
-  return `<div class="jb" style="--c:var(--${c})"><div class="jh"><b>${t}</b><small>${sb}</small><span class="jp">${dn===ids.length?'✓ أتممت الفرع':AR(dn)+' من '+AR(ids.length)}</span></div><ol class="jl">${ids.map(id=>{n++;const P=st.lp[id]||{};const d=P.done,cur=id===nx,op=P.opened&&!d;const pa=PATH.find(x=>x[2]===id)||[];
-   return `<li><button class="jx ${d?'done':''} ${cur?'cur':''}" data-go="lesson-${id}"><i class="jd">${d?'✓':AR(n)}</i><span><b>${LES[id].title}</b><small>${pa[3]||''}${op?` · وصلت إلى الخطوة ${AR((P.i||0)+1)}`:''}</small></span>${cur?`<span class="go2">${op?'تابع':'ابدأ هنا'} ←</span>`:d?'<span class="go2 m">أعِد</span>':''}</button></li>`}).join('')}</ol></div>`}).join('')};
+  return `<div class="jb" style="--c:var(--${c})"><div class="jh"><b>${t}</b><small>${sb}</small><span class="jp">${dn===ids.length?'✓ أتممت الفرع':AR(dn)+' من '+AR(ids.length)}</span>${dn===ids.length?`<button class="lnk bt" data-bt="${bi}">${st.bt&&st.bt[t]?'🏅 وسام الفرع · أعد الاختبار':'اختبار الفرع ←'}</button>`:''}</div><ol class="jl">${ids.map(id=>{n++;const P=st.lp[id]||{};const d=P.done,cur=id===nx,op=P.opened&&!d;const pa=PATH.find(x=>x[2]===id)||[];
+   return `<li><button class="jx ${d?'done':''} ${cur?'cur':''}" data-go="lesson-${id}"><i class="jd">${d?'✓':AR(n)}</i><span><b>${LES[id].title}</b><small>${P.skill?'<span class="sk">★ أتقنته</span> ':''}${pa[3]||''}${op?` · وصلت إلى الخطوة ${AR((P.i||0)+1)}`:''}</small></span>${cur?`<span class="go2">${op?'تابع':'ابدأ هنا'} ←</span>`:d?'<span class="go2 m">أعِد</span>':''}</button></li>`}).join('')}</ol></div>`}).join('')};
 const goBoxR=()=>{const nx=nextL();const done=LORDER.filter(x=>st.lp[x]&&st.lp[x].done).length;const P=nx&&st.lp[nx];const fresh=!done&&!LORDER.some(x=>st.lp[x]&&st.lp[x].opened);
  let h;if(!nx)h=`<div class="cta"><button class="btn big" data-go="cert">أتممت الرحلة، خذ شهادتك ←</button></div>`;
  else if(fresh&&!st.placed)h=`<div class="cta"><button class="btn big" data-go="lesson-${nx}">ابدأ من الصفر: ${LES[nx].title} ←</button><button class="btn ghost2" data-go="place">درستُ النحو من قبل، حدّد مستواي</button></div>`;
@@ -1489,6 +1529,7 @@ const goBoxR=()=>{const nx=nextL();const done=LORDER.filter(x=>st.lp[x]&&st.lp[x
  if(done)h+=`<div class="hp" aria-label="التقدّم"><i style="width:${done/LORDER.length*100}%"></i></div><p class="small2">أنهيت ${AR(done)} من ${AR(LORDER.length)} درسًا${skNow()?` · 🔥 ${AR(skNow())} ${skNow()>1?'أيام متتالية':'يوم'}`:''}</p>`;
  $('#goBox').innerHTML=h;$('#jr').innerHTML=jrHTML();
  const rv=rvPool().length;$('#rvBox').innerHTML=rv?(st.rvDay===today()?`<div class="rvc ok"><span class="flame">🔥 ${AR(skNow())}</span><div><b>أنجزت مراجعة اليوم</b><small>ارجع غدًا لتحافظ على سلسلتك.</small></div><button class="btn ghost sm" data-go="review">مراجعة إضافية</button></div>`:`<div class="rvc"><span class="flame">${skNow()?'🔥 '+AR(skNow()):'⏱'}</span><div><b>مراجعة اليوم: خمسة أسئلة</b><small>دقيقتان تثبّتان ما تعلّمته${skNow()?'، ولا تقطع سلسلتك':''}.</small></div><button class="btn sm" data-go="review">ابدأ</button></div>`):'';
+ {const mi=st.miss.length;$('#rvBox').insertAdjacentHTML('beforeend',mi?`<div class="rvc ms"><span class="flame">📒 ${AR(mi)}</span><div><b>دفتر أخطائي</b><small>مسائل تعثّرت فيها، تدرّب عليها حتى تخرج من الدفتر.</small></div><button class="btn ghost sm" data-go="miss">افتح</button></div>`:'');if(done&&!ls.get('remt',''))$('#rvBox').insertAdjacentHTML('beforeend',`<div class="rvc rm"><span class="flame">⏰</span><div><b>ذكّرني يوميًّا</b><small>أضف موعدًا يوميًّا في تقويم جوالك حتى لا تنقطع.</small></div><button class="btn ghost sm" data-go="xfer">اضبط</button></div>`)}
  $('#bdgBox').innerHTML=done?`<h2 class="jt">شاراتك</h2>${bdgHTML()}<button class="lnk" data-go="cert">الشهادة وتفاصيل الشارات</button>`:'';
  const jd=st.justDone;st.justDone=null;$('#doneBox').innerHTML=jd&&LES[jd]?`<div class="donebx"><b>أحسنت! أنهيت درس «${LES[jd].title}».</b>${(()=>{const b=BR.find(x=>x[3].includes(jd));return b&&brDone(b)?`<span class="bdg on" style="--c:var(--${b[2]})"><i>✓</i><small>شارة ${b[0]}</small></span>`:''})()}${nx?`<button class="btn" data-go="lesson-${nx}">الدرس التالي: ${LES[nx].title}</button>`:''}</div>`:'';
  if(jd){const el=document.querySelector('.jx.cur');el&&setTimeout(()=>el.scrollIntoView({block:'center',behavior:'smooth'}),400)}};
@@ -1547,7 +1588,7 @@ const bh=()=>document.documentElement.style.setProperty('--bh',document.querySel
 /* ---------- home & routing ---------- */
 function home(){goBoxR()}
 let cur='home';
-const GRP={home:'home',path:'home',lesson:'home',review:'home',place:'home',cert:'home',read:'book',search:'search',more:'more',tree:'more',irab:'more',quiz:'more',drill:'more',idx:'more',matn:'more',toc:'more',audio:'more'};
+const GRP={home:'home',path:'home',lesson:'home',review:'home',place:'home',cert:'home',btest:'home',miss:'home',gloss:'more',xfer:'more',read:'book',search:'search',more:'more',tree:'more',irab:'more',quiz:'more',drill:'more',idx:'more',matn:'more',toc:'more',audio:'more'};
 const SUBS={};
 function go(v){if(location.hash==='#'+v)route();else location.hash=v}
 const route=()=>{let h=location.hash.slice(1)||'home';let m=h.match(/^p-(\d+)$/);let v=m?'read':h;if(!document.getElementById('v-'+v)&&!/^lesson-|^start$|^muthanna$/.test(h))v='home';
@@ -1555,7 +1596,7 @@ const route=()=>{let h=location.hash.slice(1)||'home';let m=h.match(/^p-(\d+)$/)
  if(h==='muthanna'){location.replace('#lesson-muthanna');return}
  if(h==='start'){const id=LORDER.find(x=>!(st.lp[x]&&st.lp[x].done))||LORDER[0];location.replace('#lesson-'+id);return}
  let lm=h.match(/^lesson-(\w+)$/);if(lm&&LES[lm[1]]){v='lesson';if(LC!==lm[1]||cur!=='lesson')lessonOpen(lm[1])}
- if(v==='toc'){tocR(tf);marksR()}if(v==='home')home();if(v==='path')pathR();if(v==='tree')mapR();if(v==='idx')ixR();if(v==='drill')dR();if(v==='review')rvStart();if(v==='place'){plI=0;plR()}if(v==='cert')certR();
+ if(v==='toc'){tocR(tf);marksR()}if(v==='home')home();if(v==='path')pathR();if(v==='tree')mapR();if(v==='idx')ixR();if(v==='drill')dR();if(v==='review')rvStart();if(v==='place'){plI=0;plR()}if(v==='cert')certR();if(v==='btest')testViewR();if(v==='miss')missR();if(v==='gloss')glPageR();if(v==='matn')mtTodayR();if(v==='xfer'){$('#remT').value=ls.get('remt','20:00')}
  $('#foot').hidden=v!=='home';cur=v;$$('.v').forEach(s=>s.classList.toggle('on',s.id==='v-'+v));const grp=GRP[v]||'home';$$('#nav button').forEach(b=>{const on=b.dataset.tab===grp;b.classList.toggle('on',on);b.setAttribute('aria-current',on?'page':'false')});
  const sb=$('#sub');const subs=SUBS[grp];sb.hidden=!subs;if(subs)sb.innerHTML=`<div class="wrap seg" role="tablist">${subs.map(([x,l])=>`<button role="tab" aria-selected="${x===v||(v==='lesson'&&x==='path')}" class="${x===v||(v==='lesson'&&x==='path')?'on':''}" data-go="${x}">${l}</button>`).join('')}</div>`;
  if(!m)window.scrollTo({top:0})};
@@ -1694,6 +1735,144 @@ const certDraw=name=>document.fonts.load('60px AmiriL').then(()=>{const c=$('#cC
  try{const u=c.toDataURL('image/png');$('#cImg').src=u;$('#cImg').hidden=false;$('#cA').href=u}catch(e){c.hidden=false;c.style.width='100%'}$('#cDl').hidden=false});
 $('#v-cert').addEventListener('click',e=>{if(e.target.id==='cMake'){const n=$('#cName').value.trim();if(!n){$('#cName').focus();return}ls.set('cname',n);certDraw(n)}});
 
+/* ===== intro cards, extra questions, glossary, hints, tests, ask, reminder, transfer, matn audio, mistakes ===== */
+const INTRO={
+kalam:['الكلام عند النحويين ليس أي صوت؛ هو جملة تامة يفهم منها السامع معنى ويكتفي به.','قَامَ زَيْدٌ','«قام زيدٌ» كلام: كلمتان، وأفادتا فائدة تامة. وكل كلمة في العربية إما اسم أو فعل أو حرف.'],
+irab:['آخر الكلمة في العربية يتغيّر بحسب موقعها في الجملة، وهذا التغيّر هو الإعراب.','جَاءَ زَيْدٌ · رَأَيْتُ زَيْدًا · مَرَرْتُ بِزَيْدٍ','الكلمة واحدة، وتغيّر آخرها: ضمة ثم فتحة ثم كسرة، لأن ما قبلها تغيّر.'],
+asl:['لكل حالة من حالات الإعراب علامة أصلية تدل عليها.','يَقُومُ زَيْدٌ · لَنْ أَضْرِبَ زَيْدًا · مَرَرْتُ بِزَيْدٍ · لَمْ يَضْرِبْ','الضمة للرفع، والفتحة للنصب، والكسرة للخفض، والسكون للجزم.'],
+jamu:['بعض الأسماء لا تُعرب بالحركات بل بالحروف: تتغيّر الواو والياء والألف في آخرها.','جَاءَ الْمُسْلِمُونَ · رَأَيْتُ الْمُسْلِمِينَ','تغيّرت الواو إلى ياء لأن الكلمة صارت منصوبة.'],
+muthanna:['المثنّى ما دلّ على اثنين بزيادة ألف ونون أو ياء ونون.','طَالِبٌ ← طَالِبَانِ / طَالِبَيْنِ','وعلامة إعرابه حرف، لا حركة.'],
+af5:['الأفعال الخمسة: كل فعل مضارع اتصلت به ألف الاثنين، أو واو الجماعة، أو ياء المخاطبة.','يَكْتُبَانِ · يَكْتُبُونَ · تَكْتُبِينَ','وإعرابها يكون بالنون: تثبت في الرفع، وتُحذف في النصب والجزم.'],
+mamnu:['القواعد السابقة لها ثلاثة استثناءات مشهورة يجب أن تعرفها.','رَأَيْتُ الْمُسْلِمَاتِ · مَرَرْتُ بِأَحْمَدَ','«المسلماتِ» منصوبة بالكسرة، و«أحمدَ» مجرور بالفتحة.'],
+afal:['الفعل ثلاثة أنواع: ماضٍ، ومضارع، وأمر. والمضارع وحده هو الذي يتغيّر آخره.','كَتَبَ · يَكْتُبُ · اكْتُبْ','والمضارع مرفوع، إلا إذا دخل عليه حرف ينصبه أو يجزمه.'],
+fail:['الفاعل هو الذي قام بالفعل، ويأتي بعد فعله، وهو مرفوع دائمًا.','فَتَحَ خَالِدٌ الْبَابَ','مَن فتح الباب؟ خالد، فهو الفاعل.'],
+naib:['إذا لم نذكر الفاعل، أقمنا المفعول مقامه فصار مرفوعًا، وتغيّرت صورة الفعل.','كَسَرَ زَيْدٌ الزُّجَاجَ ← كُسِرَ الزُّجَاجُ','«الزجاجُ» صار نائبًا عن الفاعل.'],
+mubt:['الجملة الاسمية تبدأ باسم نتحدث عنه (المبتدأ)، ثم نخبر عنه بشيء (الخبر).','الطَّالِبُ مُجْتَهِدٌ','تحدثنا عن الطالب، وأخبرنا أنه مجتهد. وكلاهما مرفوع.'],
+nawasikh:['بعض الكلمات تدخل على المبتدأ والخبر فتغيّر إعرابهما، وتسمى النواسخ.','الْجَوُّ بَارِدٌ ← كَانَ الْجَوُّ بَارِدًا ← إِنَّ الْجَوَّ بَارِدٌ','انظر كيف تغيّرت الحركات مع كل كلمة.'],
+tawabi:['التابع كلمة تتبع ما قبلها في إعرابه: إن رُفع رُفعت، وإن نُصب نُصبت.','جَاءَ زَيْدٌ الْعَاقِلُ · رَأَيْتُ زَيْدًا الْعَاقِلَ','«العاقل» يتبع «زيد» في حركته.'],
+mafool:['المفعول به هو الذي وقع عليه الفعل، وهو منصوب.','رَكِبَ الْفَارِسُ الْفَرَسَ','الفارس ركب، والفرس هو الذي وقع عليه الركوب.'],
+masdar:['المصدر اسم الحدث نفسه، ويأتي بعد الفعل منصوبًا ليؤكده أو يبيّن نوعه.','فَرِحَ الطِّفْلُ فَرَحًا','«فرحًا» من لفظ الفعل «فرح».'],
+zarf:['الظرف كلمة تدل على زمن الفعل أو مكانه، ومعناها على تقدير «في».','صُمْتُ الْيَوْمَ · جَلَسْتُ أَمَامَ الْمُعَلِّمِ','صمت في اليوم، وجلست في المكان الذي أمام المعلم.'],
+hal:['الحال تبيّن هيئة الشيء وقت الفعل، والتمييز يبيّن ذاتًا مبهمة.','جَاءَ زَيْدٌ رَاكِبًا · اشْتَرَيْتُ عِشْرِينَ كِتَابًا','كيف جاء؟ راكبًا (حال). عشرين ماذا؟ كتابًا (تمييز).'],
+istithna:['الاستثناء إخراج شيء من حكم ما قبله بأداة مثل «إلّا».','نَجَحَ الطُّلَّابُ إِلَّا خَالِدًا','الطلاب نجحوا، وخالد خرج من حكم النجاح.'],
+la:['«لا» النافية للجنس تنفي الجنس كله، وتعمل عمل «إنّ».','لَا رَجُلَ فِي الدَّارِ','لا يوجد أي رجل في الدار، لا واحد ولا أكثر.'],
+munada:['المنادى هو الذي تدعوه بحرف نداء مثل «يا».','يَا زَيْدُ · يَا عَبْدَ اللَّهِ','لاحظ أن «زيدُ» مضموم، و«عبدَ» مفتوح، وستعرف السبب في هذا الدرس.'],
+liajlih:['المفعول لأجله يبيّن سبب الفعل، والمفعول معه يبيّن مَن صاحب الفاعل.','قُمْتُ إِجْلَالًا لِلْعَالِمِ · سِرْتُ وَالنِّيلَ','لماذا قمت؟ إجلالًا. ومع ماذا سرت؟ مع النيل.'],
+makhfud:['الاسم يُخفض (يُجر) لثلاثة أسباب: حرف جر قبله، أو إضافة، أو تبعية لمجرور.','مَرَرْتُ بِغُلَامِ زَيْدٍ الْكَرِيمِ','«غلام» بحرف الجر، و«زيد» بالإضافة، و«الكريم» تابع.']};
+const XQ={
+kalam:[['جَلَسَ الطَّالِبُ','ما نوع كلمة «جلس»؟',['فعل','اسم','حرف'],'تقبل «قد»: قد جلس، فهي فعل.'],['','أيّ هذه ليس كلامًا عند النحويين؟',['إشارة باليد تُفهم','قُمْ','السماءُ فوقنا'],'الإشارة ليست لفظًا، فلا تسمى كلامًا ولو فُهمت.']],
+irab:[['جَاءَ مُوسَى','لماذا لم تظهر الضمة على «موسى»؟',['لأن آخره ألف لا تقبل الحركة، فالإعراب مقدّر','لأنه مبني','لأنه منصوب'],'الإعراب هنا تقديري لأن آخره حرف علة.'],['','الحروف كلها...',['مبنية لا يدخلها الإعراب','معربة','بعضها معرب'],'الحرف لا يقع مرفوعًا ولا منصوبًا ولا مخفوضًا ولا مجزومًا.']],
+asl:[['يَذْهَبُ الْوَلَدُ','ما علامة رفع «يذهبُ»؟',['الضمة','الفتحة','ثبوت النون'],'مضارع لم يتصل بآخره شيء، فيُرفع بالضمة.'],['سَلَّمْتُ عَلَى الْمُعَلِّمِ','ما علامة جر «المعلمِ»؟',['الكسرة','الياء','الفتحة'],'اسم مفرد منصرف، فيُجر بالكسرة.']],
+jamu:[['رَأَيْتُ الْمُهَنْدِسِينَ','ما علامة نصب «المهندسين»؟',['الياء','الفتحة','الكسرة'],'جمع مذكر سالم، يُنصب بالياء.'],['هَذَا فُوكَ','ما علامة رفع «فوك»؟',['الواو','الضمة','الألف'],'«فوك» من الأسماء الخمسة.']],
+muthanna:[['قَرَأْتُ كِتَابَيْنِ','ما علامة نصب «كتابين»؟',['الياء','الألف','الفتحة'],'مثنى منصوب، فعلامته الياء.'],['نَجَحَ الطَّالِبَانِ','ما وظيفة النون في «الطالبانِ»؟',['عوض عن التنوين في المفرد','علامة الرفع','ضمير'],'هكذا قال الشيخ: النون عوض عن التنوين.']],
+af5:[['أَنْتُمْ لَنْ تَتَأَخَّرُوا','ما علامة نصب «تتأخروا»؟',['حذف النون','الفتحة','ثبوت النون'],'من الأفعال الخمسة، تُنصب بحذف النون.'],['هُمَا يَلْعَبَانِ','ما علامة رفع «يلعبان»؟',['ثبوت النون','الألف','الضمة'],'الألف هنا ضمير فاعل، وعلامة الرفع ثبوت النون.']],
+mamnu:[['سَلَّمْتُ عَلَى إِبْرَاهِيمَ','ما علامة جر «إبراهيمَ»؟',['الفتحة لأنه ممنوع من الصرف','الكسرة','الياء'],'علم أعجمي، فهو ممنوع من الصرف.'],['لَمْ يَمْشِ','ما علامة جزم «يمشِ»؟',['حذف حرف العلة','السكون','حذف النون'],'أصله «يمشي»، حُذفت الياء للجزم.']],
+afal:[['لِيُنْفِقْ ذُو سَعَةٍ','ما الذي جزم «ينفقْ»؟',['لام الأمر','لن','كي'],'لام الأمر من الجوازم.'],['جِئْتُ لِأَتَعَلَّمَ','ما الذي نصب «أتعلّمَ»؟',['لام كي','لم','لا الناهية'],'لام التعليل (لام كي) من النواصب.']],
+fail:[['قَرَأَتِ الْبِنْتُ','أين الفاعل؟',['البنت','قرأ','التاء'],'التاء هنا تاء التأنيث، والفاعل «البنتُ».'],['حَضَرَ أَبُوكَ','ما علامة رفع «أبوك»؟',['الواو','الضمة','الألف'],'من الأسماء الخمسة.']],
+naib:[['سُرِقَ الْمَالُ','ما إعراب «المالُ»؟',['نائب فاعل مرفوع','فاعل مرفوع','مفعول به'],'الفعل مبني لما لم يُسمّ فاعله.'],['','كيف تبني «يَفْهَمُ» لما لم يُسمّ فاعله؟',['يُفْهَمُ','يُفْهِمُ','فُهِمَ'],'المضارع: يُضم أوله ويُفتح ما قبل آخره.']],
+mubt:[['الصِّدْقُ مَنْجَاةٌ','ما إعراب «منجاةٌ»؟',['خبر مرفوع','مبتدأ مرفوع','نعت مرفوع'],'هو الذي أخبرنا به عن الصدق.'],['زَيْدٌ قَامَ أَبُوهُ','ما نوع الخبر؟',['جملة فعلية (فعل مع فاعله)','مفرد','جار ومجرور'],'الخبر «قام أبوه» فعل وفاعل.']],
+nawasikh:[['كَانَ الْجَوُّ صَحْوًا','ما إعراب «صحوًا»؟',['خبر كان منصوب','اسم كان','حال'],'كان ترفع الاسم وتنصب الخبر.'],['لَعَلَّ الْفَرَجَ قَرِيبٌ','ما معنى «لعلّ»؟',['الترجي','التمني','التشبيه'],'لعلّ للترجي والتوقع.']],
+tawabi:[['جَاءَ زَيْدٌ ثُمَّ عَمْرٌو','ما إعراب «عمرٌو»؟',['معطوف مرفوع','نعت','بدل'],'معطوف بثمّ على مرفوع.'],['قَامَ زَيْدٌ نَفْسُهُ','ما إعراب «نفسُه»؟',['توكيد مرفوع','بدل مرفوع','فاعل'],'«النفس» من ألفاظ التوكيد.']],
+mafool:[['قَرَأْتُ الْقُرْآنَ','ما إعراب «القرآنَ»؟',['مفعول به منصوب','فاعل','ظرف'],'وقعت عليه القراءة.'],['إِيَّاكَ نَسْتَعِينُ','ما نوع المفعول به «إيّاك»؟',['ضمير منفصل','ضمير متصل','اسم ظاهر'],'«إيّا» من الضمائر المنفصلة.']],
+masdar:[['ضَرَبْتُهُ ضَرْبًا','هل المصدر لفظي أم معنوي؟',['لفظي','معنوي'],'من لفظ فعله.'],['جَلَسْتُ قُعُودًا','ما إعراب «قعودًا»؟',['مفعول مطلق منصوب','حال','ظرف'],'مصدر معنوي، وافق معنى الفعل.']],
+zarf:[['وَقَفْتُ تَحْتَ الشَّجَرَةِ','ما إعراب «تحتَ»؟',['ظرف مكان منصوب','ظرف زمان','مفعول به'],'بتقدير «في»: في تحت الشجرة.'],['أَزُورُكَ غَدًا','ما إعراب «غدًا»؟',['ظرف زمان منصوب','مفعول به','تمييز'],'يدل على زمن الزيارة.']],
+hal:[['عَادَ الْمُسَافِرُ مُتْعَبًا','ما إعراب «متعبًا»؟',['حال','تمييز','نعت'],'يبيّن هيئة المسافر حين عاد.'],['امْتَلَأَ الْإِنَاءُ مَاءً','ما إعراب «ماءً»؟',['تمييز','حال','مفعول به'],'يفسّر ما امتلأ به الإناء.']],
+istithna:[['مَا حَضَرَ إِلَّا خَالِدٌ','ما إعراب «خالدٌ»؟',['فاعل مرفوع','مستثنى منصوب','بدل'],'الكلام ناقص، فيُعرب بحسب العوامل.'],['حَضَرَ الطُّلَّابُ سِوَى وَاحِدٍ','ما حكم «واحدٍ»؟',['مجرور بالإضافة','منصوب','مرفوع'],'ما بعد «سوى» مجرور لا غير.']],
+la:[['لَا كَسُولَ نَاجِحٌ','ما إعراب «كسولَ»؟',['اسم لا مبني على الفتح','اسم لا منصوب بالتنوين','مبتدأ'],'مفرد، فيُبنى على الفتح.'],['لَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللَّهِ','تكررت «لا». ماذا يجوز؟',['الإعمال والإلغاء','الإعمال فقط','الرفع فقط'],'إذا تكررت «لا» جاز الإعمال والإلغاء.']],
+munada:[['يَا طَالِبَ الْعِلْمِ','ما حكم «طالبَ»؟',['منصوب لأنه مضاف','مبني على الضم','مرفوع'],'المضاف يُنصب.'],['يَا فَاطِمَةُ','ما حكم «فاطمةُ»؟',['مبني على الضم لأنه مفرد علم','منصوب','مجرور'],'المفرد العلم يُبنى على الضم.']],
+liajlih:[['صُمْتُ رَغْبَةً فِي الْأَجْرِ','ما إعراب «رغبةً»؟',['مفعول لأجله','حال','تمييز'],'يبيّن سبب الصوم.'],['جَاءَ الْأَمِيرُ وَالْجَيْشَ','ما إعراب «الجيشَ»؟',['مفعول معه','معطوف','مفعول به'],'الواو بمعنى «مع».']],
+makhfud:[['هَذَا ثَوْبُ حَرِيرٍ','ما تقدير الإضافة؟',['«مِن»: ثوب من حرير','اللام: ثوب لحرير','«في»'],'الحرير جنس الثوب.'],['سَافَرْتُ مِنْ مَكَّةَ','ما علامة جر «مكةَ»؟',['الفتحة لأنه ممنوع من الصرف','الكسرة','الياء'],'علم مؤنث، فهو ممنوع من الصرف.']]};
+const GL={'الكلام':['اللفظ المركب المفيد بالوضع: جملة تامة يكتفي بها السامع.','قامَ زيدٌ'],'الإعراب':['تغيّر آخر الكلمة بسبب العامل الداخل عليها.','جاء زيدٌ / رأيت زيدًا'],'المعرب':['الكلمة التي يتغيّر آخرها بتغيّر موقعها.','زيد'],'المبني':['الكلمة التي يلزم آخرها حالة واحدة لا يتغير.','هلْ، مَنْ، هذا'],'البناء':['لزوم آخر الكلمة حالةً واحدة.','هؤلاءِ'],'العامل':['ما يُحدث الرفع أو النصب أو الخفض أو الجزم فيما بعده.','«لم» في: لم يقمْ'],'العوامل':['جمع عامل: ما يُحدث الإعراب فيما بعده.','حروف الجر، والنواصب'],
+'الرفع':['حالة إعرابية علامتها الأصلية الضمة.','جاء زيدٌ'],'النصب':['حالة إعرابية علامتها الأصلية الفتحة.','رأيت زيدًا'],'الخفض':['الجر، وعلامته الأصلية الكسرة، ولا يكون إلا في الأسماء.','مررت بزيدٍ'],'الجزم':['حالة إعرابية للفعل المضارع، علامتها الأصلية السكون.','لم يقمْ'],
+'المثنى':['ما دلّ على اثنين بزيادة ألف ونون أو ياء ونون.','الطالبانِ'],'جمع المذكر السالم':['ما دلّ على أكثر من اثنين بزيادة واو ونون أو ياء ونون، مع سلامة المفرد.','المسلمونَ'],'جمع المؤنث السالم':['ما جُمع بألف وتاء مزيدتين.','المسلماتُ'],'جمع التكسير':['ما تغيّر فيه بناء المفرد.','رجل ← رجال'],'الأسماء الخمسة':['أبوك، وأخوك، وحموك، وفوك، وذو مال: تُعرب بالحروف.','جاء أبوك'],'الأفعال الخمسة':['كل مضارع اتصلت به ألف الاثنين أو واو الجماعة أو ياء المخاطبة.','يكتبون'],
+'الممنوع من الصرف':['اسم لا يدخله التنوين، ويُجر بالفتحة.','أحمد، مساجد'],'المعتل الآخر':['ما آخره حرف علة: ألف أو واو أو ياء.','يسعى، يدعو، يرمي'],'حرف علة':['الألف والواو والياء.','عيسى'],'النكرة':['اسم شائع في جنسه لا يختص بواحد.','رجل'],'المعرفة':['اسم يدل على معيّن: الضمير، والعلم، والمبهم، وما فيه «أل»، والمضاف إلى أحدها.','زيد، الرجل'],'الضمير':['اسم يكنى به عن متكلم أو مخاطب أو غائب.','أنا، أنت، هو'],'ضمير مستتر':['ضمير لا يُنطق به، بل يُفهم من الفعل.','«قُمْ» أي: أنت'],'مستتر':['غير منطوق به، يُفهم من السياق.','قُمْ (أنت)'],
+'المبتدأ':['الاسم المرفوع الذي نتحدث عنه في أول الجملة الاسمية.','الطالبُ مجتهد'],'الخبر':['الاسم المرفوع الذي نخبر به عن المبتدأ.','الطالب مجتهدٌ'],'الفاعل':['الاسم المرفوع الذي قام بالفعل، وذُكر قبله فعله.','قام زيدٌ'],'نائب الفاعل':['المفعول الذي صار مرفوعًا بعد حذف الفاعل.','كُسِر الزجاجُ'],'المفعول به':['الاسم المنصوب الذي وقع عليه الفعل.','ضربت زيدًا'],'الظرف':['اسم زمان أو مكان منصوب بتقدير «في».','صمت اليومَ'],'الحال':['اسم منصوب يبيّن هيئة صاحبه وقت الفعل.','جاء زيد راكبًا'],'التمييز':['اسم منصوب يفسّر ذاتًا مبهمة.','عشرون كتابًا'],'المستثنى':['الاسم الواقع بعد أداة الاستثناء.','قام القوم إلا زيدًا'],'المنادى':['المدعوّ بحرف نداء.','يا زيدُ'],'النكرة المقصودة':['نكرة يُقصد بها معيّن عند النداء، فتُبنى على الضم.','يا رجلُ (لرجل أمامك)'],'الشبيه بالمضاف':['ما تعلّق به شيء يتم معناه.','يا طالعًا جبلًا'],'المضاف إليه':['الاسم الثاني في الإضافة، وهو مجرور دائمًا.','غلامُ زيدٍ'],'المضاف':['الاسم الأول في الإضافة، يُعرب بحسب موقعه.','غلامُ زيد'],
+'التابع':['كلمة تتبع ما قبلها في إعرابه.','جاء زيد العاقلُ'],'النعت':['تابع يصف ما قبله.','رجل كريم'],'العطف':['تابع يأتي بعد حرف عطف.','زيد وعمرو'],'التوكيد':['تابع يقوّي ما قبله بألفاظ معلومة.','جاء القوم كلُّهم'],'البدل':['تابع هو المقصود بالحكم.','جاء زيد أخوك'],'الجار والمجرور':['حرف جر والاسم المجرور بعده.','في الدار'],'شبه الجملة':['الجار والمجرور، والظرف.','في الدار، عندك'],'تقديرًا':['أي لا يظهر في اللفظ، بل يُنوى.','جاء عيسى'],'الابتداء':['كون الاسم في أول الجملة بلا عامل لفظي، وهو رافع المبتدأ.','زيدٌ قائم'],'النواسخ':['كلمات تدخل على المبتدأ والخبر فتغيّر إعرابهما.','كان، إنّ، ظنّ'],'المصدر':['اسم الحدث، يجيء ثالثًا في تصريف الفعل.','ضرب يضرب ضربًا'],'المفعول المطلق':['مصدر منصوب يؤكد فعله أو يبيّن نوعه.','فرح فرحًا']};
+const GLK=Object.keys(GL).map(k=>[nz(k),k]).sort((a,b)=>b[0].length-a[0].length);
+const glWrap=root=>{const done=new Set();const W=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,{acceptNode:n=>n.parentElement.closest('button,.op,.pw,.pwd,.mmn,.exs,.gl,blockquote,a,.dsent')?NodeFilter.FILTER_REJECT:NodeFilter.FILTER_ACCEPT});const ns=[];while(W.nextNode())ns.push(W.currentNode);
+ for(let qi=0;qi<ns.length;qi++){const t=ns[qi];const [n,m]=nzMap(t.data);for(const [kn,k] of GLK){if(done.has(k))continue;let a=n.indexOf(kn);if(a<0){const kk=kn.replace(/^ال/,'');if(kk!==kn&&kk.length>3){a=n.indexOf(kk);if(a>=0){const pre=n.slice(Math.max(0,a-2),a);if(!/(^|\s)$/.test(pre))a=-1}}if(a<0)continue;var L=kk.length}else L=kn.length;
+  const before=n[a-1],after=n[a+L];if(before&&/[ء-ي]/.test(before)&&!/^(ب|ل|و|ف|ك)$/.test(before))continue;if(after&&/[ء-ي]/.test(after)&&!/[هيا]/.test(after))continue;
+  const s0=m[a];let s1=m[a+L-1]+1;while(s1<t.data.length&&HRX.test(t.data[s1]))s1++;const mid=t.splitText(s0);mid.splitText(s1-s0);const b=document.createElement('button');b.className='gl';b.dataset.gl=k;mid.replaceWith(b);b.appendChild(mid);done.add(k);if(b.nextSibling&&b.nextSibling.nodeType===3)ns.push(b.nextSibling);break}}};
+const glShow=k=>{const g=GL[k];if(!g)return;$('#glT').textContent=k;$('#glD').textContent=g[0];$('#glE').textContent=g[1]?'مثال: '+g[1]:'';$('#glS').hidden=false};
+document.addEventListener('click',e=>{const g=e.target.closest('.gl');if(g){e.stopPropagation();glShow(g.dataset.gl);return}if(e.target.closest('#glS [data-close]')||e.target.id==='glS')$('#glS').hidden=true},true);
+const glPageR=()=>{const q=nz(($('#glq')||{}).value||'');$('#glL').innerHTML=Object.keys(GL).sort((a,b)=>nz(a).replace(/^ال/,'').localeCompare(nz(b).replace(/^ال/,''),'ar')).filter(k=>!q||nz(k+GL[k][0]).includes(q)).map(k=>`<div class="ixi"><p><b class="glh">${k}</b></p><p>${GL[k][0]}</p>${GL[k][1]?`<p class="small">مثال: ${GL[k][1]}</p>`:''}</div>`).join('')};
+$('#glq')&&$('#glq').addEventListener('input',glPageR);
+
+/* lesson additions: intro card at start, end-of-lesson test before the summary */
+Object.keys(LES).forEach(id=>{const L=LES[id];if(L._y)return;L._y=1;if(INTRO[id])L.steps.unshift({t:'intro',d:INTRO[id]});const si=L.steps.findIndex(s=>s.t==='sum');L.steps.splice(si>=0?si:L.steps.length,0,{t:'test'})});
+const qOf=s=>s.t==='mcq'?{ex:s.ex||'',q:s.q,o:s.o.map(o=>({x:o.x,ok:!!o.ok,fb:o.fb}))}:{ex:'',q:s.q,o:s.w.map(w=>({x:w.w,ok:!!w.ok,fb:w.fb}))};
+const xqOf=a=>({ex:a[0],q:a[1],o:a[2].map((x,i)=>({x,ok:i===0,fb:a[3]}))});
+const drOf=d=>{const roles=shuf([...new Set(DR.map(x=>x.role))].filter(r=>r!==d.role)).slice(0,2);return{ex:(d.ay?'﴿':'')+esc(d.sent.slice(0,d.s0))+'<mark class="dw">'+esc(d.sent.slice(d.s0,d.s1))+'</mark>'+esc(d.sent.slice(d.s1))+(d.ay?'﴾':''),q:`ما إعراب «${esc(d.w)}»؟`,o:[{x:d.role,ok:true,fb:'إعراب الشيخ: '+esc(d.exp)},...roles.map(r=>({x:r,ok:false,fb:''}))]}};
+const lessonTest=id=>{const L=LES[id];let it=L.steps.filter(s=>s.t==='mcq'||s.t==='pick').map(qOf);it=shuf(it).slice(0,4).concat((XQ[id]||[]).map(xqOf));
+ if(DR){const i=LORDER.indexOf(id),a=PATH.find(x=>x[2]===id)[1],nx=PATH[i+1]?PATH[i+1][1]:570;shuf(DR.filter(d=>d.p>=a&&d.p<nx)).slice(0,2).forEach(d=>it.push(drOf(d)))}return shuf(it)};
+/* generic test engine */
+const TE={};
+const teStart=(box,items,opt)=>{TE[box]={items,i:0,ok:0,opt,lock:false,wrong:[]};teR(box)};
+const teR=box=>{const T=TE[box],z=document.getElementById(box);if(!z)return;
+ if(T.i>=T.items.length){const pct=Math.round(T.ok/T.items.length*100),pass=pct>=80;T.opt.done&&T.opt.done(pass,pct,T);
+  z.innerHTML=`<div class="tres ${pass?'g':'r'}"><div class="tsc">${AR(T.ok)} / ${AR(T.items.length)}</div><b>${pass?'أحسنت! نجحت في الاختبار.':'تحتاج مراجعة قبل أن تتقن هذا.'}</b><p class="small">${pass?(T.opt.passMsg||''):'راجع الأسئلة التي أخطأت فيها، ثم أعد الاختبار. النجاح من ٨٠٪.'}</p><div class="row2"><button class="btn ${pass?'ghost':''}" data-te-re="${box}">أعد الاختبار</button>${T.opt.after||''}</div></div>`;return}
+ const q=T.items[T.i];T.lock=false;const order=shuf(q.o.map((o,k)=>k));
+ z.innerHTML=`<div class="qtop"><span>السؤال ${AR(T.i+1)} من ${AR(T.items.length)}</span><span>الصحيح: ${AR(T.ok)}</span></div><div class="prog" style="margin-bottom:12px"><i style="width:${T.i/T.items.length*100}%"></i></div>${q.ex?`<div class="exs">${q.ex}</div>`:''}<p class="lq">${q.q}</p>${order.map(k=>`<button class="op" data-te="${box}" data-k="${k}">${q.o[k].x}</button>`).join('')}${q.o.length>2?`<button class="lnk hint" data-te-h="${box}">تلميح: احذف خيارًا خاطئًا</button>`:''}<div class="tfb"></div>`};
+document.addEventListener('click',e=>{const t=e.target;
+ const h=t.closest('[data-te-h]');if(h){const z=document.getElementById(h.dataset.teH);const w=[...z.querySelectorAll('.op:not([disabled])')].filter(b=>!TE[h.dataset.teH].items[TE[h.dataset.teH].i].o[+b.dataset.k].ok);if(w.length){w[0].disabled=true;w[0].classList.add('off')}h.remove();return}
+ const re=t.closest('[data-te-re]');if(re){const T=TE[re.dataset.teRe];T.items=T.opt.regen?T.opt.regen():shuf(T.items);T.i=0;T.ok=0;T.wrong=[];teR(re.dataset.teRe);return}
+ const nx=t.closest('[data-te-n]');if(nx){TE[nx.dataset.teN].i++;teR(nx.dataset.teN);return}
+ const b=t.closest('[data-te]');if(!b)return;const box=b.dataset.te,T=TE[box];if(T.lock)return;T.lock=true;const q=T.items[T.i],o=q.o[+b.dataset.k];
+ const z=document.getElementById(box);z.querySelectorAll('.op').forEach(x=>{if(q.o[+x.dataset.k].ok)x.classList.add('ok')});if(o.ok)T.ok++;else{b.classList.add('bad');T.wrong.push(q)}
+ const c=q.o.find(x=>x.ok);z.querySelector('.tfb').innerHTML=`<div class="ex2 ${o.ok?'g':'r'}">${o.ok?'<b>صحيح.</b> ':'<b>الصواب: '+c.x+'.</b> '}${c.fb||''}<div style="margin-top:10px"><button class="btn sm" data-te-n="${box}">${T.i+1<T.items.length?'التالي':'النتيجة'}</button></div></div>`;const hb=z.querySelector('.hint');hb&&hb.remove()});
+const testStepHTML=()=>`<span class="tag gold">اختبار الدرس</span><p class="lq">أسئلة قصيرة من الدرس وأمثلة جديدة. إذا أصبت ٨٠٪ أتقنت الدرس.</p><div id="lte" class="qz"></div>`;
+const runLessonTest=()=>{const id=LC;teStart('lte',lessonTest(id),{regen:()=>lessonTest(id),done:(pass)=>{if(pass){st.lp[id].skill=true;st.lp[id].done=true;saveL()}stepDone=true;navUpd()},passMsg:'وُضعت على هذا الدرس علامة الإتقان في شجرة الرحلة.'})};
+/* branch test */
+const branchTest=bi=>{const b=BR[bi];let it=[];b[3].forEach(id=>{it=it.concat(shuf(LES[id].steps.filter(s=>s.t==='mcq'||s.t==='pick').map(qOf)).slice(0,2),(XQ[id]||[]).map(xqOf).slice(0,1))});return shuf(it).slice(0,10)};
+let tbI=0;const testViewR=()=>{const b=BR[tbI];$('#tvH').textContent='اختبار فرع '+b[0];$('#tvH').style.color=`var(--${b[2]})`;teStart('tvB',branchTest(tbI),{regen:()=>branchTest(tbI),done:(pass,pct)=>{st.bt=st.bt||ls.get('bt',{});if(pass)st.bt[b[0]]=pct;ls.set('bt',st.bt)},passMsg:'نلت وسام الفرع.',after:'<button class="btn ghost" data-go="home">إلى شجرة الرحلة</button>'})};
+st.bt=ls.get('bt',{});
+document.addEventListener('click',e=>{const b=e.target.closest('[data-bt]');if(b){tbI=+b.dataset.bt;go('btest')}});
+
+/* hint for in-lesson questions */
+$('#v-lesson').addEventListener('click',e=>{const h=e.target.closest('[data-x="hint"]');if(!h)return;const s=curStep();const sel=s.t==='mcq'?'[data-mo]':'[data-pw]';const arr=s.t==='mcq'?s.o:s.w;
+ const w=$$('#lbody '+sel).filter(b=>!b.disabled&&!arr[+(b.dataset.mo??b.dataset.pw)].ok);if(w.length>1||(w.length===1&&arr.length>2)){w[0].disabled=true;w[0].classList.add('off')}else if(s.why){$('#xout')&&($('#xout').innerHTML=`<div class="ex2">${s.why}</div>`)}h.remove()},true);
+
+/* ask about this */
+const askOpen=()=>{const L=LES[LC];$('#askT').textContent='سؤالك عن درس «'+L.title+'»';$('#askX').value='';$('#ask').hidden=false;setTimeout(()=>$('#askX').focus(),50)};
+const askText=()=>`سؤال عن درس «${LES[LC].title}» (شرح الآجرومية لابن عثيمين، ص ${LES[LC].page}):\n${$('#askX').value.trim()}\n${location.origin+location.pathname}#lesson-${LC}`;
+$('#ask').addEventListener('click',e=>{const t=e.target;if(t.closest('[data-close]')||t.id==='ask'){$('#ask').hidden=true;return}
+ if(t.id==='askSh'){const s=askText();if(navigator.share)navigator.share({text:s}).catch(()=>{});else navigator.clipboard&&navigator.clipboard.writeText(s).then(()=>t.textContent='نُسخ السؤال')}
+ if(t.id==='askCp'){navigator.clipboard&&navigator.clipboard.writeText(askText()).then(()=>t.textContent='نُسخ السؤال').catch(()=>{$('#askX').select()})}});
+
+/* daily reminder (.ics) */
+const remMake=()=>{const tm=($('#remT').value||'20:00').split(':');const d=new Date();d.setDate(d.getDate()+1);d.setHours(+tm[0],+tm[1],0,0);const p=n=>String(n).padStart(2,'0');
+ const dt=`${d.getFullYear()}${p(d.getMonth()+1)}${p(d.getDate())}T${p(d.getHours())}${p(d.getMinutes())}00`;const url=location.origin+location.pathname;
+ const ics=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//ajrumiyyah//ar','BEGIN:VEVENT','UID:ajr-daily-'+Date.now()+'@ajrumiyyah','DTSTAMP:'+dt,'DTSTART:'+dt,'DURATION:PT10M','RRULE:FREQ=DAILY','SUMMARY:درس النحو: شرح الآجرومية','DESCRIPTION:مراجعة اليوم ودرس جديد. '+url,'URL:'+url,'BEGIN:VALARM','ACTION:DISPLAY','DESCRIPTION:حان وقت درس النحو','TRIGGER:PT0M','END:VALARM','END:VEVENT','END:VCALENDAR'].join('\r\n');
+ const a=$('#remA');a.href='data:text/calendar;charset=utf-8,'+encodeURIComponent(ics);a.hidden=false;ls.set('remt',$('#remT').value)};
+
+/* progress transfer */
+const xferCode=()=>{const o={};for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i);if(k&&k.startsWith('ajr-'))o[k.slice(4)]=localStorage.getItem(k)}return 'AJR1.'+btoa(unescape(encodeURIComponent(JSON.stringify(o))))};
+const xferLoad=c=>{try{c=c.trim();if(!c.startsWith('AJR1.'))throw 0;const o=JSON.parse(decodeURIComponent(escape(atob(c.slice(5)))));Object.entries(o).forEach(([k,v])=>localStorage.setItem('ajr-'+k,v));return true}catch(e){return false}};
+$('#v-xfer').addEventListener('click',e=>{const t=e.target;
+ if(t.id==='xfMk'){$('#xfOut').value=xferCode();$('#xfOut').hidden=false;$('#xfCp').hidden=false}
+ if(t.id==='xfCp'){navigator.clipboard&&navigator.clipboard.writeText($('#xfOut').value).then(()=>t.textContent='نُسخ الرمز').catch(()=>$('#xfOut').select())}
+ if(t.id==='xfLd'){if(xferLoad($('#xfIn').value)){$('#xfMsg').textContent='نُقل تقدّمك. جارٍ إعادة التحميل…';setTimeout(()=>{location.hash='home';location.reload()},700)}else $('#xfMsg').textContent='الرمز غير صحيح. انسخه كاملًا من جهازك الآخر.'}});
+
+/* matn audio and memorization portion */
+let mtVoice=null;const mtVoices=()=>{const v=speechSynthesis.getVoices();mtVoice=v.find(x=>/^ar/i.test(x.lang)&&/maged|majed|ماجد/i.test(x.name))||v.find(x=>/^ar/i.test(x.lang))||null};
+if('speechSynthesis' in window){mtVoices();speechSynthesis.onvoiceschanged=mtVoices}
+let mtRate=ls.get('mtrate',0.8);
+const mtSay=(txt,rep,btn)=>{if(!('speechSynthesis' in window)){alertBox('المتصفح لا يدعم القراءة الصوتية.');return}speechSynthesis.cancel();let n=0;const go1=()=>{const u=new SpeechSynthesisUtterance(txt.replace(/[«»()]/g,''));u.lang='ar-SA';if(mtVoice)u.voice=mtVoice;u.rate=mtRate;u.onend=()=>{n++;if(n<rep)setTimeout(go1,700);else btn&&btn.classList.remove('on')};speechSynthesis.speak(u)};btn&&btn.classList.add('on');go1()};
+const alertBox=m=>{$('#glT').textContent='تنبيه';$('#glD').textContent=m;$('#glE').textContent='';$('#glS').hidden=false};
+const mtTodayR=()=>{const i=D.matn.findIndex((_,k)=>!st.mem[k]);const box=$('#mtToday');if(!box)return;if(i<0){box.innerHTML='<div class="rvc ok"><span class="flame">✓</span><div><b>حفظت المتن كله</b><small>بارك الله فيك. راجعه بوضع التسميع.</small></div></div>';return}
+ box.innerHTML=`<div class="rvc"><span class="flame">📖</span><div><b>وِرد الحفظ اليوم: ${D.matn[i].h}</b><small>استمع إليه ثلاث مرات، ثم سمّعه، ثم علّمه محفوظًا.</small></div></div><div class="tools"><button class="btn sm" data-mts="${i}" data-rep="3">▶ استمع ٣ مرات</button><button class="btn ghost sm" data-mtgo="${i}">اذهب إليه</button><label class="small">السرعة <select id="mtR" class="sel">${[0.6,0.7,0.8,0.9,1].map(r=>`<option ${r==mtRate?'selected':''}>${r}</option>`).join('')}</select></label></div><p class="small">القراءة بصوت المتصفح الآلي، وقد يخطئ في بعض الحركات؛ فاعتمد على النص المشكول.</p>`};
+$('#v-matn').addEventListener('click',e=>{const s=e.target.closest('[data-mts]');if(s){const i=+s.dataset.mts;mtSay(D.matn[i].h+'. '+D.matn[i].p.join(' '),+(s.dataset.rep||1),s);return}
+ const p=e.target.closest('[data-mtp]');if(p){const [i,j]=p.dataset.mtp.split(',').map(Number);mtSay(D.matn[i].p[j],1,p);return}
+ const g=e.target.closest('[data-mtgo]');if(g){const el=$$('#matn .mbox')[+g.dataset.mtgo];el&&el.scrollIntoView({behavior:'smooth',block:'start'})}});
+$('#v-matn').addEventListener('change',e=>{if(e.target.id==='mtR'){mtRate=+e.target.value;ls.set('mtrate',mtRate)}if(e.target.closest('[data-mem]'))mtTodayR()});
+$$('#matn .mbox').forEach((b,i)=>{const h=b.querySelector('.mh');if(h)h.insertAdjacentHTML('beforeend',`<button class="ib" data-mts="${i}" aria-label="استمع إلى الباب">▶</button>`);b.querySelectorAll('.mp').forEach((m,j)=>m.insertAdjacentHTML('beforeend',`<button class="pg" data-mtp="${i},${j}">▶ استمع</button>`))});
+
+/* mistakes notebook */
+const missItems=()=>st.miss.map(m=>{const L=LES[m.l];const s=L&&L.steps[m.i];return s&&(s.t==='mcq'||s.t==='pick')?Object.assign(qOf(s),{l:m.l}):null}).filter(Boolean);
+const missR=()=>{const it=missItems();$('#msB').innerHTML=it.length?`<p class="lead">${AR(it.length)} مسألة تعثّرت فيها. تدرّب عليها حتى تخرج من الدفتر: كل سؤال تجيبه صوابًا يُحذف منه.</p><div class="tools"><button class="btn" id="msGo">أعد تدريبي عليها</button></div><ul class="res">${st.miss.slice().reverse().map(m=>LES[m.l]?`<li><button data-mr="${m.l},${m.i}"><span class="n">${LES[m.l].title}</span>${esc((m.q||'').replace(/<[^>]+>/g,''))}</button></li>`:'').join('')}</ul><div id="msT" class="qz"></div>`:'<p class="lead">دفترك فارغ. كل سؤال تخطئ فيه في الدروس يُسجّل هنا لتعود إليه.</p><button class="btn" data-go="home">إلى شجرة الرحلة</button>'};
+$('#v-miss').addEventListener('click',e=>{if(e.target.id==='msGo'){const it=missItems();teStart('msT',shuf(it),{done:(p,pct,T)=>{const bad=new Set(T.wrong.map(q=>q.q));st.miss=st.miss.filter(m=>{const L=LES[m.l],s=L&&L.steps[m.i];return s&&bad.has(s.q)});saveL()},after:'<button class="btn ghost" data-go="miss">حدّث الدفتر</button>'});$('#msT').scrollIntoView({behavior:'smooth'})}});
+
+$('#lask').onclick=askOpen;$('#remMk').onclick=remMake;
 route();
 if('serviceWorker' in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));
 }
